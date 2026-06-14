@@ -1,0 +1,7 @@
+scenario,scenario_type,rate_log2K_to_80pct_learned_gain,best_routecode_predicted_recovered_gap_vs_learned,best_routecode_predicted_recovered_gap_vs_oracle
+random,random,,0.0,0.0
+leave_dataset_out:aime,leave_one_dataset_out,,0.0,0.0
+leave_domain_out:broad_knowledge,leave_one_domain_out,,0.0,0.0
+domain_homogeneous:broad_knowledge,domain_homogeneous,,0.0,0.0
+cluster_held_out:0,cluster_held_out,,0.0,0.0
+model_pool_holdout:DeepHermes-3-Llama-3-8B-Preview,model_pool_holdout,,0.0,0.0

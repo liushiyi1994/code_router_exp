@@ -1,0 +1,16 @@
+{
+  "config": "configs/llmrouterbench_pilot.yaml",
+  "train_queries": 1738,
+  "test_queries": 580,
+  "clusters": [
+    16
+  ],
+  "top_k": 1,
+  "beta": 9.0,
+  "performance_weight": 0.7,
+  "cost_sensitivity": 0.3,
+  "source_repo": "https://github.com/ynulihao/LLMRouterBench/tree/main/baselines/AvengersPro",
+  "official_command_path": false,
+  "no_api_calls": true,
+  "split_aligned_with_routecode": true
+}

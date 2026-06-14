@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "routecode"
+version = "0.1.0"
+description = "Synthetic RouteCode routing rate-distortion pilot"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "matplotlib",
+  "numpy",
+  "pandas",
+  "PyYAML",
+  "scikit-learn",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

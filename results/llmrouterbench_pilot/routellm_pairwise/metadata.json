@@ -1,0 +1,22 @@
+{
+  "compatibility_note": "Split-aligned RouteLLM-style pairwise data substrate. This is not an official RouteLLM MF/BERT fitted result.",
+  "config_path": "configs/llmrouterbench_pilot.yaml",
+  "data_source": "llmrouterbench",
+  "model_a": "Qwen3-8B",
+  "model_b": "Qwen2.5-Coder-7B-Instruct",
+  "official_routellm_result": false,
+  "query_id_overlap_train_test": 0,
+  "record_counts": {
+    "test": 580,
+    "train": 1738
+  },
+  "routecode_metric_compatible": false,
+  "schema": {
+    "model_a_utility": "RouteCode utility for the configured strong model",
+    "model_b_utility": "RouteCode utility for the configured weak model",
+    "winner": "model_a if strong utility is higher, model_b if weak utility is higher, else tie"
+  },
+  "split_aligned_with_routecode": true,
+  "strong_model": "Qwen3-8B",
+  "weak_model": "Qwen2.5-Coder-7B-Instruct"
+}

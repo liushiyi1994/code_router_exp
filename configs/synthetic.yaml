@@ -1,0 +1,112 @@
+run:
+  name: demo
+  output_dir: results/demo
+  random_seed: 7
+
+synthetic:
+  n_queries: 2400
+  n_models: 6
+  n_domains: 6
+  n_route_labels: 12
+  embedding_dim: 16
+  label_predictability: 1.25
+  domain_affinity_strength: 0.24
+  route_affinity_strength: 0.34
+  residual_interaction_strength: 0.12
+  noise_std: 0.045
+  model_ids:
+    - tiny_cheap
+    - general_8b
+    - code_7b
+    - math_7b
+    - reasoner_13b
+    - frontier_expensive
+  model_costs:
+    tiny_cheap: 0.04
+    general_8b: 0.11
+    code_7b: 0.18
+    math_7b: 0.19
+    reasoner_13b: 0.32
+    frontier_expensive: 0.68
+
+utility:
+  lambda_cost: 0.35
+
+split:
+  train_frac: 0.60
+  val_frac: 0.20
+  test_frac: 0.20
+
+routers:
+  embedding_clusters: 16
+  knn_k: 15
+
+routecode:
+  k_values: [1, 2, 4, 8, 16, 32, 64, 128]
+  selected_k_for_cards: 16
+  max_iter: 25
+
+predictability_constrained:
+  k: 16
+  alpha_values: [0.0, 0.05, 0.1, 0.3, 1.0, 3.0, 10.0]
+  selected_alpha: 3.0
+  beta: 0.0
+  max_iter: 25
+  refinement_iter: 10
+
+new_model_calibration:
+  k: 16
+  alpha: 3.0
+  beta: 0.0
+  holdout_models:
+    - tiny_cheap
+    - general_8b
+    - code_7b
+    - math_7b
+    - reasoner_13b
+    - frontier_expensive
+  r_values: [1, 2, 4, 8, 16, 32, 64]
+  max_iter: 25
+  refinement_iter: 10
+  direct_router_max_iter: 1000
+  direct_router_methods: [logistic, svm, knn, mlp, gradient_boosting]
+  direct_router_knn_k: 15
+
+ablation:
+  seeds: [3, 7, 11]
+  k_values: [4, 8, 16, 32, 64, 128]
+  lambda_values: [0.0, 0.1, 0.35, 0.7]
+  train_fractions: [0.25, 0.5, 1.0]
+  d2_alpha: 3.0
+  d2_beta: 0.0
+  beta_values: [0.0, 0.1, 1.0, 3.0]
+  max_iter: 25
+
+sensitivity:
+  k: 16
+  d2_alpha: 3.0
+  d2_beta: 0.0
+  hashing_features: [64, 256]
+  label_noise_rates: [0.0, 0.1, 0.2]
+  cost_multipliers: [0.5, 1.0, 2.0]
+  price_ratio_exponents: [0.0, 0.5, 1.0, 2.0]
+  domain_granularity_columns: [domain, dataset]
+  domain_granularity_text_clusters: [4, 8]
+  domain_granularity_min_queries: 20
+  model_pool_sizes: [4]
+  auto_model_pool_sizes: [2, 3, 4, 5]
+  model_pools:
+    - name: cheap_vs_frontier
+      models: [tiny_cheap, frontier_expensive]
+    - name: math_code_reasoner
+      models: [math_7b, code_7b, reasoner_13b]
+  bootstrap_counts: [50, 100, 300]
+
+external_baselines:
+  mf_rank: 4
+  mf_alpha: 1.0
+  thresholds: [0.25, 0.5, 0.75]
+
+bootstrap:
+  n_bootstrap: 300
+  ci: 0.95

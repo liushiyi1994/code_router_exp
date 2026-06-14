@@ -1,0 +1,9 @@
+model_id,cache_status,runnable_as_encoder_baseline,reason,architecture,model_type,hidden_size,size_gb,local_path
+Qwen/Qwen3-4B,cached,False,causal_lm_not_lightweight_encoder,Qwen3ForCausalLM,qwen3,2560,7.507295250892639,/home/liush/.cache/huggingface/hub/models--Qwen--Qwen3-4B/snapshots/1cfa9a7208912126459214e8b04321603b3df60c
+Tongyi-MAI/Z-Image,cached,False,missing_transformer_config,,,,19.13633161690086,/home/liush/.cache/huggingface/hub/models--Tongyi-MAI--Z-Image
+ai-toolkit/flux2_vae,cached,False,missing_transformer_config,,,,0.3131212033331394,/home/liush/.cache/huggingface/hub/models--ai-toolkit--flux2_vae
+answerdotai/ModernBERT-base,missing_local_cache,False,missing_local_cache,,,,0.0,
+black-forest-labs/FLUX.1-Kontext-dev,cached,False,missing_transformer_config,,,,8.118077362887561,/home/liush/.cache/huggingface/hub/models--black-forest-labs--FLUX.1-Kontext-dev
+black-forest-labs/FLUX.2-klein-4B,cached,False,missing_transformer_config,,,,0.0,/home/liush/.cache/huggingface/hub/models--black-forest-labs--FLUX.2-klein-4B
+black-forest-labs/FLUX.2-klein-base-4B,cached,False,missing_transformer_config,,,,22.101436973549426,/home/liush/.cache/huggingface/hub/models--black-forest-labs--FLUX.2-klein-base-4B
+microsoft/deberta-v3-base,missing_local_cache,False,missing_local_cache,,,,0.0,

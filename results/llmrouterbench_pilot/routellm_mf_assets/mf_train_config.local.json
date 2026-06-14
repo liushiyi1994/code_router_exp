@@ -1,0 +1,15 @@
+{
+  "alpha": 1.0,
+  "batch_size": 64,
+  "device": "cpu",
+  "dim": 256,
+  "dim_note": "LLMRouterBench MFModel_Train copies prompt_embeddings.npy into Q, so dim must equal the prompt embedding width.",
+  "json_path": "results/llmrouterbench_pilot/routellm_mf_assets/pairwise_train.json",
+  "lr": 0.0003,
+  "npy_path": "results/llmrouterbench_pilot/routellm_mf_assets/prompt_embeddings.npy",
+  "num_epochs": 30,
+  "requested_dim": 256,
+  "save_path": "results/llmrouterbench_pilot/routellm_mf_assets/mf_model.pt",
+  "use_proj": true,
+  "weight_decay": 1e-05
+}

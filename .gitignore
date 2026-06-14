@@ -1,0 +1,21 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+*:Zone.Identifier
+
+# Local benchmark/source data and generated canonical matrices.
+data/raw/
+data/processed/
+results/**/outcomes.csv
+results/**/synthetic_outcomes.csv
+results/**/query_embeddings.csv
+results/**/synthetic_query_embeddings.csv
+
+# Heavy trainer/cache artifacts that can be regenerated from local data.
+results/**/*.jsonl
+results/**/*.npy
+results/**/*.pt

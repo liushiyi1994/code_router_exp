@@ -1,0 +1,1549 @@
+{
+  "schema_version": "routecode.code_cards.v1",
+  "cards": [
+    {
+      "label_id": 0,
+      "short_name": "code__Qwen3-8B",
+      "size": 150,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "Qwen2.5-Coder-7B-Instruct",
+      "model_margin": 0.06666666666666665,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 79
+        },
+        {
+          "name": "math",
+          "count": 49
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 22
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "humaneval",
+          "count": 78
+        },
+        {
+          "name": "math500",
+          "count": 36
+        },
+        {
+          "name": "mmlupro",
+          "count": 22
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:2",
+          "query_text": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:3",
+          "query_text": "\n\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:4",
+          "query_text": "from typing import List\n\n\ndef below_zero(operations: List[int]) -> bool:\n    \"\"\" You're given a list of deposit and withdrawal operations on a bank account that starts with\n    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and\n    at that point function should return True. Otherwise it should return False.\n    >>> below_zero([1, 2, 3])\n    False\n    >>> below_zero([1, 2, -4, 5])\n    True\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:5",
+          "query_text": "from typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "humaneval:test:2",
+          "query_text": "from typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:3",
+          "query_text": "\n\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:25",
+          "query_text": "\n\ndef largest_divisor(n: int) -> int:\n    \"\"\" For a given number n, find the largest number that divides n evenly, smaller than n\n    >>> largest_divisor(15)\n    5\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:20",
+          "query_text": "from typing import List\n\n\ndef sort_numbers(numbers: str) -> str:\n    \"\"\" Input is a space-delimited string of numberals from 'zero' to 'nine'.\n    Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n    Return the string with numbers sorted from smallest to largest\n    >>> sort_numbers('three one five')\n    'one three five'\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.6733333333333333,
+        "Qwen2.5-Coder-7B-Instruct": 0.6066666666666667,
+        "MiniCPM4.1-8B": 0.54,
+        "Intern-S1-mini": 0.5333333333333333,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5266666666666666,
+        "Llama-3.1-8B-Instruct": 0.48
+      },
+      "human_readable_explanation": "`code__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `code` and dataset `humaneval` in this run."
+    },
+    {
+      "label_id": 1,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 18,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.0,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 13
+        },
+        {
+          "name": "math",
+          "count": 3
+        },
+        {
+          "name": "code",
+          "count": 2
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 13
+        },
+        {
+          "name": "math500",
+          "count": 3
+        },
+        {
+          "name": "mbpp",
+          "count": 2
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "mmlupro:test_1000:31",
+          "query_text": "Explain the \"other things equal\", or ceteris paribus assumption of economic analysis.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:80",
+          "query_text": "If the CPI goes to 150 from 120 then prices have",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:183",
+          "query_text": "If two variables, $x_t$ and $y_t$ are said to be cointegrated, which of the following statements are true?\n\ni) $x_t$ and $y_t$ must both be stationary\n\n\nii) Only one linear combination of $x_t$ and $y_t$ will be stationary\n\n\niii) The cointegrating equation for $x_t$ and $y_t$ describes the short-run relationship\n\nbetween the two series\n\n\niv) The residuals of a regression of $y_t$ on $x_t$ must be stationary",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:188",
+          "query_text": "Which of the following is true about the diagnosis of \"osteopenia\" or \"osteoporosis\" in North America and Western Europe\n",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mbpp:test:428",
+          "query_text": "Write a function to perform the mathematical bitwise xor operation across the given tuples.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:31",
+          "query_text": "Explain the \"other things equal\", or ceteris paribus assumption of economic analysis.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:80",
+          "query_text": "If the CPI goes to 150 from 120 then prices have",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:183",
+          "query_text": "If two variables, $x_t$ and $y_t$ are said to be cointegrated, which of the following statements are true?\n\ni) $x_t$ and $y_t$ must both be stationary\n\n\nii) Only one linear combination of $x_t$ and $y_t$ will be stationary\n\n\niii) The cointegrating equation for $x_t$ and $y_t$ describes the short-run relationship\n\nbetween the two series\n\n\niv) The residuals of a regression of $y_t$ on $x_t$ must be stationary",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.7222222222222222,
+        "MiniCPM4.1-8B": 0.7222222222222222,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.6111111111111112,
+        "Intern-S1-mini": 0.5555555555555556,
+        "Qwen2.5-Coder-7B-Instruct": 0.5,
+        "Llama-3.1-8B-Instruct": 0.4444444444444444
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 2,
+      "short_name": "code__Qwen2.5-Coder-7B-Instruct",
+      "size": 94,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "Llama-3.1-8B-Instruct",
+      "model_margin": 0.05319148936170204,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 90
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 4
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 90
+        },
+        {
+          "name": "mmlupro",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "mmlupro:test_1000:490",
+          "query_text": "Solve the equation \u221217.02 = \u22122.3y. Check your answer.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:731",
+          "query_text": "One drawback of using fiscal policy to close a recessionary gap is that",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:746",
+          "query_text": "Given 3 Colors whose RGB representations are given as follows: Color 1: (0.5, 0.5, 0.5), Color 2: (0.4, 0.6, 0.5), Color 3: (0.3, 0.7, 0.5), Which Color does not carry chrominance (Color) Information? Answer with 1 or 2 or 3.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:902",
+          "query_text": "What are the general contentions as to whether or not aggressiveness is instinctual?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:746",
+          "query_text": "Given 3 Colors whose RGB representations are given as follows: Color 1: (0.5, 0.5, 0.5), Color 2: (0.4, 0.6, 0.5), Color 3: (0.3, 0.7, 0.5), Which Color does not carry chrominance (Color) Information? Answer with 1 or 2 or 3.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mbpp:test:79",
+          "query_text": "Write a function to check if all values are same in a dictionary.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:158",
+          "query_text": "Write a python function to check whether an array can be sorted or not by picking only the corner elements.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:143",
+          "query_text": "Write a python function to check whether the given list contains consecutive numbers or not.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.8085106382978723,
+        "Llama-3.1-8B-Instruct": 0.7553191489361702,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.6702127659574468,
+        "Qwen3-8B": 0.6063829787234043,
+        "Intern-S1-mini": 0.5638297872340425,
+        "MiniCPM4.1-8B": 0.40425531914893614
+      },
+      "human_readable_explanation": "`code__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 3,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 36,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "Llama-3.1-8B-Instruct",
+      "model_margin": 0.11111111111111105,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 15
+        },
+        {
+          "name": "science",
+          "count": 12
+        },
+        {
+          "name": "math",
+          "count": 5
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 15
+        },
+        {
+          "name": "gpqa",
+          "count": 12
+        },
+        {
+          "name": "math500",
+          "count": 5
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:26",
+          "query_text": "from typing import List\n\n\ndef factorize(n: int) -> List[int]:\n    \"\"\" Return list of prime factors of given integer in the order from smallest to largest.\n    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.\n    Input number should be equal to the product of all factors\n    >>> factorize(8)\n    [2, 2, 2]\n    >>> factorize(25)\n    [5, 5]\n    >>> factorize(70)\n    [2, 5, 7]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:2",
+          "query_text": "The mass of the Earth is 5.97 \u00d7 10^24 kg. The Moon, whose center is 3.84 \u00d7 10^8 m from the Earth\u2019s center, has mass 7.35 \u00d7 10^22 kg. Which of the following is the best estimate of the gravitational force of the Earth on the Moon?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:21",
+          "query_text": "Determine the humidity of the air if the wet-bulb temperature is70\u00b0F and dry-bulb temperature is 90\u00b0F.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:66",
+          "query_text": "It is known that a lab cart is moving east at 25 cm/s at time t1 = 0.10 s, and then moving east at 15 cm/s at t2 = 0.20 s. Is this enough information to determine the direction of the net force acting on the cart between t1 and t2?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "gpqa:test:2",
+          "query_text": "trans-cinnamaldehyde was treated with methylmagnesium bromide, forming product 1.\n\n1 was treated with pyridinium chlorochromate, forming product 2.\n\n3 was treated with (dimethyl(oxo)-l6-sulfaneylidene)methane in DMSO at elevated temperature, forming product 3.\n\nhow many carbon atoms are there in product 3?",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "gpqa:test:31",
+          "query_text": "toluene is treated with nitric acid and sulfuric acid, forming product 1.\n\n1 is treated with MnO2 and H2SO4, forming product 2.\n\n2 is treated with acetone and aqueous sodium hydroxide, forming product 3.\n\nwhat is the molecular symmetry group of 3?",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "mmlupro:test_1000:448",
+          "query_text": "IfK_pforH_2(g) + I_2(g) \\rightleftharpoons 2HI(g) at 25\u00b0C is 870, then assumingno solid iodine forms, calculate the number of molesof the following at equilibrium. (a) HI formed when H_2 = 0.5 moles and I_2 = 0.5 moles (b) I_2 formed when H_2 = 0.5 moles and HI = 1.5 moles.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:457",
+          "query_text": "What are the four basic factors in learning?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.7222222222222222,
+        "Llama-3.1-8B-Instruct": 0.6111111111111112,
+        "Intern-S1-mini": 0.5833333333333334,
+        "MiniCPM4.1-8B": 0.5833333333333334,
+        "Qwen2.5-Coder-7B-Instruct": 0.5,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.4166666666666667
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 4,
+      "short_name": "broad_knowledge__MiniCPM4.1-8B",
+      "size": 53,
+      "best_model": "MiniCPM4.1-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.037735849056603876,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 24
+        },
+        {
+          "name": "math",
+          "count": 20
+        },
+        {
+          "name": "code",
+          "count": 5
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 24
+        },
+        {
+          "name": "math500",
+          "count": 17
+        },
+        {
+          "name": "gpqa",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:7",
+          "query_text": "from typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:120",
+          "query_text": "\ndef match_parens(lst):\n    '''\n    You are given a list of two strings, both strings consist of open\n    parentheses '(' or close parentheses ')' only.\n    Your job is to check if it is possible to concatenate the two strings in\n    some order, that the resulting string will be good.\n    A string S is considered to be good if and only if all parentheses in S\n    are balanced. For example: the string '(())()' is good, while the string\n    '())' is not.\n    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.\n\n    Examples:\n    match_parens(['()(', ')']) == 'Yes'\n    match_parens([')', ')']) == 'No'\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:14",
+          "query_text": "Electron diffraction makes use of electrons with wavelengths comparable to bond lengths. To what speed must an electron be accelerated for it to have a wavelength of $100 \\mathrm{pm}$ ? ",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:77",
+          "query_text": "Calculate the angle that the spin vector $S$ makes with the $z$ axis for an electron with spin function $\\alpha$.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "humaneval:test:7",
+          "query_text": "from typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:120",
+          "query_text": "\ndef match_parens(lst):\n    '''\n    You are given a list of two strings, both strings consist of open\n    parentheses '(' or close parentheses ')' only.\n    Your job is to check if it is possible to concatenate the two strings in\n    some order, that the resulting string will be good.\n    A string S is considered to be good if and only if all parentheses in S\n    are balanced. For example: the string '(())()' is good, while the string\n    '())' is not.\n    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.\n\n    Examples:\n    match_parens(['()(', ')']) == 'Yes'\n    match_parens([')', ')']) == 'No'\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:485",
+          "query_text": "Would you expect He_2^\\oplus to be more stable than He_2? Than He?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:936",
+          "query_text": "In the Jimmy Buffet song 'Margaritaville' what is the singer searching for?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "MiniCPM4.1-8B": 0.7735849056603774,
+        "Qwen3-8B": 0.7358490566037735,
+        "Intern-S1-mini": 0.7169811320754716,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.660377358490566,
+        "Llama-3.1-8B-Instruct": 0.5283018867924528,
+        "Qwen2.5-Coder-7B-Instruct": 0.5094339622641509
+      },
+      "human_readable_explanation": "`broad_knowledge__MiniCPM4.1-8B` groups queries whose train-set utility profile favors `MiniCPM4.1-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 5,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 90,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.05555555555555558,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 48
+        },
+        {
+          "name": "math",
+          "count": 32
+        },
+        {
+          "name": "science",
+          "count": 9
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 48
+        },
+        {
+          "name": "math500",
+          "count": 32
+        },
+        {
+          "name": "gpqa",
+          "count": 9
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:36",
+          "query_text": "\n\ndef max_element(l: list):\n    \"\"\"Return maximum element in the list.\n    >>> max_element([1, 2, 3])\n    3\n    >>> max_element([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])\n    123\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:25",
+          "query_text": "The circle $2x^2 = -2y^2 + 12x - 4y + 20$ is inscribed inside a square which has a pair of sides parallel to the x-axis. What is the area of the square?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:42",
+          "query_text": "The \"crowding-out\" effect refers to which of the following?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:51",
+          "query_text": "A number\u2019s prime factors are 2, 5, 7, 13, and 31. Which of the following must be a factor of the number?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:25",
+          "query_text": "The circle $2x^2 = -2y^2 + 12x - 4y + 20$ is inscribed inside a square which has a pair of sides parallel to the x-axis. What is the area of the square?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:216",
+          "query_text": "Which of the following cases best illustrates the 'living instrument principle' used by the European Court of Human Rights?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:422",
+          "query_text": "The \"c\" in the word cat is best described as a",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:353",
+          "query_text": "Since the 1996 World Food Summit, how has the number of food insecure people in the world changed?\n",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.8111111111111111,
+        "MiniCPM4.1-8B": 0.7555555555555555,
+        "Intern-S1-mini": 0.7333333333333333,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5888888888888889,
+        "Llama-3.1-8B-Instruct": 0.43333333333333335,
+        "Qwen2.5-Coder-7B-Instruct": 0.4
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 6,
+      "short_name": "code__Qwen2.5-Coder-7B-Instruct",
+      "size": 15,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.06666666666666665,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 9
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 3
+        },
+        {
+          "name": "math",
+          "count": 2
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 8
+        },
+        {
+          "name": "mmlupro",
+          "count": 3
+        },
+        {
+          "name": "math500",
+          "count": 2
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:126",
+          "query_text": "\ndef split_words(txt):\n    '''\n    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you\n    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the\n    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25\n    Examples\n    split_words(\"Hello world!\") \u279e [\"Hello\", \"world!\"]\n    split_words(\"Hello,world!\") \u279e [\"Hello\", \"world!\"]\n    split_words(\"abcdef\") == 3 \n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:350",
+          "query_text": "Which of the following is generally the first step taken in a large-scale commercial construction venture?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:676",
+          "query_text": "______ explained genetic disorders such as alkaptonuria and albinism.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:742",
+          "query_text": "The greatest population growth rate has taken place",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:676",
+          "query_text": "______ explained genetic disorders such as alkaptonuria and albinism.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "math500:test:303",
+          "query_text": "When converting $\\frac{31}{11111}$ to a decimal, the decimal turns out to be a repeating decimal. How many digits repeat in this repeating decimal?\n\nFor example, if you get the repeating decimal $0.\\overline{123},$ then your answer should be $3,$ and if you get $0.436\\overline{7},$ your answer should be $1.$",
+          "dataset": "math500",
+          "domain": "math"
+        },
+        {
+          "query_id": "gpqa:test:110",
+          "query_text": "Which of the following stars can be detected with both the ESPRESSO spectrograph at the Paranal Observatory and the HIRES spectrograph at the Keck Observatory? Please refer to the links below for more information about the observatories. It should be noted that with ESPRESSO, stars with apparent V magnitudes brighter than 17 mag can be observed, while with HIRES, stars brighter than 16 V mag can be observed. For the sake of simplicity, let's disregard the pointing limits of the telescopes (such as maximum and minimum elevations) as well as the altitudes of the telescopes.\n\nLinks:\nParanal Observatory: https://en.wikipedia.org/wiki/Paranal_Observatory\nW. M. Keck Observatory: https://en.wikipedia.org/wiki/W._M._Keck_Observatory\n\n\nStar1 - RA = 15 deg and DEC = -75 deg, absolute V magnitude of 15.5 mag and located at 10 pc distance from us.\n\nStar2 - RA = 30 deg and DEC = 55 deg, apparent V magnitude of 16.5 mag and located at 5 pc distance from us.\n\nStar3 - RA = 11 h and DEC = 48 deg, apparent V magnitude of 15.5 mag, E(B-V) = 0.6 mag and located at 15 pc distance from us. Note that the total absorption in the V band is related to the color excess in B-V with a coefficient equal to 3.1.\n\nStar4 - RA = 85 deg and DEC = -48 deg, absolute V magnitude of 15.5 mag, E(B-V) = 0.4 mag and located at 10 pc distance from us. Note that the total absorption in the V band is related to the color excess in B-V with a coefficient equal to 3.1.\n\nStar5 - RA = 10 h and DEC = 60 deg, absolute V magnitude of 16.5 mag and located at 5 pc distance from us.",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "mbpp:test:694",
+          "query_text": "Write a function to split a list for every nth element.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.6,
+        "Qwen3-8B": 0.5333333333333333,
+        "Intern-S1-mini": 0.4666666666666667,
+        "MiniCPM4.1-8B": 0.4,
+        "Llama-3.1-8B-Instruct": 0.4,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.26666666666666666
+      },
+      "human_readable_explanation": "`code__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 7,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 16,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.0,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 8
+        },
+        {
+          "name": "code",
+          "count": 4
+        },
+        {
+          "name": "math",
+          "count": 3
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 8
+        },
+        {
+          "name": "mbpp",
+          "count": 4
+        },
+        {
+          "name": "math500",
+          "count": 2
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "mmlupro:test_1000:20",
+          "query_text": "Fatty acids are transported into the mitochondria bound to:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:58",
+          "query_text": "Define language. List and define its elements.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:86",
+          "query_text": "According to Caplan's model of consultee-centered case consultation, the consultant is primarily interested in",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:99",
+          "query_text": "Analysis of the teeth of a hominid species discovered in Malapa Cave in South Africa, dating just after 2 million years ago, indicates a diet that consisted primarily of:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:86",
+          "query_text": "According to Caplan's model of consultee-centered case consultation, the consultant is primarily interested in",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:170",
+          "query_text": "For a simple random walk S_n with S_0=0 and P(S_n-S_{n-1}=1)=1/4, P(S_n-S_{n-1}=-1)=3/4. Let M=\\max{S_n:n\\geq 0}. What is the probability of the event {M\\geq 5}? Round the answer to the thousands decimal.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mbpp:test:362",
+          "query_text": "Write a function to round the given number to the nearest multiple of a specific number.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "gpqa:test:55",
+          "query_text": "You have prepared an unknown organic compound. The following 1H NMR data was obtained:\n1H NMR: chemical reference (ppm): 7.0 (1H, d, J = 16.0 Hz), 5.5 (1H, dq), 2.1 (3H, s), 1.6 (3H, d)\nIdentify the unknown compound as either Cis-propenyl acetate, Trans-propenyl acetate, Cis-butenyl acetate, or Trans-butenyl acetate.",
+          "dataset": "gpqa",
+          "domain": "science"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.75,
+        "MiniCPM4.1-8B": 0.75,
+        "Intern-S1-mini": 0.625,
+        "Llama-3.1-8B-Instruct": 0.5,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5,
+        "Qwen2.5-Coder-7B-Instruct": 0.4375
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 8,
+      "short_name": "code__Qwen2.5-Coder-7B-Instruct",
+      "size": 131,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "Llama-3.1-8B-Instruct",
+      "model_margin": 0.09160305343511455,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 126
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 3
+        },
+        {
+          "name": "math",
+          "count": 2
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 123
+        },
+        {
+          "name": "humaneval",
+          "count": 3
+        },
+        {
+          "name": "mmlupro",
+          "count": 3
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:10",
+          "query_text": "from typing import List, Tuple\n\n\ndef rolling_max(numbers: List[int]) -> List[int]:\n    \"\"\" From a given list of integers, generate a list of rolling maximum element found until given moment\n    in the sequence.\n    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])\n    [1, 2, 3, 3, 3, 4, 4]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:35",
+          "query_text": "\n\ndef unique(l: list):\n    \"\"\"Return sorted unique elements in a list\n    >>> unique([5, 3, 5, 2, 3, 3, 9, 0, 123])\n    [0, 2, 3, 5, 9, 123]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:59",
+          "query_text": "\n\ndef common(l1: list, l2: list):\n    \"\"\"Return sorted unique common elements for two lists.\n    >>> common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])\n    [1, 5, 653]\n    >>> common([5, 3, 2, 8], [3, 2])\n    [2, 3]\n\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:447",
+          "query_text": "The precedent established in Larry P. v. Riles resulted in",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mbpp:test:109",
+          "query_text": "Write a function to find common index elements from three lists.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:44",
+          "query_text": "Write a function to extract the nth element from a given list of tuples.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:758",
+          "query_text": "Determine the bandwidth of a frequency modulated signal v(t), given by v(t) = 10cos(2 \u00d7 10^7\\pit + 20cos1000\\pit)",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mbpp:test:832",
+          "query_text": "Write a function to find the combinations of sums with tuples in the given tuple list.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.7480916030534351,
+        "Llama-3.1-8B-Instruct": 0.6564885496183206,
+        "Qwen3-8B": 0.6030534351145038,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5877862595419847,
+        "Intern-S1-mini": 0.48091603053435117,
+        "MiniCPM4.1-8B": 0.3893129770992366
+      },
+      "human_readable_explanation": "`code__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 9,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 155,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.006451612903225823,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 81
+        },
+        {
+          "name": "math",
+          "count": 55
+        },
+        {
+          "name": "science",
+          "count": 12
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 81
+        },
+        {
+          "name": "math500",
+          "count": 49
+        },
+        {
+          "name": "gpqa",
+          "count": 12
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:18",
+          "query_text": "from typing import List\n\n\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\" Input to this function is a string representing musical notes in a special ASCII format.\n    Your task is to parse this string and return list of integers corresponding to how many beats does each\n    not last.\n\n    Here is a legend:\n    'o' - whole note, lasts four beats\n    'o|' - half note, lasts two beats\n    '.|' - quater note, lasts one beat\n\n    >>> parse_music('o o| .| o| o| .| .| .| .| o o')\n    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:38",
+          "query_text": "\n\ndef sort_even(l: list):\n    \"\"\"This function takes a list l and returns a list l' such that\n    l' is identical to l in the odd indicies, while its values at the even indicies are equal\n    to the values of the even indicies of l, but sorted.\n    >>> sort_even([1, 2, 3])\n    [1, 2, 3]\n    >>> sort_even([5, 6, 3, 4])\n    [3, 6, 5, 4]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:42",
+          "query_text": "\n\ndef car_race_collision(n: int):\n    \"\"\"\n    Imagine a road that's a perfectly straight infinitely long line.\n    n cars are driving left to right;  simultaneously, a different set of n cars\n    are driving right to left.   The two sets of cars start out being very far from\n    each other.  All cars move in the same speed.  Two cars are said to collide\n    when a car that's moving left to right hits a car that's moving right to left.\n    However, the cars are infinitely sturdy and strong; as a result, they continue moving\n    in their trajectory as if they did not collide.\n\n    This function outputs the number of such collisions.\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:68",
+          "query_text": "\ndef fruit_distribution(s,n):\n    \"\"\"\n    In this task, you will be given a string that represents a number of apples and oranges \n    that are distributed in a basket of fruit this basket contains \n    apples, oranges, and mango fruits. Given the string that represents the total number of \n    the oranges and apples and an integer that represent the total number of the fruits \n    in the basket return the number of the mango fruits in the basket.\n    for examble:\n    fruit_distribution(\"5 apples and 6 oranges\", 19) ->19 - 5 - 6 = 8\n    fruit_distribution(\"0 apples and 1 oranges\",3) -> 3 - 0 - 1 = 2\n    fruit_distribution(\"2 apples and 3 oranges\", 100) -> 100 - 2 - 3 = 95\n    fruit_distribution(\"100 apples and 1 oranges\",120) -> 120 - 100 - 1 = 19\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "humaneval:test:38",
+          "query_text": "\n\ndef sort_even(l: list):\n    \"\"\"This function takes a list l and returns a list l' such that\n    l' is identical to l in the odd indicies, while its values at the even indicies are equal\n    to the values of the even indicies of l, but sorted.\n    >>> sort_even([1, 2, 3])\n    [1, 2, 3]\n    >>> sort_even([5, 6, 3, 4])\n    [3, 6, 5, 4]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:132",
+          "query_text": "On a day when the speed of sound is the fundamental frequency of a particular stopped organ pipe is 220 Hz. The second overtone of this pipe has the same wavelength as the third harmonic of an open pipe. How long is the open pipe? (Unit: m)",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:122",
+          "query_text": "In which dementia are cognitive symptoms less likely?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:191",
+          "query_text": "Calculate the number of photons in a $2.00 \\mathrm{~mJ}$ light pulse at (a) $1.06 \\mu \\mathrm{m}$\n",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.7419354838709677,
+        "MiniCPM4.1-8B": 0.7354838709677419,
+        "Intern-S1-mini": 0.6516129032258065,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5870967741935483,
+        "Qwen2.5-Coder-7B-Instruct": 0.5548387096774193,
+        "Llama-3.1-8B-Instruct": 0.4774193548387097
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 10,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 330,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.051515151515151514,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 228
+        },
+        {
+          "name": "science",
+          "count": 62
+        },
+        {
+          "name": "math",
+          "count": 28
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 228
+        },
+        {
+          "name": "gpqa",
+          "count": 62
+        },
+        {
+          "name": "math500",
+          "count": 24
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:50",
+          "query_text": "\n\ndef modp(n: int, p: int):\n    \"\"\"Return 2^n modulo p (be aware of numerics).\n    >>> modp(3, 5)\n    3\n    >>> modp(1101, 101)\n    2\n    >>> modp(0, 101)\n    1\n    >>> modp(3, 11)\n    8\n    >>> modp(100, 101)\n    1\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:63",
+          "query_text": "\n\ndef derivative(xs: list):\n    \"\"\" xs represent coefficients of a polynomial.\n    xs[0] + xs[1] * x + xs[2] * x^2 + ....\n     Return derivative of this polynomial in the same form.\n    >>> derivative([3, 1, 2, 4, 5])\n    [1, 4, 12, 20]\n    >>> derivative([1, 2, 3])\n    [2, 6]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:82",
+          "query_text": "\ndef numerical_letter_grade(grades):\n    \"\"\"It is the last week of the semester and the teacher has to give the grades\n    to students. The teacher has been making her own algorithm for grading.\n    The only problem is, she has lost the code she used for grading.\n    She has given you a list of GPAs for some students and you have to write \n    a function that can output a list of letter grades using the following table:\n             GPA       |    Letter grade\n              4.0                A+\n            > 3.7                A \n            > 3.3                A- \n            > 3.0                B+\n            > 2.7                B \n            > 2.3                B-\n            > 2.0                C+\n            > 1.7                C\n            > 1.3                C-\n            > 1.0                D+ \n            > 0.7                D \n            > 0.0                D-\n              0.0                E\n    \n\n    Example:\n    grade_equation([4.0, 3, 1.7, 2, 3.5]) ==> ['A+', 'B', 'C-', 'C', 'A-']\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:87",
+          "query_text": "\ndef anti_shuffle(s):\n    \"\"\"\n    Write a function that takes a string and returns an ordered version of it.\n    Ordered version of string, is a string where all words (separated by space)\n    are replaced by a new word where all the characters arranged in\n    ascending order based on ascii value.\n    Note: You should keep the order of words and blank spaces in the sentence.\n\n    For example:\n    anti_shuffle('Hi') returns 'Hi'\n    anti_shuffle('hello') returns 'ehllo'\n    anti_shuffle('Hello World!!!') returns 'Hello !!!Wdlor'\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:603",
+          "query_text": "Which of these candy bars was named for a baseball player?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "gpqa:test:53",
+          "query_text": "You have prepared a di-substituted 6-membered aromatic ring compound. The FTIR spectrum of this compound shows absorption peaks indicating the presence of an ester group. The 1H NMR spectrum shows six signals: two signals corresponding to aromatic-H, two signals corresponding to vinyl-H (one doublet and one doublet of quartets), and two signals corresponding to \u2013CH3 groups. There are no signals corresponding to \u2013CH2 groups. Identify the chemical formula of this unknown compound as either C11H12O2, C11H14O2, C12H12O2, or C12H14O2.",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "gpqa:test:54",
+          "query_text": "Determine the starting material needed to synthesize 5-isopropyl-3,4-dimethylcyclohex-1-ene via ring-closing metathesis.",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "mmlupro:test_1000:276",
+          "query_text": "According to Epicurus, the wealth required for a good life is:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.6212121212121212,
+        "MiniCPM4.1-8B": 0.5696969696969697,
+        "Intern-S1-mini": 0.46060606060606063,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.396969696969697,
+        "Qwen2.5-Coder-7B-Instruct": 0.3515151515151515,
+        "Llama-3.1-8B-Instruct": 0.3333333333333333
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 11,
+      "short_name": "math__MiniCPM4.1-8B",
+      "size": 245,
+      "best_model": "MiniCPM4.1-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.044897959183673564,
+      "top_domains": [
+        {
+          "name": "math",
+          "count": 130
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 96
+        },
+        {
+          "name": "science",
+          "count": 13
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "math500",
+          "count": 124
+        },
+        {
+          "name": "mmlupro",
+          "count": 96
+        },
+        {
+          "name": "gpqa",
+          "count": 13
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:17",
+          "query_text": "\n\ndef count_distinct_characters(string: str) -> int:\n    \"\"\" Given a string, find out how many distinct characters (regardless of case) does it consist of\n    >>> count_distinct_characters('xyzXYZ')\n    3\n    >>> count_distinct_characters('Jerry')\n    4\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:47",
+          "query_text": "\n\ndef fib4(n: int):\n    \"\"\"The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n    fib4(0) -> 0\n    fib4(1) -> 0\n    fib4(2) -> 2\n    fib4(3) -> 0\n    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).\n    Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.\n    >>> fib4(5)\n    4\n    >>> fib4(6)\n    8\n    >>> fib4(7)\n    14\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:72",
+          "query_text": "\ndef triangle_area(a, b, c):\n    '''\n    Given the lengths of the three sides of a triangle. Return the area of\n    the triangle rounded to 2 decimal points if the three sides form a valid triangle. \n    Otherwise return -1\n    Three sides make a valid triangle when the sum of any two sides is greater \n    than the third side.\n    Example:\n    triangle_area(3, 4, 5) == 6.00\n    triangle_area(1, 2, 10) == -1\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:75",
+          "query_text": "\ndef total_match(lst1, lst2):\n    '''\n    Write a function that accepts two lists of strings and returns the list that has \n    total number of chars in the all strings of the list less than the other list.\n\n    if the two lists have the same number of chars, return the first list.\n\n    Examples\n    total_match([], []) \u279e []\n    total_match(['hi', 'admin'], ['hI', 'Hi']) \u279e ['hI', 'Hi']\n    total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) \u279e ['hi', 'admin']\n    total_match(['hi', 'admin'], ['hI', 'hi', 'hi']) \u279e ['hI', 'hi', 'hi']\n    total_match(['4'], ['1', '2', '3', '4', '5']) \u279e ['4']\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "humaneval:test:47",
+          "query_text": "\n\ndef fib4(n: int):\n    \"\"\"The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:\n    fib4(0) -> 0\n    fib4(1) -> 0\n    fib4(2) -> 2\n    fib4(3) -> 0\n    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).\n    Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.\n    >>> fib4(5)\n    4\n    >>> fib4(6)\n    8\n    >>> fib4(7)\n    14\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:75",
+          "query_text": "\ndef total_match(lst1, lst2):\n    '''\n    Write a function that accepts two lists of strings and returns the list that has \n    total number of chars in the all strings of the list less than the other list.\n\n    if the two lists have the same number of chars, return the first list.\n\n    Examples\n    total_match([], []) \u279e []\n    total_match(['hi', 'admin'], ['hI', 'Hi']) \u279e ['hI', 'Hi']\n    total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']) \u279e ['hi', 'admin']\n    total_match(['hi', 'admin'], ['hI', 'hi', 'hi']) \u279e ['hI', 'hi', 'hi']\n    total_match(['4'], ['1', '2', '3', '4', '5']) \u279e ['4']\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:69",
+          "query_text": "The model of light most supported by the photoelectric effect is the",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:376",
+          "query_text": "A rectangular section of a porous solid 0.5 in. thick is submergedin 100 % ethanol. The voids of the solid compose50 % of its volume. The solid is removed from the ethanolafter thorough soaking and placed in an agitated tankof water at 80\u00b0F. Only molecular diffusion occurs in the pores, and the diffusivity inside the pores is approximately onetenth of its value outside the solid. What length of timeis requiredfor the mass fraction of ethanol at the center of the solidto drop to 0.008? Assume the concentration of ethanol inthe water phase is always zero.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "MiniCPM4.1-8B": 0.9020408163265307,
+        "Qwen3-8B": 0.8571428571428571,
+        "Intern-S1-mini": 0.8204081632653061,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.7795918367346939,
+        "Qwen2.5-Coder-7B-Instruct": 0.6081632653061224,
+        "Llama-3.1-8B-Instruct": 0.5020408163265306
+      },
+      "human_readable_explanation": "`math__MiniCPM4.1-8B` groups queries whose train-set utility profile favors `MiniCPM4.1-8B`. It is most associated with domain `math` and dataset `math500` in this run."
+    },
+    {
+      "label_id": 12,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 16,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "Intern-S1-mini",
+      "model_margin": 0.125,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 12
+        },
+        {
+          "name": "code",
+          "count": 3
+        },
+        {
+          "name": "science",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 12
+        },
+        {
+          "name": "humaneval",
+          "count": 2
+        },
+        {
+          "name": "gpqa",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:52",
+          "query_text": "\n\ndef remove_vowels(text):\n    \"\"\"\n    remove_vowels is a function that takes string and returns string without vowels.\n    >>> remove_vowels('')\n    ''\n    >>> remove_vowels(\"abcdef\\nghijklm\")\n    'bcdf\\nghjklm'\n    >>> remove_vowels('abcdef')\n    'bcdf'\n    >>> remove_vowels('aaaaa')\n    ''\n    >>> remove_vowels('aaBAA')\n    'B'\n    >>> remove_vowels('zbcd')\n    'zbcd'\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:160",
+          "query_text": "\ndef eat(number, need, remaining):\n    \"\"\"\n    You're a hungry rabbit, and you already have eaten a certain number of carrots,\n    but now you need to eat more carrots to complete the day's meals.\n    you should return an array of [ total number of eaten carrots after your meals,\n                                    the number of carrots left after your meals ]\n    if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.\n    \n    Example:\n    * eat(5, 6, 10) -> [11, 4]\n    * eat(4, 8, 9) -> [12, 1]\n    * eat(1, 10, 10) -> [11, 0]\n    * eat(2, 11, 5) -> [7, 0]\n    \n    Variables:\n    @number : integer\n        the number of carrots that you have eaten.\n    @need : integer\n        the number of carrots that you need to eat.\n    @remaining : integer\n        the number of remaining carrots thet exist in stock\n    \n    Constrain:\n    * 0 <= number <= 1000\n    * 0 <= need <= 1000\n    * 0 <= remaining <= 1000\n\n    Have fun :)\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:4",
+          "query_text": "A noninterest-bearing note with a face value of $600 and a term of 30 days dated April 5 was discounted April 15 at a rate of 5%. What were the proceeds?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:30",
+          "query_text": "Kohler's studies with apes are seen as demonstrating",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "gpqa:test:124",
+          "query_text": "Particles are collided at the center of a spherical detector producing new type of particles that travel uninterrupted at ultra-relativistic velocities highly centered around Lorentz factor of ~20. On average, one third of these fast-decaying particles reaches the detector inner walls. \nThe radius of the detector is 30 meters.\n\nWhat Lorentz factor is needed in order to have about two thirds of these particles reaching the detector inner walls?",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "humaneval:test:52",
+          "query_text": "\n\ndef remove_vowels(text):\n    \"\"\"\n    remove_vowels is a function that takes string and returns string without vowels.\n    >>> remove_vowels('')\n    ''\n    >>> remove_vowels(\"abcdef\\nghijklm\")\n    'bcdf\\nghjklm'\n    >>> remove_vowels('abcdef')\n    'bcdf'\n    >>> remove_vowels('aaaaa')\n    ''\n    >>> remove_vowels('aaBAA')\n    'B'\n    >>> remove_vowels('zbcd')\n    'zbcd'\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:4",
+          "query_text": "A noninterest-bearing note with a face value of $600 and a term of 30 days dated April 5 was discounted April 15 at a rate of 5%. What were the proceeds?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "humaneval:test:160",
+          "query_text": "\ndef eat(number, need, remaining):\n    \"\"\"\n    You're a hungry rabbit, and you already have eaten a certain number of carrots,\n    but now you need to eat more carrots to complete the day's meals.\n    you should return an array of [ total number of eaten carrots after your meals,\n                                    the number of carrots left after your meals ]\n    if there are not enough remaining carrots, you will eat all remaining carrots, but will still be hungry.\n    \n    Example:\n    * eat(5, 6, 10) -> [11, 4]\n    * eat(4, 8, 9) -> [12, 1]\n    * eat(1, 10, 10) -> [11, 0]\n    * eat(2, 11, 5) -> [7, 0]\n    \n    Variables:\n    @number : integer\n        the number of carrots that you have eaten.\n    @need : integer\n        the number of carrots that you need to eat.\n    @remaining : integer\n        the number of remaining carrots thet exist in stock\n    \n    Constrain:\n    * 0 <= number <= 1000\n    * 0 <= need <= 1000\n    * 0 <= remaining <= 1000\n\n    Have fun :)\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.8125,
+        "Intern-S1-mini": 0.6875,
+        "MiniCPM4.1-8B": 0.6875,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.6875,
+        "Qwen2.5-Coder-7B-Instruct": 0.5,
+        "Llama-3.1-8B-Instruct": 0.3125
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 13,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 30,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.0,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 11
+        },
+        {
+          "name": "math",
+          "count": 9
+        },
+        {
+          "name": "science",
+          "count": 9
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 11
+        },
+        {
+          "name": "math500",
+          "count": 9
+        },
+        {
+          "name": "gpqa",
+          "count": 9
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "mmlupro:test_1000:9",
+          "query_text": "Government intervention in the economy not only effects the level of economic activity, but it can also result in the redistribution of resources (from rich to poor people, for example ). What school of economists hastraditionally supported government intervention for both of these reasons ?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:147",
+          "query_text": "The pH of two lakes is measured. Lake A has a pH of 8.0; Lake B has a pH of 6.0. Which of the following statements is correct about these lakes?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:286",
+          "query_text": "If a rich country and a poor country trade with each other, without any restrictions, and the rich country gains $50 million, while the poor country only gains $5 million, is the rich country exploiting the poor country?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:406",
+          "query_text": "The emission spectrum of the doubly ionized lithium atom Li++ (Z = 3, A = 7) is identical to that of a hydrogen atom in which all the wavelengths are",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:553",
+          "query_text": "Which of the following drugs is most commonly responsible for patients who present with acute confusion?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:286",
+          "query_text": "If a rich country and a poor country trade with each other, without any restrictions, and the rich country gains $50 million, while the poor country only gains $5 million, is the rich country exploiting the poor country?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:657",
+          "query_text": "Consider again the VAR model of equation 16. Which of the following conditions must hold for it to be said that there is bi-directional feedback?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mbpp:test:221",
+          "query_text": "Write a function to find the maximum sum of bi-tonic sub-sequence for the given array.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.7,
+        "MiniCPM4.1-8B": 0.7,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.6,
+        "Intern-S1-mini": 0.5666666666666667,
+        "Llama-3.1-8B-Instruct": 0.43333333333333335,
+        "Qwen2.5-Coder-7B-Instruct": 0.36666666666666664
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 14,
+      "short_name": "code__Qwen2.5-Coder-7B-Instruct",
+      "size": 350,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "Llama-3.1-8B-Instruct",
+      "model_margin": 0.19714285714285718,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 345
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 3
+        },
+        {
+          "name": "math",
+          "count": 2
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 344
+        },
+        {
+          "name": "mmlupro",
+          "count": 3
+        },
+        {
+          "name": "math500",
+          "count": 2
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:89",
+          "query_text": "\ndef sort_array(array):\n    \"\"\"\n    Given an array of non-negative integers, return a copy of the given array after sorting,\n    you will sort the given array in ascending order if the sum( first index value, last index value) is odd,\n    or sort it in descending order if the sum( first index value, last index value) is even.\n\n    Note:\n    * don't change the given array.\n\n    Examples:\n    * sort_array([]) => []\n    * sort_array([5]) => [5]\n    * sort_array([2, 4, 3, 0, 1, 5]) => [0, 1, 2, 3, 4, 5]\n    * sort_array([2, 4, 3, 0, 1, 5, 6]) => [6, 5, 4, 3, 2, 1, 0]\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:282",
+          "query_text": "Neural networks:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:370",
+          "query_text": "Enzyme assay can be used to identify carriers of:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:883",
+          "query_text": "Virtually all of the crops important in the European Neolithic:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mbpp:test:756",
+          "query_text": "Write a python function to count the number of integral co-ordinates that lie inside a square.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:676",
+          "query_text": "Write a function to remove words from a given list of strings containing a character or string.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:294",
+          "query_text": "Write a function to find area of a sector.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:675",
+          "query_text": "Write a function to display sign of the chinese zodiac for given year.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.74,
+        "Llama-3.1-8B-Instruct": 0.5428571428571428,
+        "Qwen3-8B": 0.54,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.4942857142857143,
+        "Intern-S1-mini": 0.43714285714285717,
+        "MiniCPM4.1-8B": 0.2885714285714286
+      },
+      "human_readable_explanation": "`code__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 15,
+      "short_name": "broad_knowledge__Qwen2.5-Coder-7B-Instruct",
+      "size": 9,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "MiniCPM4.1-8B",
+      "model_margin": 0.11111111111111105,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 4
+        },
+        {
+          "name": "math",
+          "count": 3
+        },
+        {
+          "name": "code",
+          "count": 2
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 4
+        },
+        {
+          "name": "math500",
+          "count": 3
+        },
+        {
+          "name": "humaneval",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "humaneval:test:78",
+          "query_text": "\ndef iscube(a):\n    '''\n    Write a function that takes an integer a and returns True \n    if this ingeger is a cube of some integer number.\n    Note: you may assume the input is always valid.\n    Examples:\n    iscube(1) ==> True\n    iscube(2) ==> False\n    iscube(-1) ==> True\n    iscube(64) ==> True\n    iscube(0) ==> True\n    iscube(180) ==> False\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:251",
+          "query_text": "If $y_1$ and $y_2$ are a fundamental set of solutions of $t^2 y^{\\prime \\prime}-2 y^{\\prime}+(3+t) y=0$ and if $W\\left(y_1, y_2\\right)(2)=3$, find the value of $W\\left(y_1, y_2\\right)(4)$.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:379",
+          "query_text": "Briefly discuss some abnormalities of the respiratory tract.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:560",
+          "query_text": " Use indirect truth tables to determine whether each set of propositions is consistent. If the set is consistent, choose an option with a consistent valuation. (There may be other consistent valuations.)\n(E \u2283 F) \u2283 G\n(~E \u2228 F) \u2261 (H \u2228 I)\nI \u2283 (J \u2283 ~H)\n~G \u2283 ~J",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "humaneval:test:78",
+          "query_text": "\ndef iscube(a):\n    '''\n    Write a function that takes an integer a and returns True \n    if this ingeger is a cube of some integer number.\n    Note: you may assume the input is always valid.\n    Examples:\n    iscube(1) ==> True\n    iscube(2) ==> False\n    iscube(-1) ==> True\n    iscube(64) ==> True\n    iscube(0) ==> True\n    iscube(180) ==> False\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mmlupro:test_1000:251",
+          "query_text": "If $y_1$ and $y_2$ are a fundamental set of solutions of $t^2 y^{\\prime \\prime}-2 y^{\\prime}+(3+t) y=0$ and if $W\\left(y_1, y_2\\right)(2)=3$, find the value of $W\\left(y_1, y_2\\right)(4)$.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:379",
+          "query_text": "Briefly discuss some abnormalities of the respiratory tract.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:560",
+          "query_text": " Use indirect truth tables to determine whether each set of propositions is consistent. If the set is consistent, choose an option with a consistent valuation. (There may be other consistent valuations.)\n(E \u2283 F) \u2283 G\n(~E \u2228 F) \u2261 (H \u2228 I)\nI \u2283 (J \u2283 ~H)\n~G \u2283 ~J",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.8888888888888888,
+        "MiniCPM4.1-8B": 0.7777777777777778,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.7777777777777778,
+        "Qwen3-8B": 0.6666666666666666,
+        "Intern-S1-mini": 0.5555555555555556,
+        "Llama-3.1-8B-Instruct": 0.5555555555555556
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    }
+  ]
+}

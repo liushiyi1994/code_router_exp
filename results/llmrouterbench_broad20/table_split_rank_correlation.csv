@@ -1,0 +1,7 @@
+scenario,scenario_type,rank_correlation_vs_random,mean_absolute_utility_delta_vs_random,mean_absolute_recovered_gap_delta_vs_random
+cluster_held_out:0,cluster_held_out,0.790433332862751,0.11388785306721592,0.5672170296866639
+domain_homogeneous:broad_knowledge,domain_homogeneous,0.9759000729485332,0.018785612535612548,0.07800189670265541
+leave_dataset_out:aime,leave_one_dataset_out,0.7831893756568049,0.07679843304843305,0.836169702780442
+leave_domain_out:broad_knowledge,leave_one_domain_out,0.9581010095306071,0.06029849779849781,0.16179576994037284
+model_pool_holdout:DeepHermes-3-Llama-3-8B-Preview,model_pool_holdout,0.9761904761904763,0.002225783475783477,0.010301956834206682
+random,random,1.0,0.0,0.0

@@ -1,0 +1,1525 @@
+{
+  "schema_version": "routecode.code_cards.v1",
+  "cards": [
+    {
+      "label_id": 0,
+      "short_name": "instruction_following__reasoner_13b",
+      "size": 27,
+      "best_model": "reasoner_13b",
+      "second_best_model": "frontier_expensive",
+      "model_margin": 0.3377846380774592,
+      "top_domains": [
+        {
+          "name": "instruction_following",
+          "count": 10
+        },
+        {
+          "name": "general_knowledge",
+          "count": 7
+        },
+        {
+          "name": "symbolic_math",
+          "count": 7
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_instructions",
+          "count": 10
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 7
+        },
+        {
+          "name": "synthetic_math",
+          "count": 7
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00074",
+          "query_text": "Synthetic general knowledge request 74: solve a route_10 case with difficulty 0.30.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00159",
+          "query_text": "Synthetic instruction following request 159: solve a route_10 case with difficulty 0.28.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00245",
+          "query_text": "Synthetic systems debugging request 245: solve a route_10 case with difficulty 0.42.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        },
+        {
+          "query_id": "q00259",
+          "query_text": "Synthetic instruction following request 259: solve a route_10 case with difficulty 0.62.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q01130",
+          "query_text": "Synthetic data transformation request 1130: solve a route_10 case with difficulty 0.42.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q01994",
+          "query_text": "Synthetic symbolic math request 1994: solve a route_10 case with difficulty 0.32.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q01465",
+          "query_text": "Synthetic symbolic math request 1465: solve a route_10 case with difficulty 0.33.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00074",
+          "query_text": "Synthetic general knowledge request 74: solve a route_10 case with difficulty 0.30.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "reasoner_13b": 0.5789873311182209,
+        "frontier_expensive": 0.2412026930407617,
+        "general_8b": 0.20965899812896602,
+        "tiny_cheap": 0.14021974615572963,
+        "code_7b": 0.12756003593345108,
+        "math_7b": 0.08140616530681635
+      },
+      "human_readable_explanation": "`instruction_following__reasoner_13b` groups queries whose train-set utility profile favors `reasoner_13b`. It is most associated with domain `instruction_following` and dataset `synthetic_instructions` in this run."
+    },
+    {
+      "label_id": 1,
+      "short_name": "symbolic_math__code_7b",
+      "size": 102,
+      "best_model": "code_7b",
+      "second_best_model": "general_8b",
+      "model_margin": 0.4814597708935765,
+      "top_domains": [
+        {
+          "name": "symbolic_math",
+          "count": 97
+        },
+        {
+          "name": "routine_code",
+          "count": 2
+        },
+        {
+          "name": "general_knowledge",
+          "count": 2
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_math",
+          "count": 97
+        },
+        {
+          "name": "synthetic_code",
+          "count": 2
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 2
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00001",
+          "query_text": "Synthetic symbolic math request 1: solve a route_02 case with difficulty 0.34.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00028",
+          "query_text": "Synthetic symbolic math request 28: solve a route_02 case with difficulty 0.45.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00029",
+          "query_text": "Synthetic symbolic math request 29: solve a route_02 case with difficulty 0.26.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00051",
+          "query_text": "Synthetic symbolic math request 51: solve a route_02 case with difficulty 0.29.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00786",
+          "query_text": "Synthetic instruction following request 786: solve a route_02 case with difficulty 0.41.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q02336",
+          "query_text": "Synthetic symbolic math request 2336: solve a route_02 case with difficulty 0.43.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00029",
+          "query_text": "Synthetic symbolic math request 29: solve a route_02 case with difficulty 0.26.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00051",
+          "query_text": "Synthetic symbolic math request 51: solve a route_02 case with difficulty 0.29.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "model_utility_vector": {
+        "code_7b": 0.7227469916943763,
+        "general_8b": 0.2412872208007998,
+        "math_7b": 0.2313317064794496,
+        "frontier_expensive": 0.21889069717186369,
+        "reasoner_13b": 0.16879197336115467,
+        "tiny_cheap": 0.08716123599510342
+      },
+      "human_readable_explanation": "`symbolic_math__code_7b` groups queries whose train-set utility profile favors `code_7b`. It is most associated with domain `symbolic_math` and dataset `synthetic_math` in this run."
+    },
+    {
+      "label_id": 2,
+      "short_name": "routine_code__general_8b",
+      "size": 27,
+      "best_model": "general_8b",
+      "second_best_model": "code_7b",
+      "model_margin": 0.2638399073082531,
+      "top_domains": [
+        {
+          "name": "routine_code",
+          "count": 9
+        },
+        {
+          "name": "general_knowledge",
+          "count": 7
+        },
+        {
+          "name": "instruction_following",
+          "count": 4
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_code",
+          "count": 9
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 7
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00009",
+          "query_text": "Synthetic data transformation request 9: solve a route_01 case with difficulty 0.37.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00109",
+          "query_text": "Synthetic data transformation request 109: solve a route_01 case with difficulty 0.43.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00121",
+          "query_text": "Synthetic general knowledge request 121: solve a route_01 case with difficulty 0.25.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00393",
+          "query_text": "Synthetic general knowledge request 393: solve a route_01 case with difficulty 0.33.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00971",
+          "query_text": "Synthetic instruction following request 971: solve a route_01 case with difficulty 0.41.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q02196",
+          "query_text": "Synthetic general knowledge request 2196: solve a route_01 case with difficulty 0.17.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01371",
+          "query_text": "Synthetic general knowledge request 1371: solve a route_01 case with difficulty 0.21.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01632",
+          "query_text": "Synthetic instruction following request 1632: solve a route_01 case with difficulty 0.40.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "general_8b": 0.6160217519739,
+        "code_7b": 0.3521818446656469,
+        "frontier_expensive": 0.2821704462240603,
+        "reasoner_13b": 0.24432326342064364,
+        "tiny_cheap": 0.16283726565865678,
+        "math_7b": 0.09671931606962295
+      },
+      "human_readable_explanation": "`routine_code__general_8b` groups queries whose train-set utility profile favors `general_8b`. It is most associated with domain `routine_code` and dataset `synthetic_code` in this run."
+    },
+    {
+      "label_id": 3,
+      "short_name": "instruction_following__reasoner_13b",
+      "size": 94,
+      "best_model": "reasoner_13b",
+      "second_best_model": "frontier_expensive",
+      "model_margin": 0.3945625065459218,
+      "top_domains": [
+        {
+          "name": "instruction_following",
+          "count": 85
+        },
+        {
+          "name": "general_knowledge",
+          "count": 5
+        },
+        {
+          "name": "symbolic_math",
+          "count": 3
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_instructions",
+          "count": 85
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 5
+        },
+        {
+          "name": "synthetic_math",
+          "count": 3
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00016",
+          "query_text": "Synthetic instruction following request 16: solve a route_04 case with difficulty 0.42.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00034",
+          "query_text": "Synthetic instruction following request 34: solve a route_04 case with difficulty 0.35.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00056",
+          "query_text": "Synthetic instruction following request 56: solve a route_04 case with difficulty 0.39.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00077",
+          "query_text": "Synthetic instruction following request 77: solve a route_04 case with difficulty 0.42.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00106",
+          "query_text": "Synthetic general knowledge request 106: solve a route_04 case with difficulty 0.38.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q02212",
+          "query_text": "Synthetic general knowledge request 2212: solve a route_04 case with difficulty 0.25.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01262",
+          "query_text": "Synthetic general knowledge request 1262: solve a route_04 case with difficulty 0.39.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01608",
+          "query_text": "Synthetic instruction following request 1608: solve a route_04 case with difficulty 0.45.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "reasoner_13b": 0.6451873697024779,
+        "frontier_expensive": 0.25062486315655613,
+        "tiny_cheap": 0.08629948469041267,
+        "general_8b": 0.06066427110843354,
+        "code_7b": 0.03609614710192266,
+        "math_7b": 0.024709312684765013
+      },
+      "human_readable_explanation": "`instruction_following__reasoner_13b` groups queries whose train-set utility profile favors `reasoner_13b`. It is most associated with domain `instruction_following` and dataset `synthetic_instructions` in this run."
+    },
+    {
+      "label_id": 4,
+      "short_name": "symbolic_math__code_7b",
+      "size": 76,
+      "best_model": "code_7b",
+      "second_best_model": "math_7b",
+      "model_margin": 0.45532434204756933,
+      "top_domains": [
+        {
+          "name": "symbolic_math",
+          "count": 72
+        },
+        {
+          "name": "instruction_following",
+          "count": 2
+        },
+        {
+          "name": "systems_debugging",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_math",
+          "count": 72
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 2
+        },
+        {
+          "name": "synthetic_debug",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00010",
+          "query_text": "Synthetic symbolic math request 10: solve a route_08 case with difficulty 0.40.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00059",
+          "query_text": "Synthetic symbolic math request 59: solve a route_08 case with difficulty 0.30.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00066",
+          "query_text": "Synthetic symbolic math request 66: solve a route_08 case with difficulty 0.22.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00089",
+          "query_text": "Synthetic symbolic math request 89: solve a route_08 case with difficulty 0.33.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00010",
+          "query_text": "Synthetic symbolic math request 10: solve a route_08 case with difficulty 0.40.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00059",
+          "query_text": "Synthetic symbolic math request 59: solve a route_08 case with difficulty 0.30.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00066",
+          "query_text": "Synthetic symbolic math request 66: solve a route_08 case with difficulty 0.22.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00089",
+          "query_text": "Synthetic symbolic math request 89: solve a route_08 case with difficulty 0.33.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "model_utility_vector": {
+        "code_7b": 0.6931548526208952,
+        "math_7b": 0.2378305105733258,
+        "frontier_expensive": 0.19615186284250355,
+        "reasoner_13b": 0.15450638269015277,
+        "tiny_cheap": 0.09024960686924874,
+        "general_8b": 0.05096105729295655
+      },
+      "human_readable_explanation": "`symbolic_math__code_7b` groups queries whose train-set utility profile favors `code_7b`. It is most associated with domain `symbolic_math` and dataset `synthetic_math` in this run."
+    },
+    {
+      "label_id": 5,
+      "short_name": "systems_debugging__frontier_expensive",
+      "size": 64,
+      "best_model": "frontier_expensive",
+      "second_best_model": "general_8b",
+      "model_margin": 0.35298259185033276,
+      "top_domains": [
+        {
+          "name": "systems_debugging",
+          "count": 38
+        },
+        {
+          "name": "symbolic_math",
+          "count": 9
+        },
+        {
+          "name": "general_knowledge",
+          "count": 9
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_debug",
+          "count": 38
+        },
+        {
+          "name": "synthetic_math",
+          "count": 9
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 9
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00067",
+          "query_text": "Synthetic routine code request 67: solve a route_11 case with difficulty 0.14.",
+          "dataset": "synthetic_code",
+          "domain": "routine_code"
+        },
+        {
+          "query_id": "q00110",
+          "query_text": "Synthetic symbolic math request 110: solve a route_11 case with difficulty 0.34.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00217",
+          "query_text": "Synthetic systems debugging request 217: solve a route_11 case with difficulty 0.43.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        },
+        {
+          "query_id": "q00276",
+          "query_text": "Synthetic systems debugging request 276: solve a route_11 case with difficulty 0.45.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q01387",
+          "query_text": "Synthetic general knowledge request 1387: solve a route_11 case with difficulty 0.12.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00981",
+          "query_text": "Synthetic general knowledge request 981: solve a route_11 case with difficulty 0.44.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00700",
+          "query_text": "Synthetic instruction following request 700: solve a route_11 case with difficulty 0.43.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00067",
+          "query_text": "Synthetic routine code request 67: solve a route_11 case with difficulty 0.14.",
+          "dataset": "synthetic_code",
+          "domain": "routine_code"
+        }
+      ],
+      "model_utility_vector": {
+        "frontier_expensive": 0.5627140507784009,
+        "general_8b": 0.2097314589280681,
+        "tiny_cheap": 0.1925209157215505,
+        "reasoner_13b": 0.15730826711213747,
+        "code_7b": 0.07385961453048531,
+        "math_7b": 0.05109891561848739
+      },
+      "human_readable_explanation": "`systems_debugging__frontier_expensive` groups queries whose train-set utility profile favors `frontier_expensive`. It is most associated with domain `systems_debugging` and dataset `synthetic_debug` in this run."
+    },
+    {
+      "label_id": 6,
+      "short_name": "general_knowledge__tiny_cheap",
+      "size": 169,
+      "best_model": "tiny_cheap",
+      "second_best_model": "general_8b",
+      "model_margin": 0.28698315957065257,
+      "top_domains": [
+        {
+          "name": "general_knowledge",
+          "count": 150
+        },
+        {
+          "name": "instruction_following",
+          "count": 8
+        },
+        {
+          "name": "systems_debugging",
+          "count": 4
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_easy",
+          "count": 150
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 8
+        },
+        {
+          "name": "synthetic_debug",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00003",
+          "query_text": "Synthetic general knowledge request 3: solve a route_00 case with difficulty 0.27.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00015",
+          "query_text": "Synthetic general knowledge request 15: solve a route_00 case with difficulty 0.25.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00030",
+          "query_text": "Synthetic general knowledge request 30: solve a route_00 case with difficulty 0.29.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00031",
+          "query_text": "Synthetic general knowledge request 31: solve a route_00 case with difficulty 0.30.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q01335",
+          "query_text": "Synthetic instruction following request 1335: solve a route_00 case with difficulty 0.43.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q02341",
+          "query_text": "Synthetic systems debugging request 2341: solve a route_00 case with difficulty 0.43.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        },
+        {
+          "query_id": "q01618",
+          "query_text": "Synthetic general knowledge request 1618: solve a route_00 case with difficulty 0.45.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00542",
+          "query_text": "Synthetic routine code request 542: solve a route_00 case with difficulty 0.32.",
+          "dataset": "synthetic_code",
+          "domain": "routine_code"
+        }
+      ],
+      "model_utility_vector": {
+        "tiny_cheap": 0.6924408720602135,
+        "general_8b": 0.405457712489561,
+        "frontier_expensive": 0.2754719161055584,
+        "reasoner_13b": 0.2590823423696397,
+        "math_7b": 0.19367785984378305,
+        "code_7b": 0.18724680400646204
+      },
+      "human_readable_explanation": "`general_knowledge__tiny_cheap` groups queries whose train-set utility profile favors `tiny_cheap`. It is most associated with domain `general_knowledge` and dataset `synthetic_easy` in this run."
+    },
+    {
+      "label_id": 7,
+      "short_name": "general_knowledge__tiny_cheap",
+      "size": 180,
+      "best_model": "tiny_cheap",
+      "second_best_model": "general_8b",
+      "model_margin": 0.3315741380426507,
+      "top_domains": [
+        {
+          "name": "general_knowledge",
+          "count": 164
+        },
+        {
+          "name": "symbolic_math",
+          "count": 5
+        },
+        {
+          "name": "instruction_following",
+          "count": 5
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_easy",
+          "count": 164
+        },
+        {
+          "name": "synthetic_math",
+          "count": 5
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 5
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00005",
+          "query_text": "Synthetic general knowledge request 5: solve a route_06 case with difficulty 0.23.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00019",
+          "query_text": "Synthetic general knowledge request 19: solve a route_06 case with difficulty 0.27.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00021",
+          "query_text": "Synthetic general knowledge request 21: solve a route_06 case with difficulty 0.27.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00022",
+          "query_text": "Synthetic general knowledge request 22: solve a route_06 case with difficulty 0.34.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q02268",
+          "query_text": "Synthetic data transformation request 2268: solve a route_06 case with difficulty 0.37.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q01125",
+          "query_text": "Synthetic data transformation request 1125: solve a route_06 case with difficulty 0.45.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00725",
+          "query_text": "Synthetic symbolic math request 725: solve a route_06 case with difficulty 0.31.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q01929",
+          "query_text": "Synthetic systems debugging request 1929: solve a route_06 case with difficulty 0.40.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        }
+      ],
+      "model_utility_vector": {
+        "tiny_cheap": 0.692470331515778,
+        "general_8b": 0.3608961934731273,
+        "code_7b": 0.30860043034164986,
+        "frontier_expensive": 0.2880726947045399,
+        "reasoner_13b": 0.2653673631835105,
+        "math_7b": 0.24780896717961562
+      },
+      "human_readable_explanation": "`general_knowledge__tiny_cheap` groups queries whose train-set utility profile favors `tiny_cheap`. It is most associated with domain `general_knowledge` and dataset `synthetic_easy` in this run."
+    },
+    {
+      "label_id": 8,
+      "short_name": "instruction_following__reasoner_13b",
+      "size": 158,
+      "best_model": "reasoner_13b",
+      "second_best_model": "frontier_expensive",
+      "model_margin": 0.4807180688836905,
+      "top_domains": [
+        {
+          "name": "instruction_following",
+          "count": 158
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_instructions",
+          "count": 158
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00043",
+          "query_text": "Synthetic instruction following request 43: solve a route_10 case with difficulty 0.35.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00048",
+          "query_text": "Synthetic instruction following request 48: solve a route_10 case with difficulty 0.39.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00069",
+          "query_text": "Synthetic instruction following request 69: solve a route_10 case with difficulty 0.41.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00070",
+          "query_text": "Synthetic instruction following request 70: solve a route_10 case with difficulty 0.45.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00043",
+          "query_text": "Synthetic instruction following request 43: solve a route_10 case with difficulty 0.35.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00048",
+          "query_text": "Synthetic instruction following request 48: solve a route_10 case with difficulty 0.39.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00069",
+          "query_text": "Synthetic instruction following request 69: solve a route_10 case with difficulty 0.41.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00070",
+          "query_text": "Synthetic instruction following request 70: solve a route_10 case with difficulty 0.45.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "reasoner_13b": 0.6526150723739726,
+        "frontier_expensive": 0.17189700349028217,
+        "general_8b": 0.10030565065791448,
+        "tiny_cheap": 0.01840079140471271,
+        "math_7b": -0.017347031289605682,
+        "code_7b": -0.0451089995949546
+      },
+      "human_readable_explanation": "`instruction_following__reasoner_13b` groups queries whose train-set utility profile favors `reasoner_13b`. It is most associated with domain `instruction_following` and dataset `synthetic_instructions` in this run."
+    },
+    {
+      "label_id": 9,
+      "short_name": "systems_debugging__frontier_expensive",
+      "size": 59,
+      "best_model": "frontier_expensive",
+      "second_best_model": "tiny_cheap",
+      "model_margin": 0.29098416608144384,
+      "top_domains": [
+        {
+          "name": "systems_debugging",
+          "count": 38
+        },
+        {
+          "name": "general_knowledge",
+          "count": 8
+        },
+        {
+          "name": "instruction_following",
+          "count": 6
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_debug",
+          "count": 38
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 8
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 6
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00011",
+          "query_text": "Synthetic systems debugging request 11: solve a route_05 case with difficulty 0.44.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        },
+        {
+          "query_id": "q00017",
+          "query_text": "Synthetic systems debugging request 17: solve a route_05 case with difficulty 0.43.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        },
+        {
+          "query_id": "q00099",
+          "query_text": "Synthetic instruction following request 99: solve a route_05 case with difficulty 0.40.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00174",
+          "query_text": "Synthetic systems debugging request 174: solve a route_05 case with difficulty 0.41.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q02217",
+          "query_text": "Synthetic general knowledge request 2217: solve a route_05 case with difficulty 0.32.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01656",
+          "query_text": "Synthetic general knowledge request 1656: solve a route_05 case with difficulty 0.31.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01583",
+          "query_text": "Synthetic instruction following request 1583: solve a route_05 case with difficulty 0.39.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q01407",
+          "query_text": "Synthetic symbolic math request 1407: solve a route_05 case with difficulty 0.37.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "model_utility_vector": {
+        "frontier_expensive": 0.4813949721140046,
+        "tiny_cheap": 0.1904108060325608,
+        "reasoner_13b": 0.16277834527778376,
+        "general_8b": 0.11351794521306247,
+        "math_7b": 0.029388711973322528,
+        "code_7b": 0.004528063489202234
+      },
+      "human_readable_explanation": "`systems_debugging__frontier_expensive` groups queries whose train-set utility profile favors `frontier_expensive`. It is most associated with domain `systems_debugging` and dataset `synthetic_debug` in this run."
+    },
+    {
+      "label_id": 10,
+      "short_name": "symbolic_math__code_7b",
+      "size": 65,
+      "best_model": "code_7b",
+      "second_best_model": "math_7b",
+      "model_margin": 0.4724743325277512,
+      "top_domains": [
+        {
+          "name": "symbolic_math",
+          "count": 54
+        },
+        {
+          "name": "instruction_following",
+          "count": 6
+        },
+        {
+          "name": "general_knowledge",
+          "count": 4
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_math",
+          "count": 54
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 6
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00065",
+          "query_text": "Synthetic symbolic math request 65: solve a route_02 case with difficulty 0.24.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00071",
+          "query_text": "Synthetic symbolic math request 71: solve a route_02 case with difficulty 0.42.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00100",
+          "query_text": "Synthetic instruction following request 100: solve a route_02 case with difficulty 0.44.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00103",
+          "query_text": "Synthetic symbolic math request 103: solve a route_02 case with difficulty 0.25.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q01871",
+          "query_text": "Synthetic data transformation request 1871: solve a route_02 case with difficulty 0.28.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00134",
+          "query_text": "Synthetic instruction following request 134: solve a route_02 case with difficulty 0.47.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q01330",
+          "query_text": "Synthetic instruction following request 1330: solve a route_02 case with difficulty 0.37.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q01758",
+          "query_text": "Synthetic instruction following request 1758: solve a route_02 case with difficulty 0.51.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "code_7b": 0.7579448344752516,
+        "math_7b": 0.28547050194750045,
+        "general_8b": 0.28157574829712984,
+        "frontier_expensive": 0.275090373562081,
+        "reasoner_13b": 0.1929987820510265,
+        "tiny_cheap": 0.12879173500694824
+      },
+      "human_readable_explanation": "`symbolic_math__code_7b` groups queries whose train-set utility profile favors `code_7b`. It is most associated with domain `symbolic_math` and dataset `synthetic_math` in this run."
+    },
+    {
+      "label_id": 11,
+      "short_name": "instruction_following__reasoner_13b",
+      "size": 73,
+      "best_model": "reasoner_13b",
+      "second_best_model": "frontier_expensive",
+      "model_margin": 0.3847215932310537,
+      "top_domains": [
+        {
+          "name": "instruction_following",
+          "count": 73
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_instructions",
+          "count": 73
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00006",
+          "query_text": "Synthetic instruction following request 6: solve a route_04 case with difficulty 0.46.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00046",
+          "query_text": "Synthetic instruction following request 46: solve a route_04 case with difficulty 0.50.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00081",
+          "query_text": "Synthetic instruction following request 81: solve a route_04 case with difficulty 0.42.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00096",
+          "query_text": "Synthetic instruction following request 96: solve a route_04 case with difficulty 0.50.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q01064",
+          "query_text": "Synthetic instruction following request 1064: solve a route_04 case with difficulty 0.47.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q01069",
+          "query_text": "Synthetic instruction following request 1069: solve a route_04 case with difficulty 0.43.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00081",
+          "query_text": "Synthetic instruction following request 81: solve a route_04 case with difficulty 0.42.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00046",
+          "query_text": "Synthetic instruction following request 46: solve a route_04 case with difficulty 0.50.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "reasoner_13b": 0.5947056186044538,
+        "frontier_expensive": 0.20998402537340013,
+        "tiny_cheap": 0.06031404504328047,
+        "general_8b": 0.056123729785416625,
+        "math_7b": 0.007678505994251473,
+        "code_7b": 0.004554547604267448
+      },
+      "human_readable_explanation": "`instruction_following__reasoner_13b` groups queries whose train-set utility profile favors `reasoner_13b`. It is most associated with domain `instruction_following` and dataset `synthetic_instructions` in this run."
+    },
+    {
+      "label_id": 12,
+      "short_name": "data_transformation__math_7b",
+      "size": 120,
+      "best_model": "math_7b",
+      "second_best_model": "reasoner_13b",
+      "model_margin": 0.3546343269576366,
+      "top_domains": [
+        {
+          "name": "data_transformation",
+          "count": 97
+        },
+        {
+          "name": "instruction_following",
+          "count": 8
+        },
+        {
+          "name": "general_knowledge",
+          "count": 7
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_data",
+          "count": 97
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 8
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 7
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00004",
+          "query_text": "Synthetic data transformation request 4: solve a route_03 case with difficulty 0.48.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00012",
+          "query_text": "Synthetic data transformation request 12: solve a route_03 case with difficulty 0.38.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00013",
+          "query_text": "Synthetic data transformation request 13: solve a route_03 case with difficulty 0.40.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00057",
+          "query_text": "Synthetic data transformation request 57: solve a route_03 case with difficulty 0.43.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00881",
+          "query_text": "Synthetic general knowledge request 881: solve a route_03 case with difficulty 0.42.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q01908",
+          "query_text": "Synthetic instruction following request 1908: solve a route_07 case with difficulty 0.42.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q02178",
+          "query_text": "Synthetic instruction following request 2178: solve a route_03 case with difficulty 0.40.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00501",
+          "query_text": "Synthetic instruction following request 501: solve a route_03 case with difficulty 0.37.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "math_7b": 0.6644978520849136,
+        "reasoner_13b": 0.30986352512727705,
+        "frontier_expensive": 0.16340377530346537,
+        "general_8b": 0.10732435977387916,
+        "code_7b": 0.07066837477122491,
+        "tiny_cheap": 0.055273178801679354
+      },
+      "human_readable_explanation": "`data_transformation__math_7b` groups queries whose train-set utility profile favors `math_7b`. It is most associated with domain `data_transformation` and dataset `synthetic_data` in this run."
+    },
+    {
+      "label_id": 13,
+      "short_name": "data_transformation__general_8b",
+      "size": 25,
+      "best_model": "general_8b",
+      "second_best_model": "code_7b",
+      "model_margin": 0.31549880237452643,
+      "top_domains": [
+        {
+          "name": "data_transformation",
+          "count": 6
+        },
+        {
+          "name": "general_knowledge",
+          "count": 6
+        },
+        {
+          "name": "instruction_following",
+          "count": 4
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_data",
+          "count": 6
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 6
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00025",
+          "query_text": "Synthetic symbolic math request 25: solve a route_07 case with difficulty 0.28.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00169",
+          "query_text": "Synthetic data transformation request 169: solve a route_07 case with difficulty 0.47.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00355",
+          "query_text": "Synthetic data transformation request 355: solve a route_07 case with difficulty 0.34.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00421",
+          "query_text": "Synthetic instruction following request 421: solve a route_07 case with difficulty 0.21.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00421",
+          "query_text": "Synthetic instruction following request 421: solve a route_07 case with difficulty 0.21.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q01661",
+          "query_text": "Synthetic data transformation request 1661: solve a route_07 case with difficulty 0.38.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00431",
+          "query_text": "Synthetic general knowledge request 431: solve a route_07 case with difficulty 0.38.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q00025",
+          "query_text": "Synthetic symbolic math request 25: solve a route_07 case with difficulty 0.28.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "model_utility_vector": {
+        "general_8b": 0.5376637785498369,
+        "code_7b": 0.22216497617531047,
+        "reasoner_13b": 0.1984483879851615,
+        "frontier_expensive": 0.19561229439724387,
+        "math_7b": 0.16828844965744166,
+        "tiny_cheap": 0.13974161342622318
+      },
+      "human_readable_explanation": "`data_transformation__general_8b` groups queries whose train-set utility profile favors `general_8b`. It is most associated with domain `data_transformation` and dataset `synthetic_data` in this run."
+    },
+    {
+      "label_id": 14,
+      "short_name": "data_transformation__math_7b",
+      "size": 102,
+      "best_model": "math_7b",
+      "second_best_model": "reasoner_13b",
+      "model_margin": 0.4259591900047719,
+      "top_domains": [
+        {
+          "name": "data_transformation",
+          "count": 79
+        },
+        {
+          "name": "symbolic_math",
+          "count": 9
+        },
+        {
+          "name": "general_knowledge",
+          "count": 7
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_data",
+          "count": 79
+        },
+        {
+          "name": "synthetic_math",
+          "count": 9
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 7
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00037",
+          "query_text": "Synthetic instruction following request 37: solve a route_09 case with difficulty 0.39.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00076",
+          "query_text": "Synthetic data transformation request 76: solve a route_09 case with difficulty 0.39.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00132",
+          "query_text": "Synthetic data transformation request 132: solve a route_09 case with difficulty 0.35.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        },
+        {
+          "query_id": "q00172",
+          "query_text": "Synthetic data transformation request 172: solve a route_09 case with difficulty 0.39.",
+          "dataset": "synthetic_data",
+          "domain": "data_transformation"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00930",
+          "query_text": "Synthetic symbolic math request 930: solve a route_09 case with difficulty 0.31.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q01329",
+          "query_text": "Synthetic systems debugging request 1329: solve a route_09 case with difficulty 0.59.",
+          "dataset": "synthetic_debug",
+          "domain": "systems_debugging"
+        },
+        {
+          "query_id": "q01043",
+          "query_text": "Synthetic symbolic math request 1043: solve a route_09 case with difficulty 0.23.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q01996",
+          "query_text": "Synthetic instruction following request 1996: solve a route_09 case with difficulty 0.48.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        }
+      ],
+      "model_utility_vector": {
+        "math_7b": 0.6714314729821803,
+        "reasoner_13b": 0.24547228297740845,
+        "frontier_expensive": 0.2132008678192851,
+        "general_8b": 0.12277015542983252,
+        "code_7b": 0.10162639648938403,
+        "tiny_cheap": 0.06062564185279715
+      },
+      "human_readable_explanation": "`data_transformation__math_7b` groups queries whose train-set utility profile favors `math_7b`. It is most associated with domain `data_transformation` and dataset `synthetic_data` in this run."
+    },
+    {
+      "label_id": 15,
+      "short_name": "symbolic_math__code_7b",
+      "size": 99,
+      "best_model": "code_7b",
+      "second_best_model": "math_7b",
+      "model_margin": 0.431698775078789,
+      "top_domains": [
+        {
+          "name": "symbolic_math",
+          "count": 89
+        },
+        {
+          "name": "general_knowledge",
+          "count": 5
+        },
+        {
+          "name": "instruction_following",
+          "count": 4
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "synthetic_math",
+          "count": 89
+        },
+        {
+          "name": "synthetic_easy",
+          "count": 5
+        },
+        {
+          "name": "synthetic_instructions",
+          "count": 4
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "q00000",
+          "query_text": "Synthetic instruction following request 0: solve a route_08 case with difficulty 0.47.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00014",
+          "query_text": "Synthetic symbolic math request 14: solve a route_08 case with difficulty 0.19.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00023",
+          "query_text": "Synthetic symbolic math request 23: solve a route_08 case with difficulty 0.36.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        },
+        {
+          "query_id": "q00036",
+          "query_text": "Synthetic symbolic math request 36: solve a route_08 case with difficulty 0.32.",
+          "dataset": "synthetic_math",
+          "domain": "symbolic_math"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "q00313",
+          "query_text": "Synthetic instruction following request 313: solve a route_08 case with difficulty 0.62.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00000",
+          "query_text": "Synthetic instruction following request 0: solve a route_08 case with difficulty 0.47.",
+          "dataset": "synthetic_instructions",
+          "domain": "instruction_following"
+        },
+        {
+          "query_id": "q00753",
+          "query_text": "Synthetic general knowledge request 753: solve a route_08 case with difficulty 0.14.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        },
+        {
+          "query_id": "q02334",
+          "query_text": "Synthetic general knowledge request 2334: solve a route_08 case with difficulty 0.36.",
+          "dataset": "synthetic_easy",
+          "domain": "general_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "code_7b": 0.7251912391189024,
+        "math_7b": 0.29349246404011337,
+        "frontier_expensive": 0.26592422901223467,
+        "reasoner_13b": 0.25838805669765164,
+        "tiny_cheap": 0.115211630423962,
+        "general_8b": 0.11010592032476897
+      },
+      "human_readable_explanation": "`symbolic_math__code_7b` groups queries whose train-set utility profile favors `code_7b`. It is most associated with domain `symbolic_math` and dataset `synthetic_math` in this run."
+    }
+  ]
+}

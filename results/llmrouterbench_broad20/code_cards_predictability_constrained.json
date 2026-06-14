@@ -1,0 +1,1753 @@
+{
+  "schema_version": "routecode.code_cards.v1",
+  "cards": [
+    {
+      "label_id": 0,
+      "short_name": "medicine__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 701,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.029957203994293802,
+      "top_domains": [
+        {
+          "name": "medicine",
+          "count": 680
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 17
+        },
+        {
+          "name": "multilingual",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "medqa",
+          "count": 680
+        },
+        {
+          "name": "mmlupro",
+          "count": 17
+        },
+        {
+          "name": "korbench",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1170",
+          "query_text": "Research has shown that the impact of family education styles on children's emotional intelligence varies across cultures. Through an analysis of similarities and differences, we first examined a group of families whose parents adopted an educational style that actively participated and encouraged the expression of emotions. Children in these families demonstrated higher levels of emotional intelligence, showing greater emotional expression and problem-solving skills. In contrast, the other group of parents adopted a passive and negative educational style with little involvement in their children's emotional expression and problem-solving processes. In these families, the children had significantly lower EQ development and showed emotional suppression and inadequate problem-solving skills. Therefore, we conclude that a family education style that actively participates in and encourages the expression of emotions significantly contributes to the development of children's emotional intelligence.\n\nThe causal derivation of this discourse is consistent with which approach:\nA. \u2e2e method   B. \u0606 method   C. \ua66e method   D. \u2d63 method   E. \u2698 method\n\nPlease give your answer in [[A/B/C/D/E]] format.",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "mmlupro:test_1000:10",
+          "query_text": "A previously healthy 27-year-old nulligravid woman comes to the emergency department because of a 2-day history of moderate-to-severe pain and swelling of the left labia. She is sexually active and uses condoms inconsistently. Her temperature is 37.2\u00b0C (99\u00b0F), pulse is 92/min, respirations are 18/min, and blood pressure is 115/75 mm Hg. Pelvic examination shows a 4 x 3-cm, tender, fluctuant mass medial to the left labium majus compromising the introital opening. Which of the following is the most appropriate next step in management?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:13",
+          "query_text": "A graduate student\u2019s dissertation chair, Dr. X, turns out to be of little help, and the student ends up obtaining advice and assistance from an associate professor, Dr. Z. Dr. X does review the dissertation when it is completed and she is listed as the dissertation chair. Several months later, the student decides to write an article for a professional journal that is based his dissertation research. In terms of publication credit:",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:59",
+          "query_text": "If a plumber is paid $4.50 per hour for all time worked up to 40 hours, and 1(3/4) time for work m excess of 40 hours. What is his pay for a 50-hour work week?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "medqa:test:1221",
+          "query_text": "A 67-year-old woman with depression comes to the physician because of easy bruising and bleeding of her gums for the past 2 months. She has been living alone since the death of her husband 1 year ago. She appears thin and has temporal wasting bilaterally. Physical examination shows bruises on her lower legs, swollen gums, and petechiae on the hard palate. This patient's symptoms are most likely due to defective synthesis of a substance that is composed primarily of which of the following amino acids?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "medqa:test:1216",
+          "query_text": "A 58-year-old woman presents to the office for routine follow-up. She recently underwent routine screening for bone density due to a history of hypothyroidism. She also has a history of gastroesophageal reflux disease (GERD) that is being treated with a proton-pump inhibitor (PPI) and more recently with a histamine2 receptor antagonist (H2RA), hypertension being treated with a thiazide diuretic, depression being treated with lithium, and hormone replacement therapy. Her results meet the criteria for osteopenia, with a T-score of -1.6. She is concerned about progressive bone loss and the risk of fractures. Which of the following medication classes should be discontinued?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "medqa:test:1207",
+          "query_text": "A 35-year-old woman comes to the physician for genetic counseling prior to conception. Her younger brother has mild developmental delay, pale complexion, and has to limit his dietary intake of phenylalanine. She has no similar symptoms and is in good health. Her parents are healthy. Which of the following is the most appropriate assessment of her carrier status for the disease affecting her brother?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "medqa:test:1199",
+          "query_text": "A 27-year-old man with a history of cocaine abuse comes to the physician 2 weeks after undergoing successful arthroscopic repair of a torn medial collateral ligament in his left knee. There were no complications. He was discharged with prescriptions for oxycodone and acetaminophen. He complains of severe pain that prevents him from participating in physical therapy and wakes him from sleep. Physical examination of the left knee shows a healing incision; there is no joint effusion, erythema, or evidence of wound dehiscence, and his gait is normal. When the physician recommends switching to ibuprofen for pain, he becomes visibly angry and demands a refill of oxycodone. Which of the following is the most appropriate response to this patient's request?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.8388017118402282,
+        "Qwen3-8B": 0.8088445078459344,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.7617689015691869,
+        "Llama-3.1-8B-Instruct": 0.717546362339515,
+        "GLM-Z1-9B-0414": 0.7146932952924394,
+        "internlm3-8b-instruct": 0.6875891583452212,
+        "Intern-S1-mini": 0.6804564907275321,
+        "Llama-3.1-8B-UltraMedical": 0.6761768901569187,
+        "MiniCPM4.1-8B": 0.6704707560627675,
+        "cogito-v1-preview-llama-8B": 0.6619115549215406,
+        "gemma-2-9b-it": 0.6433666191155493,
+        "Fin-R1": 0.637660485021398,
+        "granite-3.3-8b-instruct": 0.6105563480741797,
+        "glm-4-9b-chat": 0.6062767475035663,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.5920114122681883,
+        "OpenThinker3-7B": 0.5007132667617689,
+        "Qwen2.5-Coder-7B-Instruct": 0.47218259629101283,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.39229671897289586,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.33808844507845937,
+        "MiMo-7B-RL-0530": 0.2781740370898716
+      },
+      "human_readable_explanation": "`medicine__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `medicine` and dataset `medqa` in this run."
+    },
+    {
+      "label_id": 1,
+      "short_name": "multilingual__GLM-Z1-9B-0414",
+      "size": 334,
+      "best_model": "GLM-Z1-9B-0414",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.0119760479041916,
+      "top_domains": [
+        {
+          "name": "multilingual",
+          "count": 327
+        },
+        {
+          "name": "math",
+          "count": 6
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "korbench",
+          "count": 327
+        },
+        {
+          "name": "math500",
+          "count": 4
+        },
+        {
+          "name": "winogrande",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:252",
+          "query_text": "Compute 25\u203b5\u203b14.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:255",
+          "query_text": "If X\u203b14=5, find X.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:257",
+          "query_text": "If 25\u203b5\u203bX=4, find X.\nWhen providing your answer, please enclose it in double square brackets, like this: [[answer]]. \nIf there is more than one correct answer, separate the answers with 'or', like this: [[1or2]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:258",
+          "query_text": "If 19\u203b28\u203b4\u203b(X\u203b13) =3, find X.\nWhen providing your answer, please enclose it in double square brackets, like this: [[answer]]. \nIf there is more than one correct answer, separate the answers with 'or', like this: [[1or2]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "math500:test:31",
+          "query_text": "Find the product of $6_8 \\cdot 7_8.$ Express your answer in base $8.$",
+          "dataset": "math500",
+          "domain": "math"
+        },
+        {
+          "query_id": "korbench:test:612",
+          "query_text": "X  X  X  X  5\nX  X  X  X  7\nX  X  X  X  6\nX  X  X  X  5\n3  9  4  6  \n\nThe final answer should be given in order from left to right, top to bottom with each element separated by a space and different lines separated by \",\". Wrap your final answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:611",
+          "query_text": "X  X  X  X  4\nX  X  X  X  8\nX  X  X  X  7\nX  X  X  X  6\n9  7  6  6  \n\nThe final answer should be given in order from left to right, top to bottom with each element separated by a space and different lines separated by \",\". Wrap your final answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:609",
+          "query_text": "X  X  X  X  49\nX  X  X  X  23\nX  X  X  X  34\nX  X  X  X  30\n40  52  10  34  \nThe final answer should be given in order from left to right, top to bottom with each element separated by a space and different lines separated by \",\". Wrap your final answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "GLM-Z1-9B-0414": 0.6946107784431138,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.6826347305389222,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.6736526946107785,
+        "Intern-S1-mini": 0.6676646706586826,
+        "Qwen3-8B": 0.6497005988023952,
+        "cogito-v1-preview-llama-8B": 0.5988023952095808,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5479041916167665,
+        "glm-4-9b-chat": 0.5029940119760479,
+        "granite-3.3-8b-instruct": 0.46706586826347307,
+        "MiniCPM4.1-8B": 0.45209580838323354,
+        "gemma-2-9b-it": 0.44011976047904194,
+        "MiMo-7B-RL-0530": 0.437125748502994,
+        "Qwen2.5-Coder-7B-Instruct": 0.4281437125748503,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.4251497005988024,
+        "Fin-R1": 0.4221556886227545,
+        "internlm3-8b-instruct": 0.3772455089820359,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.37425149700598803,
+        "Llama-3.1-8B-Instruct": 0.32335329341317365,
+        "OpenThinker3-7B": 0.218562874251497,
+        "Llama-3.1-8B-UltraMedical": 0.20958083832335328
+      },
+      "human_readable_explanation": "`multilingual__GLM-Z1-9B-0414` groups queries whose train-set utility profile favors `GLM-Z1-9B-0414`. It is most associated with domain `multilingual` and dataset `korbench` in this run."
+    },
+    {
+      "label_id": 2,
+      "short_name": "dialogue__cogito-v1-preview-llama-8B",
+      "size": 489,
+      "best_model": "cogito-v1-preview-llama-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.008179959100204415,
+      "top_domains": [
+        {
+          "name": "dialogue",
+          "count": 487
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 1
+        },
+        {
+          "name": "reasoning",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "meld",
+          "count": 363
+        },
+        {
+          "name": "emorynlp",
+          "count": 124
+        },
+        {
+          "name": "winogrande",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "emorynlp:test:4",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- We get off around midnight, why don't we pick you up then?\n- So, um, will you bring the truck?\n- I'll even let you ring the bell.\n- Oh, my god.\n- See, there you go, the cleansing works!\n- They're nice guys.\n\nUtterance:\nOh, they're firemen guys.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:10",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- C'mon.\n- Joey.\n- Open up. We want to talk to you.\n- I don't feel like talkin.\n- Oh c'mon Joey, we care about you.\n- We're worried about you.\n- And some of us really have to pee.\n- Sorry Joey\n- Hey.\n- Listen, sorry about your death, that really sucks.\n- We came over as soon as we saw.\n- How could you not tell us?\n- I don't know, I was kinda hopin' no one would ever find out.\n- Well, maybe they can find a way to bring you back.\n- Naa, they said that when they found my body, my brain was so smashed in that the only doctor that could have saved me was me. Supposed to be some kind of irony or somethin.\n- But Joey, you're gonna be fine. You don't need that show, it was just a dumb soap opera.\n- Phoebe, this was the greatest thing that ever happened to me.\n- Yes, I was going to incorporate that. Oh good, here's Monica, she'll have something nice to say.\n- Um, I straightened out your shower curtain so you won't get mildew. What? To me that's nice.\n- It's gonna be ok. You know that?\n- No, I don't. It's like, ya know, you work your whole life for somethin' and you think that when you get it it's never gonna be as good as you thought it would be. But this so was. Ya know, it changed everything. Like the other day, I got this credit card application, and I was pre- approved. Huh? I've never been pre-approved for anything in my life.\n- I'm sorry man.\n- Yeah, Joey honey, I don't know if this'll mean anything to you but you'll always be pre-approved with us.\n\nUtterance:\nNo, that means nothin to me.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:28",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- What's the matter?\n- Oh, it's just... Oh, Barry, this was not good.\n- No, it was. It was very very good.\n- Well, what about Mindy?\n- Oh, way, way better than Mindy.\n- No, not that, I mean, what about you and Mindy?\n- Well, if you want, I'll justI'll just break it off with her.\n- No. No-no-no-no, no. I mean, don't do that. Not, I mean not for me.\n- Dr. Farber, Bobby Rush is here for his adjustment.\n- Thanks, Bernice. Let's go away this weekend.\n- Oh, Barry..! Come on, this is all way too..\n- We can, we can go to Aruba! When I went there on what would have been our honeymoon, it was, uh... it was really nice. You would've liked it.\n- I had a bra.\n- Hey, Dr. Farber.\n- All right Miss Green, everything looks fine... Yep, I think we're starting to see some real progress here.\n- What?!\n\nUtterance:\nI'm twelve, I'm not stupid.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:32",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Hey!\n- Hey!\n- Look everybody, look at my new dollhouse!!\n- Wow!!\n- Look, look!\n- Hey, what's this?!\n- Oh, okay, it's the slide instead of stairs. Watch this.\n- It's very interesting, Phoebe.\n- What's this?\n- The Licorice Room, you can eat all the furniture. And, when guests come over, they can stay on the tootsie roll-away bed.\n- This is the coolest house ever!!\n- Hey, does anybody want to join me in the aroma room?\n- All right!\n- I would!\n- Hey, guys, guys, did you see my new, china cabinet?!\n- Uh-huh.\n- Watch, watch.\n- Ooohhhh!!\n- And, and!\n- Ahhhh!!\n- Hey, my Father's house does that!\n- O-o-o-okay, how did it go? Tell me everything.\n- Well, the movie was great, dinner was great, and there's nothing like a cool, crisp New York evening.\n- Hmm.\n\nUtterance:\nOf course, I didn't get to enjoy any of that, because Joanna's such a big, dull dud!\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "meld:test:1082",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- I think the check in is that way.\n\nUtterance:\nAhh.\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:163",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Hey.\n- Hi.\n- So I ah, talked to Lauren, kinda told her how things were with us. Did you ah, did you talk to Marshall?\n- About what?\n- Y'know, about what happened with us.\n- Nooo. And there's really no reason he should find out, so ah let's not make a big deal about it, okay?\n- What are you talking about? It was a big deal. I mean, come on you can't tell me last night didn't mean something to you. I-I was there, you're not that good an actress.\n- Look umm, I, I was, I was just caught up in the moment. That's all it was. Joey, I'm-I'm sorry you feel bad, but haven't you ever sleep with a women where it meant more to her than it did to you?\n- Nooo.\n- Hi, Kate!\n- Hi, Lauren.\n- Hi, Lauren.\n\nUtterance:\nHi, pig!\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "meld:test:1204",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Yoo-hoo! Aaron Litman-Neurolic would like to say hello to his future bride.\n\nUtterance:\nOhhh!  Wow! He kinda takes your breath away doesn\u2019t he?\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "meld:test:1012",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- You know you probably didn't know this, but back in high school, I had a, um, major crush on you.\n- I knew.\n- You did! Oh.... I always figured you just thought I was Monica's geeky older brother.\n- I did.\n- Oh.\n- Listen, do you think- and try not to let my intense vulnerability become any kind of a factor here\u2014but do you think it would be okay if I asked you out?\n- Sometime?\n- Maybe?\n- Yeah, maybe...\n\nUtterance:\nOkay... okay, maybe I will...\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        }
+      ],
+      "model_utility_vector": {
+        "cogito-v1-preview-llama-8B": 0.8997955010224948,
+        "Qwen3-8B": 0.8916155419222904,
+        "gemma-2-9b-it": 0.8732106339468303,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.8507157464212679,
+        "glm-4-9b-chat": 0.8507157464212679,
+        "Intern-S1-mini": 0.8404907975460123,
+        "MiniCPM4.1-8B": 0.8323108384458078,
+        "Llama-3.1-8B-Instruct": 0.8302658486707567,
+        "Qwen2.5-Coder-7B-Instruct": 0.8139059304703476,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.8077709611451943,
+        "internlm3-8b-instruct": 0.803680981595092,
+        "granite-3.3-8b-instruct": 0.7934560327198364,
+        "GLM-Z1-9B-0414": 0.7893660531697342,
+        "Fin-R1": 0.7832310838445807,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.7668711656441718,
+        "Llama-3.1-8B-UltraMedical": 0.7259713701431493,
+        "MiMo-7B-RL-0530": 0.7034764826175869,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.6441717791411042,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5725971370143149,
+        "OpenThinker3-7B": 0.5337423312883436
+      },
+      "human_readable_explanation": "`dialogue__cogito-v1-preview-llama-8B` groups queries whose train-set utility profile favors `cogito-v1-preview-llama-8B`. It is most associated with domain `dialogue` and dataset `meld` in this run."
+    },
+    {
+      "label_id": 3,
+      "short_name": "reasoning__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 136,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "GLM-Z1-9B-0414",
+      "model_margin": 0.014705882352941235,
+      "top_domains": [
+        {
+          "name": "reasoning",
+          "count": 104
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 15
+        },
+        {
+          "name": "science",
+          "count": 6
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "bbh",
+          "count": 104
+        },
+        {
+          "name": "winogrande",
+          "count": 15
+        },
+        {
+          "name": "arcc",
+          "count": 6
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "finqa:test:606",
+          "query_text": "at december 31 , 2007 , what percentage of the $ 14.4 billion of home equity loans ( included in 201cconsumer 201d in the table above ) had a loan-to-value ratio greater than 90%.?",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:1060",
+          "query_text": "based on the table , what would be the annual percent return for the companies investments?",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "mmlupro:test_1000:366",
+          "query_text": "If 4 daps = 7 yaps, and 5 yaps = 3 baps, how many daps equal 42 baps?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:377",
+          "query_text": "Does the principle of comparative advantage apply only to international trade?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "bbh:test:604",
+          "query_text": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nHow many animals are more than 5 years old?\nOptions:\n(A) 5\n(B) 6\n(C) 7\n(D) 8\n(E) 9",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        },
+        {
+          "query_id": "winogrande:valid:1180",
+          "query_text": "Jennifer thought it was important to neuter a dog and Rachel did not because _ knew lots of animals become homeless. Jennifer Rachel",
+          "dataset": "winogrande",
+          "domain": "commonsense_reasoning"
+        },
+        {
+          "query_id": "winogrande:valid:903",
+          "query_text": "Ian laughs at Ryan because of the small Christmas tree they picked out. _ wants a table top tree. Ian Ryan",
+          "dataset": "winogrande",
+          "domain": "commonsense_reasoning"
+        },
+        {
+          "query_id": "bbh:test:633",
+          "query_text": "Here is a table where the first line is a header and each subsequent line is a penguin:  name, age, height (cm), weight (kg) Louis, 7, 50, 11 Bernard, 5, 80, 13 Vincent, 9, 60, 11 Gwen, 8, 70, 15  For example: the age of Louis is 7, the weight of Gwen is 15 kg, the height of Bernard is 80 cm.  And here is a similar table, but listing giraffes:\nname, age, height (cm), weight (kg)\nJody, 5, 430, 620\nGladys, 10, 420, 590\nMarian, 2, 310, 410\nDonna, 9, 440, 650\nWhat is the name of the last penguin?\nOptions:\n(A) Louis\n(B) Bernard\n(C) Vincent\n(D) Gwen\n(E) James",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9632352941176471,
+        "GLM-Z1-9B-0414": 0.9485294117647058,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9117647058823529,
+        "MiniCPM4.1-8B": 0.9044117647058824,
+        "Qwen3-8B": 0.8897058823529411,
+        "Intern-S1-mini": 0.8676470588235294,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8161764705882353,
+        "Fin-R1": 0.7794117647058824,
+        "internlm3-8b-instruct": 0.75,
+        "cogito-v1-preview-llama-8B": 0.7352941176470589,
+        "Llama-3.1-8B-Instruct": 0.7205882352941176,
+        "Qwen2.5-Coder-7B-Instruct": 0.6764705882352942,
+        "gemma-2-9b-it": 0.6617647058823529,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.5588235294117647,
+        "glm-4-9b-chat": 0.5294117647058824,
+        "MiMo-7B-RL-0530": 0.5073529411764706,
+        "OpenThinker3-7B": 0.49264705882352944,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.4411764705882353,
+        "granite-3.3-8b-instruct": 0.40441176470588236,
+        "Llama-3.1-8B-UltraMedical": 0.39705882352941174
+      },
+      "human_readable_explanation": "`reasoning__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `reasoning` and dataset `bbh` in this run."
+    },
+    {
+      "label_id": 4,
+      "short_name": "finance__Qwen3-8B",
+      "size": 574,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.008710801393728262,
+      "top_domains": [
+        {
+          "name": "finance",
+          "count": 463
+        },
+        {
+          "name": "math",
+          "count": 43
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 31
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "finqa",
+          "count": 463
+        },
+        {
+          "name": "math500",
+          "count": 36
+        },
+        {
+          "name": "mmlupro",
+          "count": 31
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1072",
+          "query_text": "Some students do not like mathematics.\n\n1. S is what?\n2. P is what?\n3. C is what?\n4. Q is what?\n\nA. students  B.like mathematics  C.some   D.do not \n\nPlease answer in the format of [[A/B/C/D];[A/B/C/D];[A/B/C/D];[A/B/C/D]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1075",
+          "query_text": "What type of proposition is the following statement?\n\"Some stars are planets.\"\n\nPlease answer in the format of [[SAP/SEP/SIP/SOP]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "finqa:test:2",
+          "query_text": "what percentage of total facilities as measured in square feet are leased?",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:4",
+          "query_text": "what portion of total purchase price is related to stock awards?",
+          "dataset": "finqa",
+          "domain": "finance"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "finqa:test:43",
+          "query_text": "as of december 31 , 2017 what was the value of the granted share awards",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:1017",
+          "query_text": "in november 2015 what was the percent of the costs associated with issuing of the notes under the 364-day facility used to finance the acquisition",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:1012",
+          "query_text": "what was total in millions of accumulated other comprehensive loss?",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:301",
+          "query_text": "what was the percentage change in non-interest revenue from 2006 to 2007?",
+          "dataset": "finqa",
+          "domain": "finance"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.9529616724738676,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9442508710801394,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9355400696864111,
+        "GLM-Z1-9B-0414": 0.9128919860627178,
+        "Intern-S1-mini": 0.9094076655052264,
+        "MiniCPM4.1-8B": 0.8954703832752613,
+        "Fin-R1": 0.8815331010452961,
+        "Qwen2.5-Coder-7B-Instruct": 0.8362369337979094,
+        "granite-3.3-8b-instruct": 0.8327526132404182,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8257839721254355,
+        "cogito-v1-preview-llama-8B": 0.818815331010453,
+        "gemma-2-9b-it": 0.818815331010453,
+        "internlm3-8b-instruct": 0.8031358885017421,
+        "OpenThinker3-7B": 0.7961672473867596,
+        "glm-4-9b-chat": 0.7560975609756098,
+        "Llama-3.1-8B-UltraMedical": 0.7160278745644599,
+        "Llama-3.1-8B-Instruct": 0.7073170731707317,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.7020905923344948,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.4738675958188153,
+        "MiMo-7B-RL-0530": 0.2613240418118467
+      },
+      "human_readable_explanation": "`finance__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `finance` and dataset `finqa` in this run."
+    },
+    {
+      "label_id": 5,
+      "short_name": "dialogue__glm-4-9b-chat",
+      "size": 633,
+      "best_model": "glm-4-9b-chat",
+      "second_best_model": "Fin-R1",
+      "model_margin": 0.0363349131121643,
+      "top_domains": [
+        {
+          "name": "dialogue",
+          "count": 632
+        },
+        {
+          "name": "multilingual",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "meld",
+          "count": 352
+        },
+        {
+          "name": "emorynlp",
+          "count": 280
+        },
+        {
+          "name": "korbench",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1088",
+          "query_text": "Person A: Hey, speaking is really an art, and not being able to speak well can easily offend people.\nPerson B: Oh? How so?\nPerson A: My grandfather is a case in point. He speaks very straightforwardly and often does good deeds with bad intentions. I remember one time he invited some friends over for dinner.\nPerson B: That's nice, everyone can get together.\nPerson A: The appointment was for six in the evening, and by half past five, three people had arrived, but one important guest hadn't shown up yet.\nPerson B: Then wait a bit longer, if they don't come, start eating without them.\nPerson A: My grandfather is a punctual person. When it was half past six and that guest still hadn't arrived, he got anxious and said to himself, \"The ones who should come are not those who come.\" As a result, one of the guests got upset, thinking they were the one who shouldn't have come, and left.\nPerson B: That's really a misunderstanding.\nPerson A: With two guests left, my grandfather was still waiting, and then he said, \"The ones who have left were the ones who should have stayed.\" Another guest felt there was no sincerity and also left.\nPerson B: How could he say that, another one left.\nPerson A: The last one was my grandfather's old friend, who advised my grandfather to be careful with his words. My grandfather explained that he wasn't talking about him, but the old friend also felt that they were the one who shouldn't stay, and left too.\nPerson B: This dinner really was, everyone left.\n\n\"The ones who have left were the ones who should have stayed.\" by method C, we get? \n\nPlease output the result in [[]] format. \nBe careful to maintain consistency with the original sentence.",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "emorynlp:test:3",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Y'know what, I want you to leave! Get outta here!\n- No!!\n- Just get out! Now!!\n- No!! No!! I wanna stay. I wanna talk about this.\n- Okay! All right! How was she?\n- Uh-oh.\n- What?\n- Was she good?\n- Don't answer that.\n- Come on Ross! You said you wanted to talk about it, let's talk about it!! How was she?\n- She was...\n- Awful! Horrible!\n- She was not good. Not good.\n- She was nothing compared to you.\n- She, she was different.\n- Ewwwww!\n- Uh-oh.\n- Good different?\n- Nobody likes change.\n\nUtterance:\nWhat? Okay, okay, okay, okay.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:5",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Hey!\n- Hi Pheebs!\n- Are you moving out?\n- No, these aren't all my suitcases. This one's Paolo's.\n- Um, um, Rachel can we talk for a sec?\n- Well, sure...just a sec, though, 'cause Paolo's on his way over.\n- Oh! Ok, um, ok, um,\n- Oh, Pheebs, Pheebs...\n- Ok, um, we haven't known each other for that long a time, and, um, there are three things that you should know about me. One, my friends are the most important thing in my life, two, I never lie, and three, I make the best oatmeal raisin cookies in the world.\n- Ok, thanks Pheebs Oh my God, why have I never tasted these before?!\n- Oh, I don't make them a lot because I don't think it's fair to the other cookies\n- All right, well, you're right, these are the best oatmeal cookies I've ever had.\n- Which proves that I never lie.\n- I guess you don't.\n\nUtterance:\nPaolo made a pass at me.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:6",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- I called the sperm bank today, they haven't sold a single unit of Tribianni. Nobody wants my product. I mean, I-I-I don't get it Maybe if they met me in person.\n- Honey, you got a little thing on your...\n- Did I get it?\n- Yeah.\n- Hello.\n- Hello.\n- Hey. Uh, Chan, can I uh, can I talk to you for a second?\n- Sure. What's up?\n\nUtterance:\nJust one uh, one additional relationship thought. Probably something your already familiar with, uh, women talk!\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "meld:test:1131",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Shoot! We\u2019re out of soda.\n- Oh, I\u2019ll go out and get you some.\n- Really?!\n- Nope! Because I\u2019m not your boyfriend.  Hey Pheebs, how did it go?\n- Well, umm, my Mom\u2019s friend, Phoebe, is actually my birth Mom.\n- I found a dried up seashores.\n- Sweety, what are you talking about?\n- Oh, my new Mom, who-who\u2019s a big, fat abandoner!\n- Whoa, wait, Pheebs, wait a second! Don\u2019t you wanna stay here and talk about it?\n- No. I\u2019m just, I wanna, I need to be alone.\n- Monica!\n\nUtterance:\nOh.\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "emorynlp:test:46",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- It's not true. I never called your mother a wolverine.\n- You did so. I swear, I swear How long has she been in the bathroom?\n- Uh, I don't think she's in the bathroom. Her coat is gone.\n- Well maybe it's cold in there. Or maybe I screwed up the first date I had in 9 years.\n- That could be it.\n- Oh, god. You know, this is still pretty hot.\n- Mushroom. Smile. They won't all be like this. Some women might even stay through dinner. Sorry, that's not funny\n- No, it's just...you know the whole \"getting on with your life\" thing. Well, do I have to? I mean, I'm sitting here with this cute woman, and, and, and she's perfectly nice, and, but that there's, that's it. And um, and then I'm here talkin' to you, and, and it's easy, and it's fun, and, and I don't, I don't have to...You know, here's a wacky thought. Um, what's say you and I give it another shot? No no no, I know what you're gonna say, you're a lesbian. But what do you say we just put that aside for now you know? Let's just stick a pin in it, ok? Because, we're great together, you know. You can't deny it. Besides, you're carrying my baby. I mean, how perfect is that? But see, you know, you keep sayin' that, but there's somethin' right here. I love you.\n- Oh, I love you too. But...\n- No but, no but.\n- You know that thing you put over here with the pin in it? It's time to take the pin out. You'll find someone, I know you will. The right woman is just waiting for you.\n- That's easy for you to say, you found one already.\n- All you need is a woman who likes men and you'll be set.\n\nUtterance:\nNot her.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "meld:test:1186",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Hi Pheebs!\n- Hi!\n- How are ya?\n- Good.\n- Umm Pheebs, remember when we were in the coffee house we decided that I was going to keep the uh, the cute guy\u2019s cell phone?\n- Yeah.\n- And remember how I said I was going to keep it in my purse so that if it rang I could just pick it up?\n- Yeah!\n- And do you remember going into my purse and stealing the phone?!\n- Ooh, now you lost me.\n- You stole the phone!\n- No I didn\u2019t!\n- No? So you\u2019re saying that if I called it, it wouldn\u2019t ring?\n- No. Umm, okay. But while you dial, let me show you the features of my new ringing handbag.  Oh, it does work!\n\nUtterance:\nPhoebe!\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "meld:test:1138",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Well, I just called Joshua\n- Oh, how did it go?\n- Well, I did my best to convince him that I\u2019m not some crazy girl who is dying to get married\u2014I\u2019m just going through a hard time.\n- What did he say?\n- Well uh, his answering machine was\n- Ohh, sweetie!  Hey, I bet you anything that he\u2019s gonna call you again.\n- Yeah, maybe, but I don\u2019t think I even care.\n- I don\u2019t think he\u2019s the one I\u2019m sad about.\n- Y\u2019know, I know that I said that I am totally okay with Ross getting married, but as it turns out, I don\u2019t think I\u2019m handling it all that well.\n- Yeah, maybe.\n- And I-I am just trying to figure out why.\n- Any luck?\n- Well, yeah, y\u2019know how Ross and I were on again, off again, on again, off again?\n- I guess I just figured that somewhere down the road, we would be on again.\n- Again. Y\u2019know what? I think we all did.\n\nUtterance:\nHey!\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        }
+      ],
+      "model_utility_vector": {
+        "glm-4-9b-chat": 0.2211690363349131,
+        "Fin-R1": 0.1848341232227488,
+        "gemma-2-9b-it": 0.1769352290679305,
+        "Qwen2.5-Coder-7B-Instruct": 0.1769352290679305,
+        "internlm3-8b-instruct": 0.17535545023696683,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.17377567140600317,
+        "cogito-v1-preview-llama-8B": 0.1721958925750395,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.16903633491311215,
+        "granite-3.3-8b-instruct": 0.1674565560821485,
+        "MiniCPM4.1-8B": 0.16429699842022116,
+        "Intern-S1-mini": 0.15639810426540285,
+        "Qwen3-8B": 0.15481832543443919,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.15165876777251186,
+        "Llama-3.1-8B-UltraMedical": 0.13744075829383887,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.12954186413902052,
+        "Llama-3.1-8B-Instruct": 0.12480252764612954,
+        "GLM-Z1-9B-0414": 0.11690363349131122,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.11690363349131122,
+        "OpenThinker3-7B": 0.11532385466034756,
+        "MiMo-7B-RL-0530": 0.09162717219589257
+      },
+      "human_readable_explanation": "`dialogue__glm-4-9b-chat` groups queries whose train-set utility profile favors `glm-4-9b-chat`. It is most associated with domain `dialogue` and dataset `meld` in this run."
+    },
+    {
+      "label_id": 6,
+      "short_name": "code__Qwen2.5-Coder-7B-Instruct",
+      "size": 533,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "Fin-R1",
+      "model_margin": 0.08818011257035652,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 515
+        },
+        {
+          "name": "reasoning",
+          "count": 17
+        },
+        {
+          "name": "multilingual",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 514
+        },
+        {
+          "name": "bbh",
+          "count": 17
+        },
+        {
+          "name": "korbench",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1142",
+          "query_text": "Write out a logical expression that represents the possibility of the proposition \u03c6 being true after executing the command c.\nPlease provide your answer in the format of [[]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "humaneval:test:149",
+          "query_text": "\ndef bf(planet1, planet2):\n    '''\n    There are eight planets in our solar system: the closerst to the Sun \n    is Mercury, the next one is Venus, then Earth, Mars, Jupiter, Saturn, \n    Uranus, Neptune.\n    Write a function that takes two planet names as strings planet1 and planet2. \n    The function should return a tuple containing all planets whose orbits are \n    located between the orbit of planet1 and the orbit of planet2, sorted by \n    the proximity to the sun. \n    The function should return an empty tuple if planet1 or planet2\n    are not correct planet names. \n    Examples\n    bf(\"Jupiter\", \"Neptune\") ==> (\"Saturn\", \"Uranus\")\n    bf(\"Earth\", \"Mercury\") ==> (\"Venus\")\n    bf(\"Mercury\", \"Uranus\") ==> (\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\")\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:1",
+          "query_text": "Write a python function to find the last two digits in factorial of a given number.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:5",
+          "query_text": "Write a function to remove all characters except letters and numbers using regex",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mbpp:test:954",
+          "query_text": "Write a function to calculate the nth pell number.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:941",
+          "query_text": "Write a python function to find number of elements with odd factors in a given range.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:23",
+          "query_text": "Write a python function to count the number of rotations required to generate a sorted array.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "mbpp:test:922",
+          "query_text": "Write a function to find the ascii value of total characters in a string.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.7954971857410882,
+        "Fin-R1": 0.7073170731707317,
+        "gemma-2-9b-it": 0.649155722326454,
+        "glm-4-9b-chat": 0.6397748592870544,
+        "internlm3-8b-instruct": 0.6360225140712945,
+        "GLM-Z1-9B-0414": 0.6360225140712945,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.6322701688555347,
+        "Llama-3.1-8B-Instruct": 0.6172607879924953,
+        "MiMo-7B-RL-0530": 0.5722326454033771,
+        "Qwen3-8B": 0.5647279549718575,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5628517823639775,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.5534709193245778,
+        "cogito-v1-preview-llama-8B": 0.5403377110694184,
+        "Llama-3.1-8B-UltraMedical": 0.5272045028142589,
+        "Intern-S1-mini": 0.4596622889305816,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.45590994371482174,
+        "MiniCPM4.1-8B": 0.3827392120075047,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.37523452157598497,
+        "granite-3.3-8b-instruct": 0.3677298311444653,
+        "OpenThinker3-7B": 0.1425891181988743
+      },
+      "human_readable_explanation": "`code__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 7,
+      "short_name": "logical_reasoning__Intern-S1-mini",
+      "size": 426,
+      "best_model": "Intern-S1-mini",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.016431924882629123,
+      "top_domains": [
+        {
+          "name": "logical_reasoning",
+          "count": 426
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "kandk",
+          "count": 426
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "kandk:test:1",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 2 inhabitants: Zoey, and Oliver. Zoey remarked, \"Oliver is not a knight\". Oliver stated, \"Oliver is a knight if and only if Zoey is a knave\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:2",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 2 inhabitants: William, and Evelyn. William stated, \"If Evelyn is a knight then Evelyn is a knave\". Evelyn was heard saying, \"William is a knight and Evelyn is a knight\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:4",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 2 inhabitants: Zoey, and Jacob. As Zoey put it, \"If Jacob is a knight then Zoey is a knight\". Jacob told you that Zoey is not a knave. So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:6",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 2 inhabitants: Matthew, and Jackson. As Matthew put it, \"Jackson is a knave and Jackson is a knight\". \"Matthew is not a knight,\" Jackson claimed. So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "kandk:test:663",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 8 inhabitants: Lucas, Ella, Penelope, Daniel, Mia, Avery, Jacob, and Jackson. In Lucas's words: \"Mia is a knight or Mia is a knave\". Ella noted, \"Mia is a knight if and only if Mia is a knave\". In Penelope's words: \"Mia is a knight and Penelope is a knight\". Daniel said that Penelope is a knight. \"Jackson is a knight and Lucas is a knight\" - Mia. In Avery's words: \"Mia is a knave if and only if Jackson is a knight\". Jacob asserted: \"Lucas is not a knight\". Jackson said, \"Lucas is a knave.\" So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:651",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 8 inhabitants: Sophia, William, Alexander, Victoria, Mia, Ethan, Noah, and Charlotte. In Sophia's words: \"Mia is a knight if and only if Noah is a knight\". William asserted: \"Sophia is a knight or Mia is a knight\". According to Alexander, \"Ethan is not a knave\". Victoria expressed that Noah is a knight and Mia is a knave. \"If William is a knave then Ethan is a knave,\" Mia claimed. As Ethan put it, \"Noah is a knave or Alexander is a knave\". \"If Victoria is a knave then Noah is a knight\" - Noah. According to Charlotte, \"Mia is a knight if and only if William is a knight\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:699",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 8 inhabitants: Luke, Ella, Aiden, Daniel, Henry, Aria, Mason, and Isabella. \"If Ella is a knight then Daniel is a knave,\" Luke declared. In Ella's words: \"Isabella is not a knight\". Aiden remarked, \"Ella is not a knave\". Daniel expressed that Daniel is a knight. \"Aria is a knave and Aiden is a knight,\" Henry declared. Aria asserted: \"Ella is a knight if and only if Daniel is a knave\". In Mason's words: \"If Isabella is a knight then Aiden is a knight\". Isabella was heard saying, \"Henry is a knight if and only if Ella is a knave\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:18",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 2 inhabitants: Aiden, and Lucas. As Aiden put it, \"If Aiden is a knight then Lucas is a knight\". According to Lucas, \"Lucas is a knight and Aiden is a knight\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "Intern-S1-mini": 0.7910798122065728,
+        "Qwen3-8B": 0.7746478873239436,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.7183098591549296,
+        "MiniCPM4.1-8B": 0.6596244131455399,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.6150234741784038,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.5328638497652582,
+        "GLM-Z1-9B-0414": 0.5023474178403756,
+        "internlm3-8b-instruct": 0.2535211267605634,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.2511737089201878,
+        "cogito-v1-preview-llama-8B": 0.24882629107981222,
+        "granite-3.3-8b-instruct": 0.22769953051643194,
+        "Qwen2.5-Coder-7B-Instruct": 0.2136150234741784,
+        "Fin-R1": 0.18544600938967137,
+        "OpenThinker3-7B": 0.1784037558685446,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.1596244131455399,
+        "Llama-3.1-8B-UltraMedical": 0.1572769953051643,
+        "Llama-3.1-8B-Instruct": 0.14553990610328638,
+        "glm-4-9b-chat": 0.13615023474178403,
+        "gemma-2-9b-it": 0.09154929577464789,
+        "MiMo-7B-RL-0530": 0.03990610328638498
+      },
+      "human_readable_explanation": "`logical_reasoning__Intern-S1-mini` groups queries whose train-set utility profile favors `Intern-S1-mini`. It is most associated with domain `logical_reasoning` and dataset `kandk` in this run."
+    },
+    {
+      "label_id": 8,
+      "short_name": "code__Qwen3-8B",
+      "size": 606,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.024752475247524774,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 527
+        },
+        {
+          "name": "math",
+          "count": 53
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 12
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "livecodebench",
+          "count": 524
+        },
+        {
+          "name": "math500",
+          "count": 25
+        },
+        {
+          "name": "mmlupro",
+          "count": 12
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:661",
+          "query_text": "X X X X\nX X X X\nX X 2 X\nX X X X\n\n(1,3)<(1,4)\n(1,4)<(2,4)\n(2,4)<(3,4)\n(2,1)<(2,2)\n\nPlease provide each element in order from left to right, and from top to bottom, with each element separated by a space and each row separated by a comma. Ensure that your final answer is wrapped in double square brackets.\n\nFor example, if the answer is:\nA B C\nD E F\nG H I\n\nplease output [[A B C,D E F,G H I]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:665",
+          "query_text": "X X X X\nX X X X\nX X X X\nX X X X\n\n(1,2)<(1,3)\n(1,3)>(1,4)\n(1,1)<(2,1)\n(3,2)<(3,3)\n(3,2)>(4,2)\n(3,4)<(4,4)\n\nPlease provide each element in order from left to right, and from top to bottom, with each element separated by a space and each row separated by a comma. Ensure that your final answer is wrapped in double square brackets.\n\nFor example, if the answer is:\nA B C\nD E F\nG H I\n\nplease output [[A B C,D E F,G H I]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1129",
+          "query_text": "Reasoning Formula 7 is consistent with what following what relationship?\n\nA. \u2217 relationship \nB. \u21a6 relationship \nC. \u26ad relationship \nD. \u2042 relationship\n\nPlease provide the answer in the format [[A/B/C/D]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1161",
+          "query_text": "People rub their frozen hands together, and their hands become warm; \npeople strike cold stones, and the stones can spark; \npeople continuously hammer an iron block, and the iron block can also become red-hot. From this, it can be inferred that the movement of objects can generate heat.\n\nThe causal derivation of this discourse fits which method:\nA.\u2e2e method   B.\u0606 method   C.\ua66e method    D.\u2d63 method   E.\u2698 method\n\nPlease give your answer in [[A/B/C/D/E]] format.",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "livecodebench:test:891",
+          "query_text": "There are N mochi (rice cakes), arranged in ascending order of size.\r\nThe size of the i-th mochi (1\\leq i\\leq N) is A_i.\nGiven two mochi A and B, with sizes a and b respectively, you can make one kagamimochi (a stacked rice cake) by placing mochi A on top of mochi B if and only if a is at most half of b.\nFind how many kagamimochi can be made simultaneously.\nMore precisely, find the maximum non-negative integer K for which the following is possible:\n\n- From the N mochi, choose 2K of them to form K pairs. For each pair, place one mochi on top of the other, to make K kagamimochi.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nA_1 A_2 \\dotsc A_N\n\nOutput\n\nPrint the maximum K such that K kagamimochi can be made simultaneously.\n\nConstraints\n\n\n- 2 \\leq N \\leq 5 \\times 10^5\n- 1 \\leq A_i \\leq 10^9 \\ (1 \\leq i \\leq N)\n- A_i \\leq A_{i+1} \\ (1 \\leq i < N)\n- All input values are integers.\n\nSample Input 1\n\n6\r\n2 3 4 4 7 10\n\nSample Output 1\n\n3\r\n\nThe sizes of the given mochi are as follows:\n\nIn this case, you can make the following three kagamimochi simultaneously:\n\nIt is not possible to make four or more kagamimochi from six mochi, so print 3.\n\nSample Input 2\n\n3\r\n387 388 389\n\nSample Output 2\n\n0\r\n\nIt is possible that you cannot make any kagamimochi.\n\nSample Input 3\n\n24\r\n307 321 330 339 349 392 422 430 477 481 488 537 541 571 575 602 614 660 669 678 712 723 785 792\n\nSample Output 3\n\n6",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:897",
+          "query_text": "There are N types of products, each having 10^{100} units in stock.\nYou can buy any non-negative number of units of each product. To buy k units of the i-th product, it costs k^2 P_i yen.\nIf your total purchase cost is at most M yen, what is the maximum number of units you can buy in total?\n\nInput\n\nThe input is given from Standard Input in the following format:\nN M\r\nP_1 \\ldots P_N\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- 1 \\leq N \\leq 2 \\times 10^{5}\n- 1 \\leq M \\leq 10^{18}\n- 1 \\leq P_i \\leq 2 \\times 10^{9}\n- All input values are integers.\n\nSample Input 1\n\n3 9\r\n4 1 9\n\nSample Output 1\n\n3\r\n\nIf you buy one unit of the 1st product and two units of the 2nd product, the total purchase cost is 1^2 \\times 4 + 2^2 \\times 1 = 8. It is impossible to buy four or more units in total with a total cost of at most 9 yen, so the answer is 3.\n\nSample Input 2\n\n10 1000\r\n2 15 6 5 12 1 7 9 17 2\n\nSample Output 2\n\n53",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:802",
+          "query_text": "Define the score of a sequence of positive integers B = (B_1, B_2, \\dots, B_k) as \\displaystyle \\sum_{i=1}^{k-1} \\gcd(B_i, B_{i+1}).\r\nGiven a sequence of positive integers A = (A_1, A_2, \\dots, A_N), solve the following problem for m = 1, 2, \\dots, N.\n\n- There are 2^m - 1 non-empty subsequences of the sequence (A_1, A_2, \\dots, A_m). Find the sum of the scores of all those subsequences, modulo 998244353. Two subsequences are distinguished if they are taken from different positions in the sequence, even if they coincide as sequences.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nA_1 A_2 \\dots A_N\n\nOutput\n\nPrint N lines. The i-th line should contain the answer for m = i.\n\nConstraints\n\n\n- 1 \\leq N \\leq 5 \\times 10^5\n- 1 \\leq A_i \\leq 10^5\n- All input values are integers.\n\nSample Input 1\n\n3\r\n9 6 4\n\nSample Output 1\n\n0\r\n3\r\n11\r\n\nConsider the case m = 3. Here are the non-empty subsequences of (A_1, A_2, A_3) = (9, 6, 4) and their scores.\n\n- (9): Score is 0.\n- (6): Score is 0.\n- (4): Score is 0.\n- (9, 6): Score is \\gcd(9, 6) = 3.\n- (9, 4): Score is \\gcd(9, 4) = 1.\n- (6, 4): Score is \\gcd(6, 4) = 2.\n- (9, 6, 4): Score is \\gcd(9, 6) + \\gcd(6, 4) = 3 + 2 = 5.\n\nTherefore, the answer for m = 3 is 0 + 0 + 0 + 3 + 1 + 2 + 5 = 11.\n\nSample Input 2\n\n5\r\n3 8 12 6 9\n\nSample Output 2\n\n0\r\n1\r\n13\r\n57\r\n155\n\nSample Input 3\n\n10\r\n47718 21994 74148 76721 98917 73766 29598 59035 69293 29127\n\nSample Output 3\n\n0\r\n2\r\n14\r\n35\r\n97\r\n372\r\n866\r\n1859\r\n4273\r\n43287",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livemathbench:test:101",
+          "query_text": "Integers $a$ and $b$ are randomly chosen without replacement from the set of integers with absolute value not exceeding $10$. What is the probability that the polynomial $x^3 + ax^2 + bx + 6$ has $3$ distinct integer roots?",
+          "dataset": "livemathbench",
+          "domain": "math"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.7194719471947195,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.6947194719471947,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.6947194719471947,
+        "MiniCPM4.1-8B": 0.6716171617161716,
+        "GLM-Z1-9B-0414": 0.6567656765676567,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.466996699669967,
+        "OpenThinker3-7B": 0.4438943894389439,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.4405940594059406,
+        "Intern-S1-mini": 0.29042904290429045,
+        "Qwen2.5-Coder-7B-Instruct": 0.23597359735973597,
+        "internlm3-8b-instruct": 0.17986798679867988,
+        "gemma-2-9b-it": 0.14521452145214522,
+        "Llama-3.1-8B-Instruct": 0.13861386138613863,
+        "granite-3.3-8b-instruct": 0.1353135313531353,
+        "cogito-v1-preview-llama-8B": 0.13036303630363036,
+        "glm-4-9b-chat": 0.13036303630363036,
+        "Llama-3.1-8B-UltraMedical": 0.10561056105610561,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.09900990099009901,
+        "Fin-R1": 0.08415841584158416,
+        "MiMo-7B-RL-0530": 0.052805280528052806
+      },
+      "human_readable_explanation": "`code__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `code` and dataset `livecodebench` in this run."
+    },
+    {
+      "label_id": 9,
+      "short_name": "commonsense_reasoning__Qwen3-8B",
+      "size": 1599,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "model_margin": 0.00250156347717323,
+      "top_domains": [
+        {
+          "name": "commonsense_reasoning",
+          "count": 548
+        },
+        {
+          "name": "math",
+          "count": 276
+        },
+        {
+          "name": "reasoning",
+          "count": 253
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "winogrande",
+          "count": 548
+        },
+        {
+          "name": "bbh",
+          "count": 253
+        },
+        {
+          "name": "mmlupro",
+          "count": 218
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:472",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  5 & 6 \\\\\n  7 & 8\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  2 & 1 \\\\\n  0 & 2\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:482",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  5 & 6 \\\\\n  7 & 8\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  2 & 1 \\\\\n  0 & 2\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:483",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  3 & 2 \\\\\n  1 & 0\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:484",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  1 & 2 \\\\\n  3 & 4\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "bbh:test:820",
+          "query_text": "Is the following sentence plausible? \"Giorgio Chiellini committed a handball in the FA Cup.\"",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        },
+        {
+          "query_id": "bbh:test:813",
+          "query_text": "Is the following sentence plausible? \"Jack Flaherty walked to first base in the National League Championship Series.\"",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        },
+        {
+          "query_id": "bbh:test:687",
+          "query_text": "Which of the following is a humorous edit of this artist or movie name: 'the smashing pumpkins'?\nOptions:\n(A) the smashing bumpkins\n(B) thez smashing pumpkins\n(C) the smashingq pumpkins\n(D) the rmashing pumpkins",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        },
+        {
+          "query_id": "bbh:test:682",
+          "query_text": "Which of the following is a humorous edit of this artist or movie name: 'the dark knight rises'?\nOptions:\n(A) the bark knight rises\n(B) thetdark knight rises\n(C) the dork knight rises\n(D) the dark kniggt rises",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.9505941213258287,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9480925578486554,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9287054409005628,
+        "GLM-Z1-9B-0414": 0.9218261413383365,
+        "MiniCPM4.1-8B": 0.9011882426516573,
+        "Intern-S1-mini": 0.8724202626641651,
+        "Fin-R1": 0.8073796122576611,
+        "internlm3-8b-instruct": 0.776735459662289,
+        "gemma-2-9b-it": 0.7542213883677298,
+        "cogito-v1-preview-llama-8B": 0.7535959974984365,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.7479674796747967,
+        "glm-4-9b-chat": 0.7317073170731707,
+        "Qwen2.5-Coder-7B-Instruct": 0.7029393370856786,
+        "granite-3.3-8b-instruct": 0.6848030018761726,
+        "OpenThinker3-7B": 0.6791744840525328,
+        "Llama-3.1-8B-Instruct": 0.6610381488430269,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.6053783614759225,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.5847404627892433,
+        "Llama-3.1-8B-UltraMedical": 0.5609756097560976,
+        "MiMo-7B-RL-0530": 0.5003126954346466
+      },
+      "human_readable_explanation": "`commonsense_reasoning__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `commonsense_reasoning` and dataset `winogrande` in this run."
+    },
+    {
+      "label_id": 10,
+      "short_name": "broad_knowledge__Qwen3-8B",
+      "size": 1120,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "model_margin": 0.002678571428571419,
+      "top_domains": [
+        {
+          "name": "broad_knowledge",
+          "count": 238
+        },
+        {
+          "name": "finance",
+          "count": 187
+        },
+        {
+          "name": "multilingual",
+          "count": 164
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mmlupro",
+          "count": 238
+        },
+        {
+          "name": "finqa",
+          "count": 187
+        },
+        {
+          "name": "korbench",
+          "count": 164
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:268",
+          "query_text": "If 5\u25cb(X\u25cb3)=63, find X.\nThe answer should only be given as a number.\nIf the answer contains a root sign, write it in the form \\sqrt{x} (x is the number under the root sign).\nThe answer may be negative; if so, write it in text format like '-5'.\nIf there is more than one answer, please separate them with 'or', e.g., 1 or 2.\nEnsure that the final answer is wrapped in double square brackets, like this: [[1or2]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:474",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  1 & 2 \\\\\n  3 & 4\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:476",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  6 & 7 \\\\\n  8 & 9\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  0 & 1 \\\\\n  2 & 3\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:478",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  4 & 3 \\\\\n  2 & 1\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "livecodebench:test:702",
+          "query_text": "You are given a 2D array of integers coordinates of length n and an integer k, where 0 <= k < n.\ncoordinates[i] = [x_i, y_i] indicates the point (x_i, y_i) in a 2D plane.\nAn increasing path of length m is defined as a list of points (x_1, y_1), (x_2, y_2), (x_3, y_3), ..., (x_m, y_m) such that:\n\nx_i < x_i + 1 and y_i < y_i + 1 for all i where 1 <= i < m.\n(x_i, y_i) is in the given coordinates for all i where 1 <= i <= m.\n\nReturn the maximum length of an increasing path that contains coordinates[k].\n \nExample 1:\n\nInput: coordinates = [[3,1],[2,2],[4,1],[0,0],[5,3]], k = 1\nOutput: 3\nExplanation:\n(0, 0), (2, 2), (5, 3) is the longest increasing path that contains (2, 2).\n\nExample 2:\n\nInput: coordinates = [[2,1],[7,0],[5,6]], k = 2\nOutput: 2\nExplanation:\n(2, 1), (5, 6) is the longest increasing path that contains (5, 6).\n\n \nConstraints:\n\n1 <= n == coordinates.length <= 10^5\ncoordinates[i].length == 2\n0 <= coordinates[i][0], coordinates[i][1] <= 10^9\nAll elements in coordinates are distinct.\n0 <= k <= n - 1",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:680",
+          "query_text": "You are given two integer arrays energyDrinkA and energyDrinkB of the same length n by a futuristic sports scientist. These arrays represent the energy boosts per hour provided by two different energy drinks, A and B, respectively.\nYou want to maximize your total energy boost by drinking one energy drink per hour. However, if you want to switch from consuming one energy drink to the other, you need to wait for one hour to cleanse your system (meaning you won't get any energy boost in that hour).\nReturn the maximum total energy boost you can gain in the next n hours.\nNote that you can start consuming either of the two energy drinks.\n \nExample 1:\n\nInput: energyDrinkA = [1,3,1], energyDrinkB = [3,1,1]\nOutput: 5\nExplanation:\nTo gain an energy boost of 5, drink only the energy drink A (or only B).\n\nExample 2:\n\nInput: energyDrinkA = [4,1,1], energyDrinkB = [1,1,3]\nOutput: 7\nExplanation:\nTo gain an energy boost of 7:\n\nDrink the energy drink A for the first hour.\nSwitch to the energy drink B and we lose the energy boost of the second hour.\nGain the energy boost of the drink B in the third hour.\n\n\n \nConstraints:\n\nn == energyDrinkA.length == energyDrinkB.length\n3 <= n <= 10^5\n1 <= energyDrinkA[i], energyDrinkB[i] <= 10^5",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:591",
+          "query_text": "You are given 2 positive integers l and r. For any number x, all positive divisors of x except x are called the proper divisors of x.\nA number is called special if it has exactly 2 proper divisors. For example:\n\nThe number 4 is special because it has proper divisors 1 and 2.\nThe number 6 is not special because it has proper divisors 1, 2, and 3.\n\nReturn the count of numbers in the range [l, r] that are not special.\n \nExample 1:\n\nInput: l = 5, r = 7\nOutput: 3\nExplanation:\nThere are no special numbers in the range [5, 7].\n\nExample 2:\n\nInput: l = 4, r = 16\nOutput: 11\nExplanation:\nThe special numbers in the range [4, 16] are 4 and 9.\n\n \nConstraints:\n\n1 <= l <= r <= 10^9",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "korbench:test:558",
+          "query_text": "From \"HEAD\" to \"TALE\".\nOutput the number in double brackets. For example, if it takes 3 steps from the start word to the end word, present the answer as [[3]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.3169642857142857,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.3142857142857143,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.28482142857142856,
+        "MiniCPM4.1-8B": 0.2785714285714286,
+        "GLM-Z1-9B-0414": 0.26875,
+        "Intern-S1-mini": 0.24464285714285713,
+        "cogito-v1-preview-llama-8B": 0.18392857142857144,
+        "gemma-2-9b-it": 0.175,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.1625,
+        "glm-4-9b-chat": 0.16160714285714287,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.16071428571428573,
+        "internlm3-8b-instruct": 0.15982142857142856,
+        "OpenThinker3-7B": 0.15714285714285714,
+        "Qwen2.5-Coder-7B-Instruct": 0.15446428571428572,
+        "granite-3.3-8b-instruct": 0.14017857142857143,
+        "Fin-R1": 0.12767857142857142,
+        "Llama-3.1-8B-Instruct": 0.12410714285714286,
+        "Llama-3.1-8B-UltraMedical": 0.11607142857142858,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.11607142857142858,
+        "MiMo-7B-RL-0530": 0.04196428571428571
+      },
+      "human_readable_explanation": "`broad_knowledge__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `broad_knowledge` and dataset `mmlupro` in this run."
+    },
+    {
+      "label_id": 11,
+      "short_name": "medicine__GLM-Z1-9B-0414",
+      "size": 106,
+      "best_model": "GLM-Z1-9B-0414",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.037735849056603765,
+      "top_domains": [
+        {
+          "name": "medicine",
+          "count": 36
+        },
+        {
+          "name": "reasoning",
+          "count": 29
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 20
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "medqa",
+          "count": 36
+        },
+        {
+          "name": "bbh",
+          "count": 29
+        },
+        {
+          "name": "winogrande",
+          "count": 20
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "finqa:test:25",
+          "query_text": "what is the ratio of the total flight attendants to total maintenance personnel",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:592",
+          "query_text": "what is the ratio of the flight attendants to pilots",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "mmlupro:test_1000:42",
+          "query_text": "The \"crowding-out\" effect refers to which of the following?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:137",
+          "query_text": "What disease is sometimes referred to as the 'royaldisease'?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "finqa:test:25",
+          "query_text": "what is the ratio of the total flight attendants to total maintenance personnel",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:592",
+          "query_text": "what is the ratio of the flight attendants to pilots",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "mmlupro:test_1000:694",
+          "query_text": "The normal voltage used in directional heating is",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "medqa:test:198",
+          "query_text": "A 40-year-old woman presents to her primary care physician for a checkup. She has felt weaker lately and has lost some weight. She denies any urinary issues. Her BUN at her last visit 4 months ago was 45 mg/dL, and her creatinine was 2.0 mg/dL. Her laboratory studies this visit are seen below:\n\nHemoglobin: 8 g/dL\nHematocrit: 29%\nLeukocyte count: 9,500/mm^3 with normal differential\nPlatelet count: 197,000/mm^3\n\nSerum:\nNa+: 139 mEq/L\nCl-: 100 mEq/L\nK+: 5.9 mEq/L\nHCO3-: 17 mEq/L\nBUN: 59 mg/dL\nGlucose: 99 mg/dL\nCreatinine: 2.3 mg/dL\nCa2+: 9.0 mg/dL\n\nWhich of the following is the most likely diagnosis?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        }
+      ],
+      "model_utility_vector": {
+        "GLM-Z1-9B-0414": 0.8018867924528302,
+        "Qwen3-8B": 0.7641509433962265,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.7358490566037735,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.6981132075471698,
+        "Intern-S1-mini": 0.6886792452830188,
+        "MiniCPM4.1-8B": 0.6226415094339622,
+        "internlm3-8b-instruct": 0.5471698113207547,
+        "glm-4-9b-chat": 0.5377358490566038,
+        "gemma-2-9b-it": 0.5283018867924528,
+        "Fin-R1": 0.5188679245283019,
+        "Llama-3.1-8B-UltraMedical": 0.5,
+        "cogito-v1-preview-llama-8B": 0.5,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.49056603773584906,
+        "OpenThinker3-7B": 0.49056603773584906,
+        "granite-3.3-8b-instruct": 0.4716981132075472,
+        "Llama-3.1-8B-Instruct": 0.4339622641509434,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.41509433962264153,
+        "Qwen2.5-Coder-7B-Instruct": 0.39622641509433965,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.37735849056603776,
+        "MiMo-7B-RL-0530": 0.24528301886792453
+      },
+      "human_readable_explanation": "`medicine__GLM-Z1-9B-0414` groups queries whose train-set utility profile favors `GLM-Z1-9B-0414`. It is most associated with domain `medicine` and dataset `medqa` in this run."
+    },
+    {
+      "label_id": 12,
+      "short_name": "multilingual__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 154,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "Intern-S1-mini",
+      "model_margin": 0.08441558441558439,
+      "top_domains": [
+        {
+          "name": "multilingual",
+          "count": 153
+        },
+        {
+          "name": "code",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "korbench",
+          "count": 153
+        },
+        {
+          "name": "humaneval",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1",
+          "query_text": "Plaintext: \"O\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:7",
+          "query_text": "Plaintext: \"HV\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:9",
+          "query_text": "Plaintext: \"TNKGPHLSYPV\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:10",
+          "query_text": "Ciphertext: \"VJYWRDAOPHZ\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:17",
+          "query_text": "Plaintext: \"FK\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:9",
+          "query_text": "Plaintext: \"TNKGPHLSYPV\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:19",
+          "query_text": "Plaintext: \"DVNEXYAHRWB\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:239",
+          "query_text": "Plaintext: \"LKUDDHAZXNK\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.6753246753246753,
+        "Intern-S1-mini": 0.5909090909090909,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.538961038961039,
+        "Qwen3-8B": 0.4805194805194805,
+        "GLM-Z1-9B-0414": 0.33766233766233766,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.33766233766233766,
+        "MiniCPM4.1-8B": 0.2727272727272727,
+        "internlm3-8b-instruct": 0.2662337662337662,
+        "cogito-v1-preview-llama-8B": 0.12337662337662338,
+        "Qwen2.5-Coder-7B-Instruct": 0.09090909090909091,
+        "MiMo-7B-RL-0530": 0.09090909090909091,
+        "gemma-2-9b-it": 0.07792207792207792,
+        "Llama-3.1-8B-Instruct": 0.07792207792207792,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.07142857142857142,
+        "Fin-R1": 0.07142857142857142,
+        "glm-4-9b-chat": 0.07142857142857142,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.07142857142857142,
+        "granite-3.3-8b-instruct": 0.06493506493506493,
+        "Llama-3.1-8B-UltraMedical": 0.032467532467532464,
+        "OpenThinker3-7B": 0.012987012987012988
+      },
+      "human_readable_explanation": "`multilingual__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `multilingual` and dataset `korbench` in this run."
+    },
+    {
+      "label_id": 13,
+      "short_name": "code__Qwen2.5-Coder-7B-Instruct",
+      "size": 210,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "Fin-R1",
+      "model_margin": 0.0,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 116
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 31
+        },
+        {
+          "name": "science",
+          "count": 20
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "humaneval",
+          "count": 69
+        },
+        {
+          "name": "mbpp",
+          "count": 47
+        },
+        {
+          "name": "winogrande",
+          "count": 31
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1076",
+          "query_text": "What type of proposition is the following statement?\n\"All pencils are not pens.\"\n\nPlease answer in the format of [[SAP/SEP/SIP/SOP]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1174",
+          "query_text": "H University can reach a new level after reform. Since F University is an old school with strong faculty and a good school spirit, it has reached a new level after reform; and H University is also an old school with strong faculty and a good school spirit as well, the basic conditions of the two schools are the same.\n\nWhich method of reasoning does this argument follow:\nA. \u03a8 Method             B. \u2318 Method\n\nPlease provide the answer in the format [[A/B]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "humaneval:test:1",
+          "query_text": "from typing import List\n\n\ndef has_close_elements(numbers: List[float], threshold: float) -> bool:\n    \"\"\" Check if in given list of numbers, are any two numbers closer to each other than\n    given threshold.\n    >>> has_close_elements([1.0, 2.0, 3.0], 0.5)\n    False\n    >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)\n    True\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:3",
+          "query_text": "\n\ndef truncate_number(number: float) -> float:\n    \"\"\" Given a positive floating point number, it can be decomposed into\n    and integer part (largest integer smaller than given number) and decimals\n    (leftover part always smaller than 1).\n\n    Return the decimal part of the number.\n    >>> truncate_number(3.5)\n    0.5\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "humaneval:test:28",
+          "query_text": "\n\ndef flip_case(string: str) -> str:\n    \"\"\" For a given string, flip lowercase characters to uppercase and uppercase to lowercase.\n    >>> flip_case('Hello')\n    'hELLO'\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:37",
+          "query_text": "\n\ndef fizz_buzz(n: int):\n    \"\"\"Return the number of times the digit 7 appears in integers less than n which are divisible by 11 or 13.\n    >>> fizz_buzz(50)\n    0\n    >>> fizz_buzz(78)\n    2\n    >>> fizz_buzz(79)\n    3\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:152",
+          "query_text": "\ndef double_the_difference(lst):\n    '''\n    Given a list of numbers, return the sum of squares of the numbers\n    in the list that are odd. Ignore numbers that are negative or not integers.\n    \n    double_the_difference([1, 3, 2, 0]) == 1 + 9 + 0 + 0 = 10\n    double_the_difference([-1, -2, 0]) == 0\n    double_the_difference([9, -2]) == 81\n    double_the_difference([0]) == 0  \n   \n    If the input list is empty, return 0.\n    '''\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:139",
+          "query_text": "\ndef is_equal_to_sum_even(n):\n    \"\"\"Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers\n    Example\n    is_equal_to_sum_even(4) == False\n    is_equal_to_sum_even(6) == False\n    is_equal_to_sum_even(8) == True\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.8285714285714286,
+        "Fin-R1": 0.8285714285714286,
+        "cogito-v1-preview-llama-8B": 0.7714285714285715,
+        "glm-4-9b-chat": 0.7571428571428571,
+        "GLM-Z1-9B-0414": 0.7523809523809524,
+        "Qwen3-8B": 0.7476190476190476,
+        "internlm3-8b-instruct": 0.7428571428571429,
+        "gemma-2-9b-it": 0.7333333333333333,
+        "Llama-3.1-8B-Instruct": 0.719047619047619,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.680952380952381,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.6619047619047619,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.6476190476190476,
+        "Intern-S1-mini": 0.6428571428571429,
+        "Llama-3.1-8B-UltraMedical": 0.6142857142857143,
+        "granite-3.3-8b-instruct": 0.6,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.5952380952380952,
+        "MiniCPM4.1-8B": 0.5904761904761905,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.5904761904761905,
+        "MiMo-7B-RL-0530": 0.5428571428571428,
+        "OpenThinker3-7B": 0.3619047619047619
+      },
+      "human_readable_explanation": "`code__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `code` and dataset `humaneval` in this run."
+    },
+    {
+      "label_id": 14,
+      "short_name": "reasoning__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 78,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.012820512820512775,
+      "top_domains": [
+        {
+          "name": "reasoning",
+          "count": 75
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 2
+        },
+        {
+          "name": "science",
+          "count": 1
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "bbh",
+          "count": 75
+        },
+        {
+          "name": "mmlupro",
+          "count": 2
+        },
+        {
+          "name": "gpqa",
+          "count": 1
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "mmlupro:test_1000:121",
+          "query_text": "There are three different sections to sit in at a baseball park. The number of people who can sit in each section is described below.\n* red section seats 200 people\n* blue section seats 20 fewer people than the red section\n* green section seats 2 times as many people as the blue section\nWhat is the total number of people who can sit in the baseball park?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:707",
+          "query_text": "How doesAllport'sconcept of functional autonomy differ from most other theories of motivation?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "gpqa:test:47",
+          "query_text": "Identify the compound C9H11NO2 using the given data.\nIR: medium to strong intensity bands at 3420 cm-1, 3325 cm-1\nstrong band at 1720 cm-1\n1H NMR: 1.20 ppm (t, 3H); 4.0 ppm (bs, 2H); 4.5 ppm (q, 2H); 7.0 ppm (d, 2H), 8.0 ppm (d, 2H).",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "bbh:test:707",
+          "query_text": "Which of the following is a humorous edit of this artist or movie name: 'free willy'?\nOptions:\n(A) frre willy\n(B) freeh willy\n(C) tree willy\n(D) frees willy",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mmlupro:test_1000:121",
+          "query_text": "There are three different sections to sit in at a baseball park. The number of people who can sit in each section is described below.\n* red section seats 200 people\n* blue section seats 20 fewer people than the red section\n* green section seats 2 times as many people as the blue section\nWhat is the total number of people who can sit in the baseball park?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:707",
+          "query_text": "How doesAllport'sconcept of functional autonomy differ from most other theories of motivation?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "gpqa:test:47",
+          "query_text": "Identify the compound C9H11NO2 using the given data.\nIR: medium to strong intensity bands at 3420 cm-1, 3325 cm-1\nstrong band at 1720 cm-1\n1H NMR: 1.20 ppm (t, 3H); 4.0 ppm (bs, 2H); 4.5 ppm (q, 2H); 7.0 ppm (d, 2H), 8.0 ppm (d, 2H).",
+          "dataset": "gpqa",
+          "domain": "science"
+        },
+        {
+          "query_id": "bbh:test:707",
+          "query_text": "Which of the following is a humorous edit of this artist or movie name: 'free willy'?\nOptions:\n(A) frre willy\n(B) freeh willy\n(C) tree willy\n(D) frees willy",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 1.0,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9871794871794872,
+        "MiniCPM4.1-8B": 0.9871794871794872,
+        "GLM-Z1-9B-0414": 0.9358974358974359,
+        "Intern-S1-mini": 0.9102564102564102,
+        "Qwen3-8B": 0.8589743589743589,
+        "Qwen2.5-Coder-7B-Instruct": 0.7564102564102564,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.7435897435897436,
+        "internlm3-8b-instruct": 0.7307692307692307,
+        "cogito-v1-preview-llama-8B": 0.6923076923076923,
+        "Fin-R1": 0.6153846153846154,
+        "Llama-3.1-8B-Instruct": 0.5769230769230769,
+        "gemma-2-9b-it": 0.47435897435897434,
+        "OpenThinker3-7B": 0.358974358974359,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.2948717948717949,
+        "granite-3.3-8b-instruct": 0.28205128205128205,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.23076923076923078,
+        "Llama-3.1-8B-UltraMedical": 0.19230769230769232,
+        "glm-4-9b-chat": 0.1282051282051282,
+        "MiMo-7B-RL-0530": 0.038461538461538464
+      },
+      "human_readable_explanation": "`reasoning__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `reasoning` and dataset `bbh` in this run."
+    },
+    {
+      "label_id": 15,
+      "short_name": "science__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 726,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.0013774104683196287,
+      "top_domains": [
+        {
+          "name": "science",
+          "count": 487
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 88
+        },
+        {
+          "name": "reasoning",
+          "count": 60
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "arcc",
+          "count": 481
+        },
+        {
+          "name": "mmlupro",
+          "count": 88
+        },
+        {
+          "name": "bbh",
+          "count": 60
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:944",
+          "query_text": "Which of the following statements about representative figures of Confucianism is correct?\nOptions: A.Funi, Yan Lu, and Zhang Liang are collectively known as the \\\"Three Outstanding Figures of Qi and Lu.\\\" They are influential Confucian figures and have long resided in the Little Sage Manor.##B.Yan Lu, a representative of Confucianism, was one of Confucius's early disciples and the father of Yan Hui.##C.Zhuangzi is one of the representative figures of Confucianism. The story of Zhuang Zhou dreaming of a butterfly deeply influences Confucian disciples.##D.Zhang Liang, representing Confucianism, served as a strategist for Liu Bang. However, his strategies were far inferior to Fan Zeng, a strategist of Xiang Yu.\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1151",
+          "query_text": "Premise: We observed five different oranges, each of which was sweet.\nconclusion: All oranges are sweet.\n\nIs this * inductive reasoning or **\u03a6** inductive reasoning?\nA. * inductive reasoning B. **\u03a6** inductive reasoning\n\nPlease give your answer in [[A/B]] format.",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1180",
+          "query_text": "When humans first explored the deep sea, scientists conducted detailed observations and analyses of the life forms on the seabed and compared them with life on land. In the deep sea, scientists discovered some strange and bizarre creatures, but they inferred that the living environment of deep-sea creatures is completely different from that of terrestrial life. Their reasoning was as follows: On land, there is air and sunlight, most organisms rely on these resources for growth and reproduction; in the deep sea, there is a lack of sunlight, extreme pressure, and low temperatures, most terrestrial organisms cannot survive in such extreme environments.\n\nThis reasoning follows the \u2318 Method, where \"the presence of air and sunlight\" is what kind of attribute?\nA. -\u2318 attribute  B. +\u2318 attribute\n\nPlease provide the answer in the format [[A/B]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1182",
+          "query_text": "An air quality test was conducted in a city on 5 randomly selected days and it was found that 4 of the days had an air quality index (AQI) below 50.Using the P-Generalization rule, estimate the proportion of days in which the average AQI of the city was below 50. \n\nPlease give your answer in [[number%]] format.",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "arcc:test:82",
+          "query_text": "Some marine organisms living deep in the ocean can produce their own light. The light they produce is most likely used for which of these activities?",
+          "dataset": "arcc",
+          "domain": "science"
+        },
+        {
+          "query_id": "arcc:test:1031",
+          "query_text": "Which question would scientists studying prokaryotic organisms most likely ask?",
+          "dataset": "arcc",
+          "domain": "science"
+        },
+        {
+          "query_id": "mmlupro:test_1000:918",
+          "query_text": "With which of the following relatives is an individual most likely to share a common HLA haplotype?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "arcc:test:249",
+          "query_text": "Which of the following is the best example of an event that causes a slow change in ecosystems?",
+          "dataset": "arcc",
+          "domain": "science"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9807162534435262,
+        "Qwen3-8B": 0.9793388429752066,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9696969696969697,
+        "GLM-Z1-9B-0414": 0.9683195592286501,
+        "MiniCPM4.1-8B": 0.9573002754820936,
+        "Intern-S1-mini": 0.9393939393939394,
+        "cogito-v1-preview-llama-8B": 0.928374655647383,
+        "gemma-2-9b-it": 0.9173553719008265,
+        "Fin-R1": 0.9173553719008265,
+        "glm-4-9b-chat": 0.9173553719008265,
+        "internlm3-8b-instruct": 0.9118457300275482,
+        "Llama-3.1-8B-Instruct": 0.8898071625344353,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8512396694214877,
+        "Qwen2.5-Coder-7B-Instruct": 0.849862258953168,
+        "granite-3.3-8b-instruct": 0.8457300275482094,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.8154269972451791,
+        "Llama-3.1-8B-UltraMedical": 0.8112947658402204,
+        "MiMo-7B-RL-0530": 0.7589531680440771,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.743801652892562,
+        "OpenThinker3-7B": 0.7382920110192838
+      },
+      "human_readable_explanation": "`science__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `science` and dataset `arcc` in this run."
+    }
+  ]
+}

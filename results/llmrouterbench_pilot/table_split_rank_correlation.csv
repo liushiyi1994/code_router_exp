@@ -1,0 +1,12 @@
+scenario,scenario_type,rank_correlation_vs_random,mean_absolute_utility_delta_vs_random,mean_absolute_recovered_gap_delta_vs_random
+cluster_held_out:0,cluster_held_out,0.6826469692905576,0.033148734177215186,0.3466449141722231
+cluster_held_out:1,cluster_held_out,0.8982196964349441,0.033431562280084426,0.14012303485987682
+domain_homogeneous:broad_knowledge,domain_homogeneous,0.6723060924368534,0.032133620689655196,0.22530464091262647
+domain_homogeneous:code,domain_homogeneous,0.7957908849252548,0.027055483821965667,0.4419823597455177
+leave_dataset_out:aime,leave_one_dataset_out,0.5394038458916287,0.03670977011494256,0.5557644110275697
+leave_dataset_out:gpqa,leave_one_dataset_out,0.5645127977248884,0.14446839080459767,0.23909774436090242
+leave_domain_out:broad_knowledge,leave_one_domain_out,0.6265060240963854,0.04500736332632885,0.2793416467999268
+leave_domain_out:code,leave_one_domain_out,0.19277108433734938,0.1676084025210593,0.28510554842390534
+model_pool_holdout:DeepSeek-R1-Distill-Qwen-7B,model_pool_holdout,0.9999999999999998,0.004956896551724141,0.022723961065454348
+model_pool_holdout:Intern-S1-mini,model_pool_holdout,0.9940297973880048,0.00366379310344829,0.01790225563909781
+random,random,0.9999999999999998,0.0,0.0

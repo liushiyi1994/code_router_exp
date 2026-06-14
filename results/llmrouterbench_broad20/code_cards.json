@@ -1,0 +1,1781 @@
+{
+  "schema_version": "routecode.code_cards.v1",
+  "cards": [
+    {
+      "label_id": 0,
+      "short_name": "dialogue__Qwen2.5-Coder-7B-Instruct",
+      "size": 408,
+      "best_model": "Qwen2.5-Coder-7B-Instruct",
+      "second_best_model": "glm-4-9b-chat",
+      "model_margin": 0.004901960784313764,
+      "top_domains": [
+        {
+          "name": "dialogue",
+          "count": 118
+        },
+        {
+          "name": "code",
+          "count": 82
+        },
+        {
+          "name": "medicine",
+          "count": 47
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "meld",
+          "count": 87
+        },
+        {
+          "name": "mbpp",
+          "count": 67
+        },
+        {
+          "name": "medqa",
+          "count": 47
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:171",
+          "query_text": "Plaintext: \"WHFI\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:181",
+          "query_text": "Plaintext: \"A\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:203",
+          "query_text": "Plaintext: \"W\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:261",
+          "query_text": "Compute 2\u25cb3.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "kandk:test:520",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 7 inhabitants: Amelia, Avery, James, Luke, Aurora, Matthew, and Jack. In Amelia's words: \"Luke is a knave\". Avery stated, \"Amelia is a knight or Jack is a knight\". James commented, \"Aurora is not a knave\". In Luke's words: \"Avery is a knight or Jack is a knave\". Aurora said, \"If Amelia is a knave then Luke is a knight.\" Matthew commented, \"If Avery is a knave then Amelia is a knave\". Jack told you that Matthew is a knight. So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:515",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 7 inhabitants: Sebastian, Sophia, Lily, Ella, Jackson, Riley, and Penelope. Sebastian told you that Penelope is a knight. Sophia asserted: \"Ella is a knave\". In a statement by Lily: \"Riley is a knight if and only if Ella is a knight\". According to Ella, \"Sebastian is a knight\". Jackson stated, \"Sophia is a knight\". \"Sebastian is not a knave\" - Riley. \"Lily is a knight or Ella is a knave,\" Penelope claimed. So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:432",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 6 inhabitants: Harper, Michael, Olivia, Emily, Alexander, and Isabella. Harper was heard saying, \"Alexander is a knave if and only if Michael is a knight\". Michael stated, \"Isabella is a knight\". Olivia said, \"Emily is a knave if and only if Emily is a knight.\" Emily asserted: \"Michael is not a knave\". In Alexander's words: \"Michael is not a knight\". Isabella commented, \"If Michael is a knave then Alexander is a knight\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:298",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 4 inhabitants: Lucas, Ava, Grace, and Liam. Lucas was heard saying, \"If Grace is a knight then Ava is a knight\". Ava remarked, \"Grace is not a knight\". \"Ava is a knave if and only if Lucas is a knave,\" Grace mentioned. In a statement by Liam: \"Grace is a knave if and only if Grace is a knight\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen2.5-Coder-7B-Instruct": 0.4803921568627451,
+        "glm-4-9b-chat": 0.47549019607843135,
+        "cogito-v1-preview-llama-8B": 0.47549019607843135,
+        "internlm3-8b-instruct": 0.4485294117647059,
+        "Fin-R1": 0.40931372549019607,
+        "Llama-3.1-8B-Instruct": 0.37254901960784315,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.3627450980392157,
+        "granite-3.3-8b-instruct": 0.33088235294117646,
+        "Intern-S1-mini": 0.3284313725490196,
+        "Llama-3.1-8B-UltraMedical": 0.32598039215686275,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.32107843137254904,
+        "Qwen3-8B": 0.3014705882352941,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.2622549019607843,
+        "GLM-Z1-9B-0414": 0.25735294117647056,
+        "MiniCPM4.1-8B": 0.24509803921568626,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.20833333333333334,
+        "OpenThinker3-7B": 0.20588235294117646,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.17892156862745098,
+        "MiMo-7B-RL-0530": 0.14950980392156862,
+        "gemma-2-9b-it": 0.0
+      },
+      "human_readable_explanation": "`dialogue__Qwen2.5-Coder-7B-Instruct` groups queries whose train-set utility profile favors `Qwen2.5-Coder-7B-Instruct`. It is most associated with domain `dialogue` and dataset `meld` in this run."
+    },
+    {
+      "label_id": 1,
+      "short_name": "science__MiMo-7B-RL-0530",
+      "size": 1187,
+      "best_model": "MiMo-7B-RL-0530",
+      "second_best_model": "OpenThinker3-7B",
+      "model_margin": 0.0,
+      "top_domains": [
+        {
+          "name": "science",
+          "count": 379
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 197
+        },
+        {
+          "name": "dialogue",
+          "count": 156
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "arcc",
+          "count": 377
+        },
+        {
+          "name": "winogrande",
+          "count": 197
+        },
+        {
+          "name": "meld",
+          "count": 120
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:282",
+          "query_text": "Compute 2#5.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:417",
+          "query_text": "f(x)=e^x,g(x)=sin(x),find the value of f\u25bdg when x=0.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:795",
+          "query_text": "What resource is the most essential for the technological improvement of a society? (answer with one option)\nOptions: A.Vibraniums##B.Entrepreneurial Ecosystem##C.Religious practice##D.Iron suit\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:824",
+          "query_text": "What is considered the ultimate test of strength and skill in martial arts?\nOptions: A. The Olympic Games B. Asian Games C. The Street Fighter Tournament D. A battle with M. Bison\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:282",
+          "query_text": "Compute 2#5.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:417",
+          "query_text": "f(x)=e^x,g(x)=sin(x),find the value of f\u25bdg when x=0.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:795",
+          "query_text": "What resource is the most essential for the technological improvement of a society? (answer with one option)\nOptions: A.Vibraniums##B.Entrepreneurial Ecosystem##C.Religious practice##D.Iron suit\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:824",
+          "query_text": "What is considered the ultimate test of strength and skill in martial arts?\nOptions: A. The Olympic Games B. Asian Games C. The Street Fighter Tournament D. A battle with M. Bison\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "MiMo-7B-RL-0530": 1.0,
+        "OpenThinker3-7B": 1.0,
+        "Llama-3.1-8B-UltraMedical": 1.0,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9890480202190396,
+        "GLM-Z1-9B-0414": 0.9865206402695872,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9772535804549284,
+        "MiniCPM4.1-8B": 0.9738837405223252,
+        "Qwen3-8B": 0.9713563605728728,
+        "gemma-2-9b-it": 0.9646166807076664,
+        "Intern-S1-mini": 0.9604043807919124,
+        "cogito-v1-preview-llama-8B": 0.9587194608256108,
+        "glm-4-9b-chat": 0.9460825610783488,
+        "Fin-R1": 0.9418702611625948,
+        "internlm3-8b-instruct": 0.9401853411962932,
+        "Qwen2.5-Coder-7B-Instruct": 0.932603201347936,
+        "Llama-3.1-8B-Instruct": 0.9317607413647851,
+        "granite-3.3-8b-instruct": 0.8972198820556023,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.8770008424599831,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8761583824768323,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.823083403538332
+      },
+      "human_readable_explanation": "`science__MiMo-7B-RL-0530` groups queries whose train-set utility profile favors `MiMo-7B-RL-0530`. It is most associated with domain `science` and dataset `arcc` in this run."
+    },
+    {
+      "label_id": 2,
+      "short_name": "dialogue__gemma-2-9b-it",
+      "size": 310,
+      "best_model": "gemma-2-9b-it",
+      "second_best_model": "glm-4-9b-chat",
+      "model_margin": 0.5580645161290323,
+      "top_domains": [
+        {
+          "name": "dialogue",
+          "count": 87
+        },
+        {
+          "name": "code",
+          "count": 51
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 37
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "meld",
+          "count": 58
+        },
+        {
+          "name": "mbpp",
+          "count": 45
+        },
+        {
+          "name": "mmlupro",
+          "count": 37
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:152",
+          "query_text": "Ciphertext: \"M*C*C*V*E*\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:172",
+          "query_text": "Ciphertext: \"######UH###MF###\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:470",
+          "query_text": "f(x,y)=x/y,g(x,y)=x^3+y^3, compute f\u25a0g.\nPlease provide your answer in LaTeX format. \nWrap the final answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:474",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  1 & 2 \\\\\n  3 & 4\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:152",
+          "query_text": "Ciphertext: \"M*C*C*V*E*\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:172",
+          "query_text": "Ciphertext: \"######UH###MF###\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:470",
+          "query_text": "f(x,y)=x/y,g(x,y)=x^3+y^3, compute f\u25a0g.\nPlease provide your answer in LaTeX format. \nWrap the final answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:474",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  1 & 2 \\\\\n  3 & 4\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "gemma-2-9b-it": 1.0,
+        "glm-4-9b-chat": 0.44193548387096776,
+        "Qwen2.5-Coder-7B-Instruct": 0.44193548387096776,
+        "granite-3.3-8b-instruct": 0.4032258064516129,
+        "internlm3-8b-instruct": 0.3903225806451613,
+        "cogito-v1-preview-llama-8B": 0.3903225806451613,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.3096774193548387,
+        "Fin-R1": 0.3064516129032258,
+        "Qwen3-8B": 0.3032258064516129,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.27741935483870966,
+        "Intern-S1-mini": 0.2709677419354839,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.267741935483871,
+        "MiniCPM4.1-8B": 0.24193548387096775,
+        "Llama-3.1-8B-Instruct": 0.22903225806451613,
+        "GLM-Z1-9B-0414": 0.22580645161290322,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.2129032258064516,
+        "Llama-3.1-8B-UltraMedical": 0.19032258064516128,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.16451612903225807,
+        "OpenThinker3-7B": 0.13870967741935483,
+        "MiMo-7B-RL-0530": 0.0935483870967742
+      },
+      "human_readable_explanation": "`dialogue__gemma-2-9b-it` groups queries whose train-set utility profile favors `gemma-2-9b-it`. It is most associated with domain `dialogue` and dataset `meld` in this run."
+    },
+    {
+      "label_id": 3,
+      "short_name": "medicine__Qwen3-8B",
+      "size": 448,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "model_margin": 0.013392857142857206,
+      "top_domains": [
+        {
+          "name": "medicine",
+          "count": 150
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 85
+        },
+        {
+          "name": "dialogue",
+          "count": 50
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "medqa",
+          "count": 150
+        },
+        {
+          "name": "winogrande",
+          "count": 85
+        },
+        {
+          "name": "mmlupro",
+          "count": 44
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:460",
+          "query_text": "f(x,y)=sin(x)\u22c5cos(y),D:0\u2264x\u2264\u03c0, 0\u2264y\u2264\u03c0/2, compute f\u25c6D.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:773",
+          "query_text": "What is a leader's best quality to unite various factions?\nOptions: A. Charisma##B. Economic incentives##C. The Arkenstone##D. The White Tree of Gondor\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "finqa:test:27",
+          "query_text": "in 2010 what was the percent of the income tax benefit to the stock based compensation cost",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "finqa:test:37",
+          "query_text": "as of december 2012 what is the percent of the square footage not leased to the total square footage in alpharetta , georgia",
+          "dataset": "finqa",
+          "domain": "finance"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "meld:test:1033",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Uh-oh-okay. Uh-oh-okay. I know what you all are thinking. But Chandler is in\n- Yeah! No that's what I was thinking.\n- So I'm asking you please, take a moment before you judge me.\n- Oh, nobody's judging you.\n\nUtterance:\nOh! Okay!  You, Mister Right Place at the Right Time, call me!\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "finqa:test:1017",
+          "query_text": "in november 2015 what was the percent of the costs associated with issuing of the notes under the 364-day facility used to finance the acquisition",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "medqa:test:251",
+          "query_text": "A 35-year-old woman is brought into the clinic by a concerned neighbor who says that the patient is often seen setting up bear traps all around her property because of an impending \u2018invasion of the mole people.\u2019 The patient has come to the clinic wearing a garlic necklace. She vaguely explains that the necklace is to mask her scent from the moles tracking her. She has no past psychiatric history and she denies hearing voices or seeing objects. No significant past medical history. Although she has lived in the same community for years, she says she usually keeps to herself and does not have many friends. She holds a regular job at the local hardware store and lives alone. Which of the following is the best initial course of treatment for this patient?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "meld:test:947",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Y\u2019know, me and him do stuff all the time without you and you don\u2019t get all upset.\n- All the time?\n\nUtterance:\nAll the time!\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.9285714285714286,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9151785714285714,
+        "MiniCPM4.1-8B": 0.84375,
+        "Llama-3.1-8B-Instruct": 0.828125,
+        "gemma-2-9b-it": 0.8236607142857143,
+        "granite-3.3-8b-instruct": 0.7991071428571429,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.7946428571428571,
+        "Intern-S1-mini": 0.7857142857142857,
+        "internlm3-8b-instruct": 0.7767857142857143,
+        "GLM-Z1-9B-0414": 0.7745535714285714,
+        "cogito-v1-preview-llama-8B": 0.7611607142857143,
+        "Llama-3.1-8B-UltraMedical": 0.7477678571428571,
+        "glm-4-9b-chat": 0.7321428571428571,
+        "Fin-R1": 0.7165178571428571,
+        "OpenThinker3-7B": 0.546875,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.5111607142857143,
+        "MiMo-7B-RL-0530": 0.28794642857142855,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.20535714285714285,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.18080357142857142,
+        "Qwen2.5-Coder-7B-Instruct": 0.17410714285714285
+      },
+      "human_readable_explanation": "`medicine__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `medicine` and dataset `medqa` in this run."
+    },
+    {
+      "label_id": 4,
+      "short_name": "reasoning__cogito-v1-preview-llama-8B",
+      "size": 396,
+      "best_model": "cogito-v1-preview-llama-8B",
+      "second_best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "model_margin": 0.00757575757575768,
+      "top_domains": [
+        {
+          "name": "reasoning",
+          "count": 92
+        },
+        {
+          "name": "multilingual",
+          "count": 65
+        },
+        {
+          "name": "logical_reasoning",
+          "count": 56
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "bbh",
+          "count": 92
+        },
+        {
+          "name": "korbench",
+          "count": 65
+        },
+        {
+          "name": "kandk",
+          "count": 56
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:17",
+          "query_text": "Plaintext: \"FK\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:18",
+          "query_text": "Ciphertext: \">3\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:33",
+          "query_text": "Plaintext: \"X\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:35",
+          "query_text": "Plaintext: \"U\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "kandk:test:190",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 3 inhabitants: Emma, Grace, and Abigail. \"Abigail is a knave or Grace is a knave,\" Emma claimed. According to Grace, \"Grace is a knight and Emma is a knight\". According to Abigail, \"Grace is a knave or Emma is a knight\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "korbench:test:317",
+          "query_text": "If (X\u26404)\u26425=37, find X.\nThe answer should only be given as a number.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "kandk:test:159",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 3 inhabitants: Olivia, Chloe, and Sebastian. Olivia was heard saying, \"Olivia is a knight and Sebastian is a knight\". Chloe asserted: \"Sebastian is a knight\". Sebastian remarked, \"Olivia is a knight or Chloe is a knave\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:53",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 2 inhabitants: Elizabeth, and Sophia. Elizabeth told you that Sophia is a knave or Elizabeth is a knight. \"Elizabeth is a knight if and only if Elizabeth is a knave\" - Sophia. So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "cogito-v1-preview-llama-8B": 0.8964646464646465,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.8888888888888888,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.8762626262626263,
+        "Qwen3-8B": 0.8661616161616161,
+        "Intern-S1-mini": 0.8459595959595959,
+        "MiniCPM4.1-8B": 0.7904040404040404,
+        "GLM-Z1-9B-0414": 0.7525252525252525,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.7272727272727273,
+        "Llama-3.1-8B-Instruct": 0.5631313131313131,
+        "Llama-3.1-8B-UltraMedical": 0.3560606060606061,
+        "granite-3.3-8b-instruct": 0.3409090909090909,
+        "glm-4-9b-chat": 0.3282828282828283,
+        "internlm3-8b-instruct": 0.3181818181818182,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.3055555555555556,
+        "OpenThinker3-7B": 0.29545454545454547,
+        "Fin-R1": 0.2777777777777778,
+        "Qwen2.5-Coder-7B-Instruct": 0.21717171717171718,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.1994949494949495,
+        "MiMo-7B-RL-0530": 0.18181818181818182,
+        "gemma-2-9b-it": 0.16414141414141414
+      },
+      "human_readable_explanation": "`reasoning__cogito-v1-preview-llama-8B` groups queries whose train-set utility profile favors `cogito-v1-preview-llama-8B`. It is most associated with domain `reasoning` and dataset `bbh` in this run."
+    },
+    {
+      "label_id": 5,
+      "short_name": "science__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 470,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.0021276595744681437,
+      "top_domains": [
+        {
+          "name": "science",
+          "count": 76
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 65
+        },
+        {
+          "name": "math",
+          "count": 61
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "arcc",
+          "count": 72
+        },
+        {
+          "name": "winogrande",
+          "count": 65
+        },
+        {
+          "name": "korbench",
+          "count": 57
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:12",
+          "query_text": "Ciphertext: \"$\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:16",
+          "query_text": "Ciphertext: \"?\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:236",
+          "query_text": "Ciphertext: \"936\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:358",
+          "query_text": "If 3\u00a5X=2, find X.\nThe answer should only be given as a number.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "bbh:test:682",
+          "query_text": "Which of the following is a humorous edit of this artist or movie name: 'the dark knight rises'?\nOptions:\n(A) the bark knight rises\n(B) thetdark knight rises\n(C) the dork knight rises\n(D) the dark kniggt rises",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        },
+        {
+          "query_id": "mbpp:test:454",
+          "query_text": "Write a function to find the size of the given tuple.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "korbench:test:753",
+          "query_text": "What would be considered the ultimate source of knowledge about our planet's biodiversity?\nOptions: A. Encyclopedias##B. Biodiversity research databases##C. The Pok\u00e9dex##D. Pok\u00e9mon professors\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "winogrande:valid:620",
+          "query_text": "The gothic lolita style suited Victoria better than Sarah because _ looked the worst in frilly dresses. Victoria Sarah",
+          "dataset": "winogrande",
+          "domain": "commonsense_reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9723404255319149,
+        "Qwen3-8B": 0.9702127659574468,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9659574468085106,
+        "GLM-Z1-9B-0414": 0.9531914893617022,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.9276595744680851,
+        "Intern-S1-mini": 0.9212765957446809,
+        "cogito-v1-preview-llama-8B": 0.9170212765957447,
+        "Qwen2.5-Coder-7B-Instruct": 0.9148936170212766,
+        "Fin-R1": 0.9085106382978724,
+        "gemma-2-9b-it": 0.9085106382978724,
+        "granite-3.3-8b-instruct": 0.9042553191489362,
+        "MiniCPM4.1-8B": 0.8978723404255319,
+        "glm-4-9b-chat": 0.8914893617021277,
+        "internlm3-8b-instruct": 0.8808510638297873,
+        "Llama-3.1-8B-Instruct": 0.8489361702127659,
+        "OpenThinker3-7B": 0.8021276595744681,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.7829787234042553,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.7382978723404255,
+        "MiMo-7B-RL-0530": 0.6787234042553192,
+        "Llama-3.1-8B-UltraMedical": 0.0
+      },
+      "human_readable_explanation": "`science__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `science` and dataset `arcc` in this run."
+    },
+    {
+      "label_id": 6,
+      "short_name": "code__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 393,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "Qwen3-8B",
+      "model_margin": 0.0661577608142494,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 102
+        },
+        {
+          "name": "logical_reasoning",
+          "count": 62
+        },
+        {
+          "name": "dialogue",
+          "count": 39
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "livecodebench",
+          "count": 98
+        },
+        {
+          "name": "kandk",
+          "count": 62
+        },
+        {
+          "name": "korbench",
+          "count": 37
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:20",
+          "query_text": "Ciphertext: \":*23/~$31(3\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:39",
+          "query_text": "Plaintext: \"AYHYLFHYVYO\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:50",
+          "query_text": "Ciphertext: \"UZROOMPEDJR\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:64",
+          "query_text": "Ciphertext: \"B\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "kandk:test:384",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 5 inhabitants: David, Noah, Sofia, Jackson, and Scarlett. \"Jackson is a knight or David is a knight,\" David claimed. \"Sofia is a knave,\" Noah claimed. Sofia expressed that Scarlett is a knave if and only if Noah is a knave. As Jackson put it, \"David is a knave if and only if Noah is a knave\". In a statement by Scarlett: \"Jackson is a knight if and only if Sofia is a knave\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "mmlupro:test_1000:942",
+          "query_text": "A well-established paper mill and a logging company signed a written contract in which the mill agreed to buy from the company all the logs the mill would need for one year. The company was unable to keep up with the mill's needs, and its log deliveries fell short by 10% to 15% in each of the four quarters of the year. The mill paid the company on time for all delivered logs. The mill paid an attorney $2,000 for advice concerning its options in enforcing the contract. It paid a broker a reasonable fee of $5,000 to find additional logs to make up for the company's shortfall. The mill also incurred reasonable costs of $25,000 to transport the additional logs to its facility. Despite the mill's efforts to mitigate damages, it sustained $200,000 in losses because of the company's failure to timely deliver enough logs. The mill has sued the company for breach of contract. If the court finds for the mill, how much should it award in damages?",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "mmlupro:test_1000:930",
+          "query_text": "Estimate the depth to which a water pipe line is to be laid suchthat the water flowing in the pipe does not freeze due to lowtemperatures at the surface. The mean temperature duringcold season is 5\u00b0C and minimum temperature goes downto - 10\u00b0C and exists for a maximum period of 48 hours. Assume the properties of the earth as k = 0.52 W/m - \u00b0K,\\rho = 1840 kg/m^3 C_p = 2050 J/kg - \u00b0K. Table 1: The Complimentary Error Function erfc (\\eta) = 1- {2 / \\surd\\pi}^\\eta\\int_oe^-(u)2 du \\eta erfc (\\eta) \\eta erfc (\\eta) 0.0 1.0000 1.1 0.11980 0.05 0.9436 1.2 0.08969 0.1 0.8875 1.3 0.06599 0.15 0.8320 1.4 0.04772 0.2 0.7773 1.5 0.03390 0.2S 0.7237 1.6 0.02365 0.3 0.6714 1.7 0.01621 0.35 0.6206 1.8 0.01091 0.4 0.5716 1.9 0.00721 0.45 0.5245 2.0 0.00468 0.5 0.4795 2.1 0.00298 0.55 0.4367 2.2 0.00186 0.6 0.3961 2.3 0.001143 0.65 0.3580 2.4 0.000689 0.7 0.3222 2.5 0.000407 0.75 0.2889 2.6 0.000236 0.8 0.2579 2.7 0.000134 0.85 0.2293 2.8 0.000075 0.9 0.2031 2.9 0.000041 0.95 0.1791 3.0 0.000022 1.00 0.1573",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        },
+        {
+          "query_id": "livecodebench:test:284",
+          "query_text": "There are N people gathered for an event called Flowing Noodles. The people are lined up in a row, numbered 1 to N in order from front to back.\nDuring the event, the following occurrence happens M times:\n\n- At time T_i, a quantity W_i of noodles is flown down. The person at the front of the row gets all of it (if no one is in the row, no one gets it). That person then steps out of the row and returns to their original position in the row at time T_i+S_i.\n\nA person who returns to the row at time X is considered to be in the row at time X.\nAfter all the M occurrences, report the total amount of noodles each person has got.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN M\r\nT_1 W_1 S_1\r\n\\vdots\r\nT_M W_M S_M\n\nOutput\n\nPrint N lines.\r\nThe i-th line should contain the amount of noodles person i has got.\n\nConstraints\n\n\n- 1 \\leq N \\leq 2\\times 10^5\n- 1 \\leq M \\leq 2\\times 10^5\n- 0 <T_1 <\\ldots < T_M \\leq 10^9\n- 1 \\leq S_i \\leq 10^9\n- 1 \\leq W_i \\leq 10^9\n- All input values are integers.\n\nSample Input 1\n\n3 5\r\n1 1 3\r\n2 10 100\r\n4 100 10000\r\n10 1000 1000000000\r\n100 1000000000 1\n\nSample Output 1\n\n101\r\n10\r\n1000\r\n\nThe event proceeds as follows:\n\n- At time 1, a quantity 1 of noodles is flown down. People 1, 2, and 3 are in the row, and the person at the front, person 1, gets the noodles and steps out of the row.\n- At time 2, a quantity 10 of noodles is flown down. People 2 and 3 are in the row, and the person at the front, person 2, gets the noodles and steps out of the row.\n- At time 4, person 1 returns to the row.\n- At time 4, a quantity 100 of noodles is flown down. People 1 and 3 are in the row, and the person at the front, person 1, gets the noodles and steps out of the row.\n- At time 10, a quantity 1000 of noodles is flown down. Only person 3 is in the row, and the person at the front, person 3, gets the noodles and steps out of the row.\n- At time 100, a quantity 1000000000 of noodles is flown down. No one is in the row, so no one gets these noodles.\n- At time 102, person 2 returns to the row.\n- At time 10004, person 1 returns to the row.\n- At time 1000000010, person 3 returns to the row.\n\nThe total amounts of noodles people 1, 2, and 3 have got are 101, 10, and 1000, respectively.\n\nSample Input 2\n\n3 1\r\n1 1 1\n\nSample Output 2\n\n1\r\n0\r\n0\n\nSample Input 3\n\n1 8\r\n1 1 1\r\n2 2 2\r\n3 3 3\r\n4 4 4\r\n5 5 5\r\n6 6 6\r\n7 7 7\r\n8 8 8\n\nSample Output 3\n\n15",
+          "dataset": "livecodebench",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.7989821882951654,
+        "Qwen3-8B": 0.732824427480916,
+        "MiniCPM4.1-8B": 0.5826972010178118,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.3893129770992366,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.2035623409669211,
+        "OpenThinker3-7B": 0.19338422391857507,
+        "GLM-Z1-9B-0414": 0.1628498727735369,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.13994910941475827,
+        "internlm3-8b-instruct": 0.13486005089058525,
+        "Intern-S1-mini": 0.11959287531806616,
+        "glm-4-9b-chat": 0.11450381679389313,
+        "Fin-R1": 0.10941475826972011,
+        "granite-3.3-8b-instruct": 0.10687022900763359,
+        "Llama-3.1-8B-UltraMedical": 0.09923664122137404,
+        "Qwen2.5-Coder-7B-Instruct": 0.0916030534351145,
+        "Llama-3.1-8B-Instruct": 0.08651399491094147,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.07124681933842239,
+        "cogito-v1-preview-llama-8B": 0.06870229007633588,
+        "gemma-2-9b-it": 0.05089058524173028,
+        "MiMo-7B-RL-0530": 0.03307888040712468
+      },
+      "human_readable_explanation": "`code__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `code` and dataset `livecodebench` in this run."
+    },
+    {
+      "label_id": 7,
+      "short_name": "reasoning__DeepSeek-R1-0528-Qwen3-8B",
+      "size": 392,
+      "best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.0,
+      "top_domains": [
+        {
+          "name": "reasoning",
+          "count": 152
+        },
+        {
+          "name": "medicine",
+          "count": 54
+        },
+        {
+          "name": "broad_knowledge",
+          "count": 38
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "bbh",
+          "count": 152
+        },
+        {
+          "name": "medqa",
+          "count": 54
+        },
+        {
+          "name": "mmlupro",
+          "count": 38
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:294",
+          "query_text": "Compute 3\u221e6.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:303",
+          "query_text": "Compute (2\u00a78)-(5$1).\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:339",
+          "query_text": "If 3\u25c7X=243, find X.\nThe answer should only be given as a number.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:351",
+          "query_text": "Compute 3\u00a52.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "finqa:test:999",
+          "query_text": "what is the roi of an investment in state street corporation from 20011 to 2012?",
+          "dataset": "finqa",
+          "domain": "finance"
+        },
+        {
+          "query_id": "emorynlp:test:130",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Ok, which one of us do you think is gonna be the first one to get married?\n- Well, Mon, I was married.\n- Yeah, me, too, technically.\n- I had a wedding.\n- All right, just trying to start an interesting discussion.\n- I got one. Which one of us do you think will be the last to get married?\n- Isn't Ben in this?\n\nUtterance:\nOh, yeah!\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "medqa:test:631",
+          "query_text": "A 64-year-old male with a past medical history of two myocardial infarctions presents to the emergency room with shortness of breath. He notes that he stopped taking his furosemide two weeks prior, because he ran out of pills. On exam, his oxygen saturation is 78%, his lungs have crackles throughout, and jugular venous pulsation is located at the earlobe. EKG and troponin levels are normal. Which of the following is consistent with this man's pulmonary physiology?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "finqa:test:555",
+          "query_text": "in 2003 what was the ratio of the structured commercial loan vehicles to credit-linked note vehicles",
+          "dataset": "finqa",
+          "domain": "finance"
+        }
+      ],
+      "model_utility_vector": {
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9311224489795918,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9311224489795918,
+        "Qwen3-8B": 0.9158163265306123,
+        "GLM-Z1-9B-0414": 0.8954081632653061,
+        "MiniCPM4.1-8B": 0.8698979591836735,
+        "Llama-3.1-8B-Instruct": 0.8520408163265306,
+        "Intern-S1-mini": 0.8188775510204082,
+        "cogito-v1-preview-llama-8B": 0.8061224489795918,
+        "gemma-2-9b-it": 0.7704081632653061,
+        "internlm3-8b-instruct": 0.75,
+        "Qwen2.5-Coder-7B-Instruct": 0.7448979591836735,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.7193877551020408,
+        "Fin-R1": 0.7117346938775511,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.6505102040816326,
+        "Llama-3.1-8B-UltraMedical": 0.5790816326530612,
+        "glm-4-9b-chat": 0.5586734693877551,
+        "OpenThinker3-7B": 0.4387755102040816,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.22193877551020408,
+        "MiMo-7B-RL-0530": 0.21173469387755103,
+        "granite-3.3-8b-instruct": 0.02040816326530612
+      },
+      "human_readable_explanation": "`reasoning__DeepSeek-R1-0528-Qwen3-8B` groups queries whose train-set utility profile favors `DeepSeek-R1-0528-Qwen3-8B`. It is most associated with domain `reasoning` and dataset `bbh` in this run."
+    },
+    {
+      "label_id": 8,
+      "short_name": "multilingual__Qwen3-8B",
+      "size": 269,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "DeepSeek-R1-0528-Qwen3-8B",
+      "model_margin": 0.040892193308550207,
+      "top_domains": [
+        {
+          "name": "multilingual",
+          "count": 91
+        },
+        {
+          "name": "dialogue",
+          "count": 46
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 36
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "korbench",
+          "count": 91
+        },
+        {
+          "name": "winogrande",
+          "count": 36
+        },
+        {
+          "name": "meld",
+          "count": 36
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:24",
+          "query_text": "Ciphertext: \"7^1\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:312",
+          "query_text": "Compute 7\u2642(6\u26402)=32.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:553",
+          "query_text": "From \"FLY\" to \"CRY\".\nOutput the number in double brackets. For example, if it takes 3 steps from the start word to the end word, present the answer as [[3]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:751",
+          "query_text": "Who is considered a pioneer in the study of genetics?\nOptions: A. Gregor Mendel##B. Charles Darwin##C. Professor Oak##D. Bill the Pok\u00e9maniac\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:553",
+          "query_text": "From \"FLY\" to \"CRY\".\nOutput the number in double brackets. For example, if it takes 3 steps from the start word to the end word, present the answer as [[3]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "winogrande:valid:1253",
+          "query_text": "The architect tried to build the room inside the house but the _ was too small. house room",
+          "dataset": "winogrande",
+          "domain": "commonsense_reasoning"
+        },
+        {
+          "query_id": "meld:test:180",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Bing! Ho! And the Bing-ette!\n- Honey, you remember my boss Doug right?\n- Yes, hi.\n- Hi. So good news, the divorce is final. I signed the papers this A.M.\n- I didn\u2019t know you and Carol were getting divorced, I\u2019m sorry.\n- Sorry? Finally chewed my leg out of that bear trap. Hey, congratulations to you guys though!\n- No leg-chewing for us sir.\n- Oh well, give it time.\n- So the divorce, the marriage, we\u2019ve got a lot to celebrate.\n- How about we all go out to dinner tomorrow night?\n- Tomorrow night it is then, I should be out of court by six.\n- They keep throwing these sexual harassment cases at me and I keep knocking them out of the park!\n- Okay, I\u2019ll see you tomorrow!\n- Just so you know, we\u2019re not seeing him tomorrow.\n- I-I cannot spend another evening with that man.\n- Do you remember how he behaved at our wedding?\n- No.\n- That\u2019s because he wasn\u2019t invited because of the way he behaved at our engagement party.\n\nUtterance:\nOh yeah. Boy, urine cuts\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "mmlupro:test_1000:82",
+          "query_text": "Evaluate the force on the spring of a cone-clutch delivering a torqueof 2000 lbs.-in. The mean diameter for the disc is 18 in., the clutch angle is 10\u00b0 and the coefficient of friction is 0.30.",
+          "dataset": "mmlupro",
+          "domain": "broad_knowledge"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.9405204460966543,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.8996282527881041,
+        "Fin-R1": 0.8921933085501859,
+        "gemma-2-9b-it": 0.8736059479553904,
+        "GLM-Z1-9B-0414": 0.8736059479553904,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.8661710037174721,
+        "glm-4-9b-chat": 0.862453531598513,
+        "Intern-S1-mini": 0.8475836431226765,
+        "cogito-v1-preview-llama-8B": 0.8438661710037175,
+        "Qwen2.5-Coder-7B-Instruct": 0.8327137546468402,
+        "granite-3.3-8b-instruct": 0.7732342007434945,
+        "internlm3-8b-instruct": 0.7434944237918215,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.7211895910780669,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.7137546468401487,
+        "MiMo-7B-RL-0530": 0.6877323420074349,
+        "MiniCPM4.1-8B": 0.6431226765799256,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.3643122676579926,
+        "Llama-3.1-8B-Instruct": 0.1524163568773234,
+        "OpenThinker3-7B": 0.12639405204460966,
+        "Llama-3.1-8B-UltraMedical": 0.09665427509293681
+      },
+      "human_readable_explanation": "`multilingual__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `multilingual` and dataset `korbench` in this run."
+    },
+    {
+      "label_id": 9,
+      "short_name": "dialogue__GLM-Z1-9B-0414",
+      "size": 1311,
+      "best_model": "GLM-Z1-9B-0414",
+      "second_best_model": "Intern-S1-mini",
+      "model_margin": 0.018306636155606418,
+      "top_domains": [
+        {
+          "name": "dialogue",
+          "count": 359
+        },
+        {
+          "name": "code",
+          "count": 262
+        },
+        {
+          "name": "multilingual",
+          "count": 246
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "korbench",
+          "count": 246
+        },
+        {
+          "name": "emorynlp",
+          "count": 181
+        },
+        {
+          "name": "meld",
+          "count": 178
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:10",
+          "query_text": "Ciphertext: \"VJYWRDAOPHZ\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:51",
+          "query_text": "Plaintext: \"V\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:52",
+          "query_text": "Ciphertext: \"H\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:53",
+          "query_text": "Plaintext: \"E\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "livecodebench:test:1046",
+          "query_text": "You are given a string s and a pattern string p, where p contains exactly two '*' characters.\nThe '*' in p matches any sequence of zero or more characters.\nReturn the length of the shortest substring in s that matches p. If there is no such substring, return -1.\nNote: The empty substring is considered valid.\n \nExample 1:\n\nInput: s = \"abaacbaecebce\", p = \"ba*c*ce\"\nOutput: 8\nExplanation:\nThe shortest matching substring of p in s is \"baecebce\".\n\nExample 2:\n\nInput: s = \"baccbaadbc\", p = \"cc*baa*adb\"\nOutput: -1\nExplanation:\nThere is no matching substring in s.\n\nExample 3:\n\nInput: s = \"a\", p = \"**\"\nOutput: 0\nExplanation:\nThe empty substring is the shortest matching substring.\n\nExample 4:\n\nInput: s = \"madlogic\", p = \"*adlogi*\"\nOutput: 6\nExplanation:\nThe shortest matching substring of p in s is \"adlogi\".\n\n \nConstraints:\n\n1 <= s.length <= 10^5\n2 <= p.length <= 10^5\ns contains only lowercase English letters.\np contains only lowercase English letters and exactly two '*'.",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:1045",
+          "query_text": "You are given a 2D integer array squares. Each squares[i] = [x_i, y_i, l_i] represents the coordinates of the bottom-left point and the side length of a square parallel to the x-axis.\nFind the minimum y-coordinate value of a horizontal line such that the total area of the squares above the line equals the total area of the squares below the line.\nAnswers within 10^-5 of the actual answer will be accepted.\nNote: Squares may overlap. Overlapping areas should be counted multiple times.\n \nExample 1:\n\nInput: squares = [[0,0,1],[2,2,1]]\nOutput: 1.00000\nExplanation:\n\nAny horizontal line between y = 1 and y = 2 will have 1 square unit above it and 1 square unit below it. The lowest option is 1.\n\nExample 2:\n\nInput: squares = [[0,0,2],[1,1,1]]\nOutput: 1.16667\nExplanation:\n\nThe areas are:\n\nBelow the line: 7/6 * 2 (Red) + 1/6 (Blue) = 15/6 = 2.5.\nAbove the line: 5/6 * 2 (Red) + 5/6 (Blue) = 15/6 = 2.5.\n\nSince the areas above and below the line are equal, the output is 7/6 = 1.16667.\n\n \nConstraints:\n\n1 <= squares.length <= 5 * 10^4\nsquares[i] = [x_i, y_i, l_i]\nsquares[i].length == 3\n0 <= x_i, y_i <= 10^9\n1 <= l_i <= 10^9\nThe total area of all the squares will not exceed 10^12.",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:1020",
+          "query_text": "You are given an integer array nums and two integers, k and m.\nReturn the maximum sum of k non-overlapping subarrays of nums, where each subarray has a length of at least m.\n \nExample 1:\n\nInput: nums = [1,2,-1,3,3,4], k = 2, m = 2\nOutput: 13\nExplanation:\nThe optimal choice is:\n\nSubarray nums[3..5] with sum 3 + 3 + 4 = 10 (length is 3 >= m).\nSubarray nums[0..1] with sum 1 + 2 = 3 (length is 2 >= m).\n\nThe total sum is 10 + 3 = 13.\n\nExample 2:\n\nInput: nums = [-10,3,-1,-2], k = 4, m = 1\nOutput: -10\nExplanation:\nThe optimal choice is choosing each element as a subarray. The output is (-10) + 3 + (-1) + (-2) = -10.\n\n \nConstraints:\n\n1 <= nums.length <= 2000\n-10^4 <= nums[i] <= 10^4\n1 <= k <= floor(nums.length / m)\n1 <= m <= 3",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "korbench:test:52",
+          "query_text": "Ciphertext: \"H\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "GLM-Z1-9B-0414": 0.08466819221967964,
+        "Intern-S1-mini": 0.06636155606407322,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.057971014492753624,
+        "Qwen3-8B": 0.057208237986270026,
+        "Qwen2.5-Coder-7B-Instruct": 0.057208237986270026,
+        "internlm3-8b-instruct": 0.05339435545385202,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.05339435545385202,
+        "MiniCPM4.1-8B": 0.04881769641495042,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.043478260869565216,
+        "granite-3.3-8b-instruct": 0.043478260869565216,
+        "Llama-3.1-8B-UltraMedical": 0.041952707856598014,
+        "OpenThinker3-7B": 0.03966437833714721,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.034324942791762014,
+        "Llama-3.1-8B-Instruct": 0.03279938977879481,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.031273836765827616,
+        "Fin-R1": 0.029748283752860413,
+        "glm-4-9b-chat": 0.02822273073989321,
+        "cogito-v1-preview-llama-8B": 0.02745995423340961,
+        "MiMo-7B-RL-0530": 0.02364607170099161,
+        "gemma-2-9b-it": 0.02212051868802441
+      },
+      "human_readable_explanation": "`dialogue__GLM-Z1-9B-0414` groups queries whose train-set utility profile favors `GLM-Z1-9B-0414`. It is most associated with domain `dialogue` and dataset `korbench` in this run."
+    },
+    {
+      "label_id": 10,
+      "short_name": "code__MiMo-7B-RL-0530",
+      "size": 457,
+      "best_model": "MiMo-7B-RL-0530",
+      "second_best_model": "Llama-3.1-8B-UltraMedical",
+      "model_margin": 0.015317286652078765,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 126
+        },
+        {
+          "name": "science",
+          "count": 76
+        },
+        {
+          "name": "dialogue",
+          "count": 73
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 111
+        },
+        {
+          "name": "arcc",
+          "count": 76
+        },
+        {
+          "name": "winogrande",
+          "count": 50
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:15",
+          "query_text": "Plaintext: \"W\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:283",
+          "query_text": "Compute 4#6.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:284",
+          "query_text": "Compute 1#5.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:297",
+          "query_text": "If 3\u221eX=18, find X.\nThe answer should only be given as a number.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "mbpp:test:59",
+          "query_text": "Write a python function to check whether the given number is co-prime or not.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "humaneval:test:79",
+          "query_text": "\ndef hex_key(num):\n    \"\"\"You have been tasked to write a function that receives \n    a hexadecimal number as a string and counts the number of hexadecimal \n    digits that are primes (prime number, or a prime, is a natural number \n    greater than 1 that is not a product of two smaller natural numbers).\n    Hexadecimal digits are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F.\n    Prime numbers are 2, 3, 5, 7, 11, 13, 17,...\n    So you have to determine a number of the following digits: 2, 3, 5, 7, \n    B (=decimal 11), D (=decimal 13).\n    Note: you may assume the input is always correct or empty string, \n    and symbols A,B,C,D,E,F are always uppercase.\n    Examples:\n    For num = \"AB\" the output should be 1.\n    For num = \"1077E\" the output should be 2.\n    For num = \"ABED1A33\" the output should be 4.\n    For num = \"123456789ABCDEF0\" the output should be 6.\n    For num = \"2020\" the output should be 2.\n    \"\"\"\n",
+          "dataset": "humaneval",
+          "domain": "code"
+        },
+        {
+          "query_id": "arcc:test:1140",
+          "query_text": "Which fact best explains why there is life on Earth but not on the Moon?",
+          "dataset": "arcc",
+          "domain": "science"
+        },
+        {
+          "query_id": "mbpp:test:677",
+          "query_text": "Write a function to create a new tuple from the given string and list.",
+          "dataset": "mbpp",
+          "domain": "code"
+        }
+      ],
+      "model_utility_vector": {
+        "MiMo-7B-RL-0530": 0.9912472647702407,
+        "Llama-3.1-8B-UltraMedical": 0.975929978118162,
+        "GLM-Z1-9B-0414": 0.9540481400437637,
+        "gemma-2-9b-it": 0.949671772428884,
+        "Llama-3.1-8B-Instruct": 0.9343544857768052,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9321663019693655,
+        "glm-4-9b-chat": 0.9277899343544858,
+        "Fin-R1": 0.9212253829321663,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9146608315098468,
+        "Qwen3-8B": 0.9102844638949672,
+        "cogito-v1-preview-llama-8B": 0.9037199124726477,
+        "MiniCPM4.1-8B": 0.9015317286652079,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.8905908096280087,
+        "Intern-S1-mini": 0.888402625820569,
+        "Qwen2.5-Coder-7B-Instruct": 0.8862144420131292,
+        "internlm3-8b-instruct": 0.8818380743982495,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8227571115973742,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.7855579868708972,
+        "granite-3.3-8b-instruct": 0.7439824945295405,
+        "OpenThinker3-7B": 0.0
+      },
+      "human_readable_explanation": "`code__MiMo-7B-RL-0530` groups queries whose train-set utility profile favors `MiMo-7B-RL-0530`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 11,
+      "short_name": "code__Qwen3-8B",
+      "size": 416,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.007211538461538436,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 148
+        },
+        {
+          "name": "math",
+          "count": 115
+        },
+        {
+          "name": "logical_reasoning",
+          "count": 39
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "livecodebench",
+          "count": 141
+        },
+        {
+          "name": "math500",
+          "count": 66
+        },
+        {
+          "name": "kandk",
+          "count": 39
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:74",
+          "query_text": "Ciphertext: \"Q\"\nKey: AZTUMCG\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:146",
+          "query_text": "Ciphertext: \"MB\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:345",
+          "query_text": "Compute 16\uffe0256.\nIf the answer is a fraction, write it in 'a/b' text format.Decimals are not allowed.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:891",
+          "query_text": "What kind of relationship might there be between a large animal and a small animal? (answer with one option)\nOptions:A. The discriminating buffalo and the discriminated mole;##B. the shrew as boss and the little brother polar bear ##C.the parasitic crocodile and the toothpick bird; ##D. the preying cheetah and the preyed upon antelope\nProvide your final answer as a single uppercase letter representing the option (A, B, C, or D) and wrap it in double square brackets, like this: [[A]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "medqa:test:509",
+          "query_text": "A 21-year-old old college student is brought to the emergency department by his roommates because he has been \"acting strangely.\" Over the last 7 months, he has claimed to hear voices telling him that he must prepare for the end of the world. He used to be a straight A student but started failing exams recently due to his erratic behavior. Furthermore, there are periods of time where he does not sleep for several days and redecorates the entire apartment. During those times he spends huge amounts of money on online shopping. These periods usually last for about 2 weeks and happen every other month. On physical exam, he appears unkept and irritated. He seems to respond to invisible stimuli, and he jumps from topic to topic without clear focus. Which of the following is most consistent with this patient's presentation?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "mbpp:test:670",
+          "query_text": "Write a python function to find the perimeter of a cylinder.",
+          "dataset": "mbpp",
+          "domain": "code"
+        },
+        {
+          "query_id": "livecodebench:test:852",
+          "query_text": "You are given an integer array nums. This array contains n elements, where exactly n - 2 elements are special numbers. One of the remaining two elements is the sum of these special numbers, and the other is an outlier.\nAn outlier is defined as a number that is neither one of the original special numbers nor the element representing the sum of those numbers.\nNote that special numbers, the sum element, and the outlier must have distinct indices, but may share the same value.\nReturn the largest potential outlier in nums.\n \nExample 1:\n\nInput: nums = [2,3,5,10]\nOutput: 10\nExplanation:\nThe special numbers could be 2 and 3, thus making their sum 5 and the outlier 10.\n\nExample 2:\n\nInput: nums = [-2,-1,-3,-6,4]\nOutput: 4\nExplanation:\nThe special numbers could be -2, -1, and -3, thus making their sum -6 and the outlier 4.\n\nExample 3:\n\nInput: nums = [1,1,1,1,1,5,5]\nOutput: 5\nExplanation:\nThe special numbers could be 1, 1, 1, 1, and 1, thus making their sum 5 and the other 5 as the outlier.\n\n \nConstraints:\n\n3 <= nums.length <= 10^5\n-1000 <= nums[i] <= 1000\nThe input is generated such that at least one potential outlier exists in nums.",
+          "dataset": "livecodebench",
+          "domain": "code"
+        },
+        {
+          "query_id": "kandk:test:109",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 3 inhabitants: Mia, Jackson, and Daniel. Mia told you that Daniel is a knight. Jackson was heard saying, \"Mia is a knight\". In a statement by Daniel: \"Jackson is a knight if and only if Jackson is a knave\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.9423076923076923,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9350961538461539,
+        "MiniCPM4.1-8B": 0.9302884615384616,
+        "GLM-Z1-9B-0414": 0.9278846153846154,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.8966346153846154,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8701923076923077,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.8629807692307693,
+        "OpenThinker3-7B": 0.7548076923076923,
+        "Intern-S1-mini": 0.6538461538461539,
+        "Qwen2.5-Coder-7B-Instruct": 0.2644230769230769,
+        "Fin-R1": 0.25,
+        "internlm3-8b-instruct": 0.18990384615384615,
+        "granite-3.3-8b-instruct": 0.13221153846153846,
+        "gemma-2-9b-it": 0.11778846153846154,
+        "Llama-3.1-8B-Instruct": 0.11538461538461539,
+        "glm-4-9b-chat": 0.10576923076923077,
+        "cogito-v1-preview-llama-8B": 0.08173076923076923,
+        "MiMo-7B-RL-0530": 0.07932692307692307,
+        "Llama-3.1-8B-UltraMedical": 0.07451923076923077,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.07211538461538461
+      },
+      "human_readable_explanation": "`code__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `code` and dataset `livecodebench` in this run."
+    },
+    {
+      "label_id": 12,
+      "short_name": "code__Llama-3.1-8B-Instruct",
+      "size": 318,
+      "best_model": "Llama-3.1-8B-Instruct",
+      "second_best_model": "gemma-2-9b-it",
+      "model_margin": 0.0031446540880503138,
+      "top_domains": [
+        {
+          "name": "code",
+          "count": 168
+        },
+        {
+          "name": "dialogue",
+          "count": 47
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 26
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "mbpp",
+          "count": 125
+        },
+        {
+          "name": "humaneval",
+          "count": 43
+        },
+        {
+          "name": "meld",
+          "count": 38
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:472",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  5 & 6 \\\\\n  7 & 8\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  2 & 1 \\\\\n  0 & 2\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:482",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  5 & 6 \\\\\n  7 & 8\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  2 & 1 \\\\\n  0 & 2\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:483",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  3 & 2 \\\\\n  1 & 0\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:484",
+          "query_text": "A=\n\\[\n\\begin{pmatrix}\n  2 & 3 \\\\\n  4 & 5\n\\end{pmatrix}\n\\]\nB=\n\\[\n\\begin{pmatrix}\n  1 & 2 \\\\\n  3 & 4\n\\end{pmatrix}\n\\]\nCompute A&B.\nThe answer is a matrix, write it in this form:[[((a,b),(c,d))]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:1047",
+          "query_text": "Assuming an \"AND logic gate\" \nhas one input I1 as \"+\" and the other input I2 as \"-\",\nwhat is the output?\nPlease provide the answer in the format [[output]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "bbh:test:470",
+          "query_text": "Find a movie similar to The Shawshank Redemption, Pulp Fiction, Schindler's List, Braveheart:\nOptions:\n(A) The Bank Job\n(B) Robot Carnival\n(C) Dances with Wolves\n(D) The Family Stone",
+          "dataset": "bbh",
+          "domain": "reasoning"
+        },
+        {
+          "query_id": "korbench:test:1084",
+          "query_text": "What is the result of executing method B for\n\"Some college students are patriots.\"?\n\nPlease output the result in [[]] format. \nBe careful to maintain consistency with the original sentence.",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:1142",
+          "query_text": "Write out a logical expression that represents the possibility of the proposition \u03c6 being true after executing the command c.\nPlease provide your answer in the format of [[]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "Llama-3.1-8B-Instruct": 0.8616352201257862,
+        "gemma-2-9b-it": 0.8584905660377359,
+        "cogito-v1-preview-llama-8B": 0.8584905660377359,
+        "Fin-R1": 0.8522012578616353,
+        "glm-4-9b-chat": 0.8427672955974843,
+        "Qwen2.5-Coder-7B-Instruct": 0.8333333333333334,
+        "Llama-3.1-8B-UltraMedical": 0.7641509433962265,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.7389937106918238,
+        "internlm3-8b-instruct": 0.7327044025157232,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.6855345911949685,
+        "granite-3.3-8b-instruct": 0.6194968553459119,
+        "Qwen3-8B": 0.5880503144654088,
+        "GLM-Z1-9B-0414": 0.5220125786163522,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.4811320754716981,
+        "Intern-S1-mini": 0.4339622641509434,
+        "MiMo-7B-RL-0530": 0.4119496855345912,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.389937106918239,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.25471698113207547,
+        "MiniCPM4.1-8B": 0.1509433962264151,
+        "OpenThinker3-7B": 0.1069182389937107
+      },
+      "human_readable_explanation": "`code__Llama-3.1-8B-Instruct` groups queries whose train-set utility profile favors `Llama-3.1-8B-Instruct`. It is most associated with domain `code` and dataset `mbpp` in this run."
+    },
+    {
+      "label_id": 13,
+      "short_name": "finance__Llama-3.1-8B-UltraMedical",
+      "size": 615,
+      "best_model": "Llama-3.1-8B-UltraMedical",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.02276422764227637,
+      "top_domains": [
+        {
+          "name": "finance",
+          "count": 210
+        },
+        {
+          "name": "medicine",
+          "count": 93
+        },
+        {
+          "name": "science",
+          "count": 66
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "finqa",
+          "count": 210
+        },
+        {
+          "name": "medqa",
+          "count": 93
+        },
+        {
+          "name": "arcc",
+          "count": 63
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:21",
+          "query_text": "Plaintext: \"I\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:281",
+          "query_text": "Compute 3#7.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:291",
+          "query_text": "Compute 2\u221e3.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:295",
+          "query_text": "Compute 5\u221e8.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:21",
+          "query_text": "Plaintext: \"I\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:281",
+          "query_text": "Compute 3#7.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:291",
+          "query_text": "Compute 2\u221e3.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:295",
+          "query_text": "Compute 5\u221e8.\nPlease ensure the answer is a single number and wrap it in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "model_utility_vector": {
+        "Llama-3.1-8B-UltraMedical": 1.0,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9772357723577236,
+        "Qwen3-8B": 0.9609756097560975,
+        "granite-3.3-8b-instruct": 0.9544715447154472,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9544715447154472,
+        "cogito-v1-preview-llama-8B": 0.9512195121951219,
+        "GLM-Z1-9B-0414": 0.9447154471544715,
+        "MiniCPM4.1-8B": 0.9317073170731708,
+        "Intern-S1-mini": 0.9203252032520325,
+        "gemma-2-9b-it": 0.9154471544715447,
+        "Qwen2.5-Coder-7B-Instruct": 0.9105691056910569,
+        "Fin-R1": 0.9008130081300812,
+        "internlm3-8b-instruct": 0.8926829268292683,
+        "glm-4-9b-chat": 0.8878048780487805,
+        "Llama-3.1-8B-Instruct": 0.8845528455284553,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8406504065040651,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.8211382113821138,
+        "OpenThinker3-7B": 0.7983739837398374,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.6634146341463415,
+        "MiMo-7B-RL-0530": 0.0
+      },
+      "human_readable_explanation": "`finance__Llama-3.1-8B-UltraMedical` groups queries whose train-set utility profile favors `Llama-3.1-8B-UltraMedical`. It is most associated with domain `finance` and dataset `finqa` in this run."
+    },
+    {
+      "label_id": 14,
+      "short_name": "logical_reasoning__NVIDIA-Nemotron-Nano-9B-v2",
+      "size": 611,
+      "best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "second_best_model": "GLM-Z1-9B-0414",
+      "model_margin": 0.10965630114566294,
+      "top_domains": [
+        {
+          "name": "logical_reasoning",
+          "count": 179
+        },
+        {
+          "name": "multilingual",
+          "count": 97
+        },
+        {
+          "name": "code",
+          "count": 96
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "kandk",
+          "count": 179
+        },
+        {
+          "name": "korbench",
+          "count": 97
+        },
+        {
+          "name": "livecodebench",
+          "count": 86
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:1",
+          "query_text": "Plaintext: \"O\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:7",
+          "query_text": "Plaintext: \"HV\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:9",
+          "query_text": "Plaintext: \"TNKGPHLSYPV\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:19",
+          "query_text": "Plaintext: \"DVNEXYAHRWB\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "korbench:test:9",
+          "query_text": "Plaintext: \"TNKGPHLSYPV\"\n\nPlease provide the encrypted answer, encapsulated in double square brackets. For example, the format should be: [[encrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "kandk:test:683",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 8 inhabitants: Sebastian, Daniel, Abigail, Elizabeth, Aiden, Emma, Henry, and Jackson. Sebastian stated, \"Emma is a knight or Sebastian is a knight\". Daniel asserted: \"Jackson is a knight or Henry is a knave\". Abigail stated, \"If Aiden is a knave then Henry is a knave\". \"Sebastian is a knave and Aiden is a knight,\" Elizabeth declared. Aiden stated, \"If Sebastian is a knight then Emma is a knight\". In Emma's words: \"If Abigail is a knave then Elizabeth is a knave\". Henry commented, \"Daniel is a knave or Elizabeth is a knave\". \"Henry is a knave if and only if Emma is a knave,\" Jackson claimed. So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:580",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 7 inhabitants: Lucas, Isabella, James, Ella, Emma, Luke, and Sofia. In Lucas's words: \"James is a knave if and only if Luke is a knave\". In a statement by Isabella: \"Luke is a knave and Luke is a knight\". James remarked, \"If Sofia is a knave then Lucas is a knave\". Ella said that Isabella is a knight. Emma said, \"Lucas is a knave and Luke is a knight.\" Luke asserted: \"Lucas is a knight\". As Sofia put it, \"Ella is a knave if and only if Lucas is a knave\". So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        },
+        {
+          "query_id": "kandk:test:610",
+          "query_text": "A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie. You meet 8 inhabitants: Jackson, Charlotte, Zoey, Sophia, Avery, Mia, Logan, and William. \"Charlotte is a knight if and only if Avery is a knave\" - Jackson. \"Logan is a knave\" - Charlotte. Zoey noted, \"Sophia is a knave or Jackson is a knight\". As Sophia put it, \"Avery is a knight or William is a knight\". As Avery put it, \"If Sophia is a knave then Mia is a knave\". According to Mia, \"Logan is a knave and Jackson is a knave\". Logan asserted: \"Sophia is not a knight\". William said, \"Sophia is a knave if and only if Charlotte is a knave.\" So who is a knight and who is a knave?",
+          "dataset": "kandk",
+          "domain": "logical_reasoning"
+        }
+      ],
+      "model_utility_vector": {
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.900163666121113,
+        "GLM-Z1-9B-0414": 0.79050736497545,
+        "Qwen3-8B": 0.7692307692307693,
+        "Intern-S1-mini": 0.7250409165302782,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.7184942716857611,
+        "MiniCPM4.1-8B": 0.5859247135842881,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.3011456628477905,
+        "internlm3-8b-instruct": 0.1718494271685761,
+        "OpenThinker3-7B": 0.15057283142389524,
+        "Qwen2.5-Coder-7B-Instruct": 0.1342062193126023,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.10474631751227496,
+        "Fin-R1": 0.09492635024549918,
+        "gemma-2-9b-it": 0.09165302782324058,
+        "granite-3.3-8b-instruct": 0.09165302782324058,
+        "MiMo-7B-RL-0530": 0.08346972176759411,
+        "glm-4-9b-chat": 0.07528641571194762,
+        "Llama-3.1-8B-Instruct": 0.06710310965630115,
+        "Llama-3.1-8B-UltraMedical": 0.054009819967266774,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.0425531914893617,
+        "cogito-v1-preview-llama-8B": 0.0425531914893617
+      },
+      "human_readable_explanation": "`logical_reasoning__NVIDIA-Nemotron-Nano-9B-v2` groups queries whose train-set utility profile favors `NVIDIA-Nemotron-Nano-9B-v2`. It is most associated with domain `logical_reasoning` and dataset `kandk` in this run."
+    },
+    {
+      "label_id": 15,
+      "short_name": "math__Qwen3-8B",
+      "size": 424,
+      "best_model": "Qwen3-8B",
+      "second_best_model": "NVIDIA-Nemotron-Nano-9B-v2",
+      "model_margin": 0.011792452830188593,
+      "top_domains": [
+        {
+          "name": "math",
+          "count": 90
+        },
+        {
+          "name": "finance",
+          "count": 58
+        },
+        {
+          "name": "commonsense_reasoning",
+          "count": 51
+        }
+      ],
+      "top_datasets": [
+        {
+          "name": "math500",
+          "count": 63
+        },
+        {
+          "name": "finqa",
+          "count": 58
+        },
+        {
+          "name": "winogrande",
+          "count": 51
+        }
+      ],
+      "representative_queries": [
+        {
+          "query_id": "korbench:test:22",
+          "query_text": "Ciphertext: \"2^2\"\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:86",
+          "query_text": "Ciphertext: \"A\"\nperiod: 8\nincrement: 4\n\nPlease provide the decrypted answer, encapsulated in double square brackets. For example, the format should be: [[decrypted answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:286",
+          "query_text": "If X#6=5, find X.\nThe answer should only be given as a number.\nIf there is more than one answer, please separate them with 'or',e.g.[[1or2]].\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        },
+        {
+          "query_id": "korbench:test:533",
+          "query_text": "Space (use all letters).\nOnly give one word that meets the requirements.\nPlease wrap the answer in double square brackets, like this: [[your answer]].",
+          "dataset": "korbench",
+          "domain": "multilingual"
+        }
+      ],
+      "high_regret_failure_cases": [
+        {
+          "query_id": "medqa:test:468",
+          "query_text": "A 40-year-old man comes to the physician because of shortness of breath, double vision, and fatigue for the past 4 weeks. He has no history of serious medical illness and takes no medications. Physical examination shows drooping of the eyelids bilaterally. He is unable to hold his arms up for longer than 3 minutes. A CT scan of the chest shows an anterior mediastinal mass with smooth contours. A photomicrograph of a specimen from the mass is shown. Which of the following immunologic processes normally occurs in the region indicated by the arrow?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "emorynlp:test:27",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- How could someone get a hold of your credit card number?\n- I have no idea. But look how much they spent!\n- Monica, would you calm down? The credit card people said that you only have to pay for the stuff that you bought.\n- I know. It's just such reckless spending.\n- I think when someone steals your credit card, they've kind of already thrown caution to the wind.\n- Wow, what a geek. They spent $69.95 on a Wonder Mop.\n- That's me.\n- Oh! The yuk! Ross, he's doing it again!\n- Marcel, stop humping the lamp! Stop humping! Now Marcel, come back- come here, Marcel-\n- Oh no, not in my room! I'll get him.\n- Ross, you've got to do something about the humping.\n- What? It's, it's just a phase.\n- Well, that's what we said about Joey...\n- Would you all relax? It's not that big a deal.\n- Stop it! Marcel! Bad monkey!\n- What?\n\nUtterance:\nLet's just say my Curious George doll is no longer curious.\n\nOptions:\nA. Neutral\nB. Joyful\nC. Peaceful\nD. Powerful\nE. Scared\nF. Mad\nG. Sad",
+          "dataset": "emorynlp",
+          "domain": "dialogue"
+        },
+        {
+          "query_id": "medqa:test:216",
+          "query_text": "A 45-year-old man presents to the physician with complaints of increased urinary frequency and decreasing volumes for the past 2 months. He does not complain of any pain during urination. He is frustrated that he has to wake up 2 or 3 times per night to urinate even though he tried reducing the amount of water he consumes before bed and made some other dietary changes without any improvement. He has no family history of prostate disease. Physical examination is negative for any suprapubic mass or tenderness, and there is no costovertebral angle tenderness. Which of the following is the best next step in the management of this patient?",
+          "dataset": "medqa",
+          "domain": "medicine"
+        },
+        {
+          "query_id": "meld:test:642",
+          "query_text": "Given a conversation history and a current utterance, follow these steps to identify the emotion of the current utterance from the given options. The emotion should be determined based on both the conversation context and the current utterance.\nThe last line of your response should be of the following format: 'Answer: $LETTER' (without quotes) where LETTER is one of ABCDEFG. Let's think step by step.\n\nHistory:\n- Hmmm, soup!\n- Joey, Ross is gonna be here any second, would you mind watching Ben for me while I use the ladies' room?\n- Oh yeah, no problem.\n- Thanks.\n- Hi Ben! So you wanna be an actor huh? I gotta tell ya, it's no picnic. There's tons of rejection.\n\nUtterance:\nJoey!\n\nOptions:\nA. neutral\nB. joy\nC. sadness\nD. fear\nE. anger\nF. surprise\nG. disgust",
+          "dataset": "meld",
+          "domain": "dialogue"
+        }
+      ],
+      "model_utility_vector": {
+        "Qwen3-8B": 0.9481132075471698,
+        "NVIDIA-Nemotron-Nano-9B-v2": 0.9363207547169812,
+        "GLM-Z1-9B-0414": 0.9221698113207547,
+        "DeepSeek-R1-0528-Qwen3-8B": 0.9221698113207547,
+        "MiniCPM4.1-8B": 0.9174528301886793,
+        "DeepSeek-R1-Distill-Qwen-7B": 0.8301886792452831,
+        "Fin-R1": 0.8207547169811321,
+        "Intern-S1-mini": 0.8089622641509434,
+        "OpenThinker3-7B": 0.8042452830188679,
+        "Qwen2.5-Coder-7B-Instruct": 0.7877358490566038,
+        "internlm3-8b-instruct": 0.7830188679245284,
+        "granite-3.3-8b-instruct": 0.6297169811320755,
+        "Llama-3.1-Nemotron-Nano-8B-v1": 0.6061320754716981,
+        "gemma-2-9b-it": 0.5188679245283019,
+        "glm-4-9b-chat": 0.45990566037735847,
+        "cogito-v1-preview-llama-8B": 0.2641509433962264,
+        "Llama-3.1-8B-UltraMedical": 0.2617924528301887,
+        "MiMo-7B-RL-0530": 0.22169811320754718,
+        "DeepHermes-3-Llama-3-8B-Preview": 0.1721698113207547,
+        "Llama-3.1-8B-Instruct": 0.14858490566037735
+      },
+      "human_readable_explanation": "`math__Qwen3-8B` groups queries whose train-set utility profile favors `Qwen3-8B`. It is most associated with domain `math` and dataset `math500` in this run."
+    }
+  ]
+}

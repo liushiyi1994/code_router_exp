@@ -1,0 +1,25 @@
+{
+  "compatibility_note": "Assets are ready for the local LLMRouterBench RouteLLM MF trainer. This script does not train or evaluate an official RouteLLM MF model.",
+  "config_path": "configs/llmrouterbench_pilot.yaml",
+  "data_source": "llmrouterbench",
+  "embedding_dim": 256,
+  "model_a": "Qwen3-8B",
+  "model_b": "Qwen2.5-Coder-7B-Instruct",
+  "official_model_ids_source": "/home/liush/projects/code_router_exp/data/raw/external/LLMRouterBench/baselines/RouteLLM/routers/matrix_factorization/model.py",
+  "official_routellm_result": false,
+  "official_trainer_compatible": true,
+  "pair_in_official_model_ids": true,
+  "prompt_count": 2318,
+  "query_id_overlap_train_test": 0,
+  "record_counts": {
+    "test": 580,
+    "train": 627
+  },
+  "routecode_metric_compatible": false,
+  "split_aligned_with_routecode": true,
+  "strong_model": "Qwen3-8B",
+  "train_config_path": "results/llmrouterbench_pilot/routellm_mf_assets/mf_train_config.local.json",
+  "utility_fields_retained": true,
+  "weak_model": "Qwen2.5-Coder-7B-Instruct",
+  "winner_objective": "quality"
+}

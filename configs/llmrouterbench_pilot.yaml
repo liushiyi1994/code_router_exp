@@ -1,0 +1,153 @@
+run:
+  name: llmrouterbench_pilot
+  output_dir: results/llmrouterbench_pilot
+  random_seed: 7
+
+data:
+  source: llmrouterbench
+  results_dir: data/raw/external/LLMRouterBench/results/bench
+  cache_path: data/processed/llmrouterbench_pilot/outcomes.csv
+  source_splits: null
+  datasets:
+    - aime
+    - gpqa
+    - humaneval
+    - math500
+    - mbpp
+    - mmlupro
+  domain_map:
+    aime: math
+    math500: math
+    gpqa: science
+    humaneval: code
+    mbpp: code
+    mmlupro: broad_knowledge
+  task_taxonomy_map:
+    aime:
+      task_family: mathematical_reasoning
+      task_subtype: competition_math
+    math500:
+      task_family: mathematical_reasoning
+      task_subtype: math_word_problems
+    gpqa:
+      task_family: scientific_reasoning
+      task_subtype: graduate_science_qa
+    humaneval:
+      task_family: code_generation
+      task_subtype: function_synthesis
+    mbpp:
+      task_family: code_generation
+      task_subtype: program_synthesis
+    mmlupro:
+      task_family: broad_knowledge
+      task_subtype: multi_domain_exam
+  models:
+    - Qwen3-8B
+    - Qwen2.5-Coder-7B-Instruct
+    - DeepSeek-R1-Distill-Qwen-7B
+    - Llama-3.1-8B-Instruct
+    - MiniCPM4.1-8B
+    - Intern-S1-mini
+  drop_incomplete_queries: true
+  hashing_features: 256
+
+utility:
+  lambda_cost: 0.0
+
+split:
+  train_frac: 0.60
+  val_frac: 0.20
+  test_frac: 0.20
+
+routers:
+  embedding_clusters: 16
+  knn_k: 15
+
+routecode:
+  k_values: [1, 2, 4, 8, 16, 32, 64, 128]
+  selected_k_for_cards: 16
+  max_iter: 25
+
+predictability_constrained:
+  k: 16
+  alpha_values: [0.0, 0.05, 0.1, 0.3, 1.0, 3.0, 10.0]
+  selected_alpha: 3.0
+  beta: 0.0
+  max_iter: 25
+  refinement_iter: 10
+
+new_model_calibration:
+  k: 16
+  alpha: 3.0
+  beta: 0.0
+  holdout_models:
+    - Qwen3-8B
+    - Qwen2.5-Coder-7B-Instruct
+    - DeepSeek-R1-Distill-Qwen-7B
+    - Llama-3.1-8B-Instruct
+    - MiniCPM4.1-8B
+    - Intern-S1-mini
+  r_values: [1, 2, 4, 8, 16, 32, 64]
+  max_iter: 25
+  refinement_iter: 10
+  direct_router_max_iter: 1000
+  direct_router_methods: [logistic, svm, knn, mlp, gradient_boosting]
+  direct_router_knn_k: 15
+
+ablation:
+  seeds: [3, 7, 11]
+  k_values: [4, 8, 16, 32, 64, 128]
+  lambda_values: [0.0, 0.05, 0.1, 0.2]
+  train_fractions: [0.25, 0.5, 1.0]
+  d2_alpha: 3.0
+  d2_beta: 0.0
+  beta_values: [0.0, 0.1, 1.0, 3.0]
+  max_iter: 25
+
+bootstrap:
+  n_bootstrap: 300
+  ci: 0.95
+
+split_sensitivity:
+  max_group_scenarios: 2
+  cluster_count: 4
+  cluster_holdout_count: 2
+  max_model_pool_scenarios: 2
+  classifier_max_iter: 200
+
+sensitivity:
+  k: 16
+  d2_alpha: 3.0
+  d2_beta: 0.0
+  cost_lambda: 100.0
+  hashing_features: [64, 256]
+  label_noise_rates: [0.0, 0.1, 0.2]
+  cost_multipliers: [0.5, 1.0, 2.0]
+  price_ratio_exponents: [0.0, 0.5, 1.0, 2.0]
+  domain_granularity_columns: [domain, task_family, task_subtype, dataset]
+  domain_granularity_text_clusters: [4, 8]
+  domain_granularity_min_queries: 20
+  model_pool_sizes: [4]
+  auto_model_pool_sizes: [2, 3, 4, 5]
+  model_pools:
+    - name: qwen_pair
+      models: [Qwen3-8B, Qwen2.5-Coder-7B-Instruct]
+    - name: qwen_deepseek_llama
+      models: [Qwen3-8B, DeepSeek-R1-Distill-Qwen-7B, Llama-3.1-8B-Instruct]
+    - name: compact_pair
+      models: [MiniCPM4.1-8B, Intern-S1-mini]
+  bootstrap_counts: [50, 100, 300]
+
+external_baselines:
+  mf_rank: 4
+  mf_alpha: 1.0
+  strong_model: Qwen3-8B
+  weak_model: Qwen2.5-Coder-7B-Instruct
+  thresholds: [0.25, 0.5, 0.75]
+
+transformer_backbones:
+  cache_dir: ~/.cache/huggingface/hub
+  requested_model_ids:
+    - answerdotai/ModernBERT-base
+    - microsoft/deberta-v3-base
+  max_runnable_gb: 2.0

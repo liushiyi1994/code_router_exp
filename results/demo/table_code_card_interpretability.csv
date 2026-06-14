@@ -1,0 +1,5 @@
+codebook,K,alpha,beta,condition,n_labels,available_explainability_fields,best_model_coverage,second_best_model_coverage,model_margin_coverage,domain_summary_coverage,dataset_summary_coverage,representative_query_coverage,failure_case_coverage,utility_vector_coverage,human_explanation_coverage,avg_representative_queries,avg_failure_cases
+flat_routecode,16,,,label_only,16,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+flat_routecode,16,,,with_code_cards,16,9,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,4.0,4.0
+predictability_constrained_routecode,16,3.0,0.0,label_only,16,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+predictability_constrained_routecode,16,3.0,0.0,with_code_cards,16,9,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,4.0,4.0
