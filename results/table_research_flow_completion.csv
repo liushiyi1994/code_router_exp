@@ -1,0 +1,12 @@
+phase_id,phase,status,required_paths_present,required_paths_total,missing_paths,completion_rule,notes
+phase_a_synthetic_sanity,Phase A - setup and synthetic sanity,complete,5,5,,all_required_artifacts_present,Required artifacts are present.
+phase_b_real_data_pilot,Phase B - real-data pilot study,complete,5,5,,all_required_artifacts_present,Required artifacts are present.
+phase_c_observation_synthesis,Phase C - observation synthesis,complete,1,1,,all_required_artifacts_present,Required artifacts are present.
+phase_d2_predictability_constrained,Phase D2 - predictability-constrained RouteCode,complete,1,1,,all_required_artifacts_present,Required artifacts are present.
+phase_d3_code_cards,Phase D3 - explainable route-label cards,complete,1,1,,all_required_artifacts_present,Required artifacts are present.
+phase_d4_new_model_calibration,Phase D4 - new-model calibration,complete,1,1,,all_required_artifacts_present,Required artifacts are present.
+phase_d5_adaptive_refinement,Phase D5 - adaptive refinement,deferred,1,1,,deferred_if_gate_weak,Adaptive refinement is deferred unless a stronger deployable residual-risk signal appears.
+phase_e_external_methods,Phase E - method evaluation and external baselines,complete,2,2,,complete_if_phase_e_required_coverage_present,"Required Phase E baseline coverage is complete. Optional checkpoint-gated rows documented: routellm_bert_cli, best_route_train_cli, routerdc_train_cli, modelsat_train_cli."
+phase_f_ablation,Phase F - ablation study,complete,1,1,,all_required_artifacts_present,Required artifacts are present.
+phase_g_sensitivity,Phase G - sensitivity analysis,complete,1,1,,all_required_artifacts_present,Required artifacts are present.
+phase_h_final_claims,Phase H - final paper claims,complete,3,3,,complete_if_claims_documented_conservatively,"Conservative final claim posture documented: recommended_framing=information_frontier_diagnostic; unsupported/mixed claims not claimed: small_inferred_labels=not_supported, model_pool_transfer=mixed_evidence, benchmark_diagnosis=mixed_evidence, adaptive_refinement=not_supported"

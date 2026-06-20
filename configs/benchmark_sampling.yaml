@@ -1,0 +1,45 @@
+seed: 42
+sample_mode: stratified_synthetic_controlled
+dry_run_examples_per_benchmark: 5
+pilot_examples_per_benchmark: 100
+benchmarks:
+  - name: gsm8k
+    display_name: GSM8K
+    domain: math_easy
+    metric: exact_final_answer
+    max_output_tokens: 256
+  - name: math500
+    display_name: MATH500
+    domain: math_hard
+    metric: exact_final_answer
+    max_output_tokens: 512
+  - name: aime
+    display_name: AIME
+    domain: math_competition
+    metric: exact_final_answer
+    max_output_tokens: 512
+  - name: humaneval
+    display_name: HumanEval
+    domain: code
+    metric: pass_at_1
+    max_output_tokens: 512
+  - name: mbpp
+    display_name: MBPP
+    domain: code
+    metric: pass_at_1
+    max_output_tokens: 512
+  - name: livecodebench
+    display_name: LiveCodeBench
+    domain: code_live
+    metric: pass_at_1
+    max_output_tokens: 768
+  - name: gpqa
+    display_name: GPQA
+    domain: science_reasoning
+    metric: multiple_choice
+    max_output_tokens: 256
+  - name: mmlu_pro
+    display_name: MMLU-Pro
+    domain: broad_knowledge
+    metric: multiple_choice
+    max_output_tokens: 256

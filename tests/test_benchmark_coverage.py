@@ -165,3 +165,54 @@ def test_broad20_config_matches_audited_20_model_rectangle():
     assert set(expected_datasets) <= set(config["data"]["domain_map"])
     assert set(expected_datasets) <= set(config["data"]["task_taxonomy_map"])
     assert config["routecode"]["k_values"] == [1, 2, 4, 8, 16, 32, 64, 128]
+
+
+def test_broad10_config_matches_audited_10_model_rectangle():
+    root = Path(__file__).resolve().parents[1]
+    config = load_config(root / "configs" / "llmrouterbench_broad10.yaml")
+    candidate = pd.read_csv(root / "results" / "llmrouterbench_pilot" / "table_broad_coverage_candidates.csv")
+    row = candidate[candidate["model_count"].eq(10)].iloc[0]
+    expected_datasets = row["datasets"].split(";")
+    expected_models = row["models"].split(";")
+
+    assert config["run"]["output_dir"] == "results/llmrouterbench_broad10"
+    assert config["data"]["cache_path"] == "data/processed/llmrouterbench_broad10/outcomes.csv"
+    assert config["data"]["datasets"] == expected_datasets
+    assert config["data"]["models"] == expected_models
+    assert set(expected_datasets) <= set(config["data"]["domain_map"])
+    assert set(expected_datasets) <= set(config["data"]["task_taxonomy_map"])
+    assert config["model_pool_scale"]["sizes"] == [2, 4, 8, 10]
+    assert config["model_pool_transfer"]["source_sizes"] == [4, 6]
+    assert config["model_pool_transfer"]["target_sizes"] == [4]
+
+
+def test_broad20_config_uses_stronger_direct_router_comparisons():
+    root = Path(__file__).resolve().parents[1]
+    config = load_config(root / "configs" / "llmrouterbench_broad20.yaml")
+    expected = {"logistic", "svm", "knn", "mlp", "gradient_boosting"}
+
+    assert expected <= set(config["stronger_direct_router_probe"]["direct_router_methods"])
+    assert expected <= set(config["model_pool_transfer"]["direct_router_methods"])
+    assert set(config["new_model_calibration"]["direct_router_methods"]) == {"logistic", "svm", "knn"}
+
+
+def test_broad20_config_calibrates_every_model_as_holdout():
+    root = Path(__file__).resolve().parents[1]
+    config = load_config(root / "configs" / "llmrouterbench_broad20.yaml")
+
+    assert config["new_model_calibration"]["holdout_models"] == config["data"]["models"]
+    assert len(config["new_model_calibration"]["holdout_models"]) == 20
+    assert config["new_model_calibration"]["direct_router_logistic_solver"] == "saga"
+    assert config["new_model_calibration"]["direct_router_svm_backend"] == "sgd"
+    assert config["new_model_calibration"]["direct_router_max_iter"] <= 100
+
+
+def test_broad20_config_uses_expanded_split_sensitivity_scope():
+    root = Path(__file__).resolve().parents[1]
+    config = load_config(root / "configs" / "llmrouterbench_broad20.yaml")
+    split_config = config["split_sensitivity"]
+
+    assert split_config["max_group_scenarios"] is None
+    assert split_config["cluster_count"] == 4
+    assert split_config["cluster_holdout_count"] == 4
+    assert split_config["max_model_pool_scenarios"] is None

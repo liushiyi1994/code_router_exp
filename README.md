@@ -32,6 +32,8 @@ The route label is learned, discrete, utility-aware, and explainable. It is a la
 - `REFERENCES.md`: paper, benchmark, repo, and novelty-boundary links.
 - `PAPERS_AND_BASELINES.md`: baseline priority and implementation plan.
 - `STARTING_PROMPT.md`: paste-ready Codex starting prompt.
+- `PHASE3_AGENT_HANDOFF.md`: current Phase 3 handoff with data flow, metrics,
+  artifacts, supported claims, and no-tool caveats.
 
 ## Recommended first action
 
@@ -41,7 +43,27 @@ The route label is learned, discrete, utility-aware, and explainable. It is a la
 4. Paste the prompt from `STARTING_PROMPT.md`.
 5. Let Codex build the synthetic pilot before touching real benchmark data.
 
+## Current Phase 3 State
+
+If you are entering the existing Phase 3 work rather than starting from the
+synthetic pilot, read `PHASE3_AGENT_HANDOFF.md` first after `AGENTS.md`.
+
+The current final result package is in `results/phase3_final/`.
+
+Start with:
+
+- `results/phase3_final/README.md`: final-result landing page.
+- `results/phase3_final/EXPERIMENT_PROTOCOL.md`: how the experiments were run,
+  what benchmarks were used, and the current benchmark-scope caveat.
+- `results/phase3_final/FINAL_EVALUATION_REPORT.md`: consolidated numbers.
+- `results/phase3_final/TWO_CLAIM_LIVE_COMPLETION_AUDIT.md`: the two supported
+  calibration/onboarding claims and caveats.
+
+Current short answer: ProbeCode-StateCal reaches the configured Broad100
+oracle-level target on held-out queries from 9 benchmark families. The state is
+learned from train/validation data from those same families, so new-benchmark
+generalization is not yet proven and should be a next evaluation.
+
 ## Reference note
 
 `REFERENCES.md` and `PAPERS_AND_BASELINES.md` are first-class files. The agent must use them before making novelty claims or choosing baselines. If a link is stale, the agent should update it rather than silently proceeding.
-

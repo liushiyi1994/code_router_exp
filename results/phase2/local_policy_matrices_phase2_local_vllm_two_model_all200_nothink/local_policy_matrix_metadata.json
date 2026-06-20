@@ -1,0 +1,13 @@
+{
+  "lambda_cost": 0.0,
+  "model_count": 2,
+  "outcome_rows": 400,
+  "overlap_rows": 328,
+  "policy_queries": 41,
+  "policy_rows": 82,
+  "policy_split": "test",
+  "state_count": 16,
+  "train_queries": 123,
+  "train_rows": 246,
+  "train_split": "train"
+}

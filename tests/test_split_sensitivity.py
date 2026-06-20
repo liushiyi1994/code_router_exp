@@ -3,6 +3,7 @@ import pandas as pd
 import importlib.util
 from pathlib import Path
 
+from routecode.config import load_config
 from routecode.eval.split_sensitivity import (
     cluster_heldout_split,
     domain_homogeneous_split,
@@ -113,3 +114,90 @@ def test_split_rate_k_values_uses_split_specific_override():
         "split_sensitivity": {"k_values": [1, 4, 16]},
     }
     assert module.split_rate_k_values(config) == [1, 4, 16]
+
+
+def test_split_rate_sweep_uses_rate_specific_fit_controls():
+    module_path = Path(__file__).resolve().parents[1] / "experiments" / "04_split_sensitivity.py"
+    spec = importlib.util.spec_from_file_location("split_sensitivity_script", module_path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    config = {
+        "routecode": {"max_iter": 25},
+        "split_sensitivity": {
+            "classifier_max_iter": 300,
+            "rate_classifier_max_iter": 75,
+            "rate_codebook_max_iter": 9,
+            "rate_codebook_n_init": 1,
+        },
+    }
+
+    assert module.split_rate_fit_controls(config) == {
+        "classifier_max_iter": 75,
+        "codebook_max_iter": 9,
+        "codebook_n_init": 1,
+    }
+
+
+def test_split_sensitivity_partial_tables_make_completed_scenarios_resumable(tmp_path):
+    module_path = Path(__file__).resolve().parents[1] / "experiments" / "04_split_sensitivity.py"
+    spec = importlib.util.spec_from_file_location("split_sensitivity_script", module_path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    sensitivity_rows = [
+        {"scenario": "random", "scenario_type": "random", "method": "best_single"},
+        {"scenario": "leave_dataset_out:a", "scenario_type": "leave_one_dataset_out", "method": "SKIPPED"},
+    ]
+    rate_rows = [
+        {"scenario": "random", "scenario_type": "random", "rate_log2K_to_80pct_learned_gain": float("nan")},
+    ]
+
+    module.write_partial_tables(tmp_path, sensitivity_rows, rate_rows)
+    loaded_sensitivity, loaded_rate, completed = module.load_partial_tables(tmp_path)
+
+    assert loaded_sensitivity == sensitivity_rows
+    assert loaded_rate[0]["scenario"] == "random"
+    assert loaded_rate[0]["scenario_type"] == "random"
+    assert pd.isna(loaded_rate[0]["rate_log2K_to_80pct_learned_gain"])
+    assert completed == {"random", "leave_dataset_out:a"}
+
+
+def test_reference_values_for_scenario_come_from_completed_sensitivity_table():
+    module_path = Path(__file__).resolve().parents[1] / "experiments" / "04_split_sensitivity.py"
+    spec = importlib.util.spec_from_file_location("split_sensitivity_script", module_path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    sensitivity = pd.DataFrame(
+        [
+            {"scenario": "s0", "method": "best_single", "mean_utility": 0.5},
+            {"scenario": "s0", "method": "kNN", "mean_utility": 0.7},
+            {"scenario": "s0", "method": "logistic_embedding_router", "mean_utility": 0.6},
+            {"scenario": "s0", "method": "routecode_predicted_labels", "mean_utility": 0.65},
+            {"scenario": "s0", "method": "query_oracle", "mean_utility": 0.9},
+        ]
+    )
+
+    values = module.reference_values_for_scenario(sensitivity, "s0")
+
+    assert values == {
+        "baseline_mean": 0.5,
+        "learned_reference_mean": 0.7,
+        "oracle_mean": 0.9,
+    }
+
+
+def test_broad20_split_sensitivity_uses_full_routecode_k_ladder():
+    module_path = Path(__file__).resolve().parents[1] / "experiments" / "04_split_sensitivity.py"
+    spec = importlib.util.spec_from_file_location("split_sensitivity_script", module_path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    config = load_config(Path(__file__).resolve().parents[1] / "configs" / "llmrouterbench_broad20.yaml")
+
+    assert module.split_rate_k_values(config) == config["routecode"]["k_values"]

@@ -151,30 +151,220 @@ predictability_constrained:
   refinement_iter: 10
 
 ablation:
-  seeds: [3, 7]
-  k_values: [8, 16, 32]
-  lambda_values: [0.0, 0.1]
-  train_fractions: [0.5, 1.0]
+  seeds: [3, 7, 11]
+  k_values: [4, 8, 16, 32, 64, 128]
+  lambda_values: [0.0, 0.05, 0.1, 0.2]
+  train_fractions: [0.25, 0.5, 1.0]
   d2_alpha: 1.0
   d2_beta: 0.0
-  beta_values: [0.0, 1.0]
+  beta_values: [0.0, 0.1, 1.0, 3.0]
   max_iter: 25
+  classifier_max_iter: 100
+  logistic_solver: saga
+  svm_backend: sgd
+  classifier_tol: 0.01
+  kmeans_n_init: 1
 
 split_sensitivity:
-  max_group_scenarios: 1
+  max_group_scenarios: null
   cluster_count: 4
-  cluster_holdout_count: 1
-  max_model_pool_scenarios: 1
+  cluster_holdout_count: 4
+  max_model_pool_scenarios: null
   classifier_max_iter: 300
-  k_values: [1, 4, 16]
+  k_values: [1, 2, 4, 8, 16, 32, 64, 128]
+  rate_classifier_max_iter: 100
+  rate_codebook_max_iter: 15
+  rate_codebook_n_init: 1
+  checkpoint_partial: true
+  resume_partial: true
+
+sensitivity:
+  k: 16
+  d2_alpha: 1.0
+  d2_beta: 0.0
+  cost_lambda: 100.0
+  hashing_features: [64, 256]
+  label_noise_rates: [0.0, 0.1, 0.2]
+  cost_multipliers: [0.5, 1.0, 2.0]
+  price_ratio_exponents: [0.0, 1.0, 2.0]
+  domain_granularity_columns: [domain, task_family, task_subtype, dataset]
+  domain_granularity_text_clusters: [4]
+  domain_granularity_min_queries: 40
+  model_pool_sizes: [4, 8]
+  auto_model_pool_sizes: [2, 4]
+  model_pools:
+    - name: qwen_pair
+      models: [Qwen3-8B, Qwen2.5-Coder-7B-Instruct]
+    - name: qwen_deepseek_llama
+      models: [Qwen3-8B, DeepSeek-R1-Distill-Qwen-7B, Llama-3.1-8B-Instruct]
+    - name: compact_pair
+      models: [MiniCPM4.1-8B, Intern-S1-mini]
+  bootstrap_counts: [50, 100]
+
+cost_quality:
+  lambda_values: [0.0, 0.05, 0.1, 0.2]
+  quality_target_fractions: [0.8, 0.9, 0.95, 0.99]
+  cost_budget_fractions: [0.25, 0.5, 0.75, 1.0]
+
+provider_pricing:
+  lambda_values: [0.0, 0.05, 0.1, 0.2]
+  quality_target_fractions: [0.8, 0.9, 0.95]
+  cost_budget_fractions: [0.25, 0.5, 0.75, 1.0]
+  schedules:
+    - name: openrouter_verified_subset_2026_06_15
+      provider: OpenRouter
+      source_checked_date: "2026-06-15"
+      unmapped_policy: drop
+      prices_per_million_tokens:
+        Qwen3-8B:
+          provider_model_id: qwen/qwen3-8b
+          input: 0.05
+          output: 0.40
+          source_url: https://openrouter.ai/qwen/qwen3-8b
+        Llama-3.1-8B-Instruct:
+          provider_model_id: meta-llama/llama-3.1-8b-instruct
+          input: 0.02
+          output: 0.03
+          source_url: https://openrouter.ai/meta-llama/llama-3.1-8b-instruct/pricing
+        NVIDIA-Nemotron-Nano-9B-v2:
+          provider_model_id: nvidia/nemotron-nano-9b-v2:free
+          input: 0.0
+          output: 0.0
+          source_url: https://openrouter.ai/api/v1/models
+    - name: mixed_public_provider_subset_2026_06_15
+      provider: Mixed public provider snapshot
+      source_checked_date: "2026-06-15"
+      unmapped_policy: drop
+      prices_per_million_tokens:
+        Qwen3-8B:
+          provider: OpenRouter
+          provider_model_id: qwen/qwen3-8b
+          input: 0.05
+          output: 0.40
+          source_url: https://openrouter.ai/qwen/qwen3-8b
+        Llama-3.1-8B-Instruct:
+          provider: OpenRouter
+          provider_model_id: meta-llama/llama-3.1-8b-instruct
+          input: 0.02
+          output: 0.03
+          source_url: https://openrouter.ai/meta-llama/llama-3.1-8b-instruct/pricing
+        DeepSeek-R1-Distill-Qwen-7B:
+          provider: Alibaba Qwen
+          provider_model_id: deepseek-r1-distill-qwen-7b
+          input: 0.072
+          output: 0.144
+          source_url: https://cloudprice.net/models/deepseek-r1-distill-qwen-7b
+        DeepSeek-R1-0528-Qwen3-8B:
+          provider: Novita AI
+          provider_model_id: deepseek-r1-0528-qwen3-8b
+          input: 0.06
+          output: 0.09
+          source_url: https://www.llmreference.com/model/deepseek-r1-0528-qwen3-8b/novita-ai
+        GLM-Z1-9B-0414:
+          provider: SiliconFlow
+          provider_model_id: GLM-Z1-9B-0414
+          input: 0.086
+          output: 0.086
+          source_url: https://www.siliconflow.com/models/compare/glm-4-32b-0414-vs-glm-z1-9b-0414
+        Qwen2.5-Coder-7B-Instruct:
+          provider: Alibaba Qwen
+          provider_model_id: qwen2.5-coder-7b-instruct
+          input: 0.144
+          output: 0.287
+          source_url: https://www.alibabacloud.com/help/en/model-studio/models
+        NVIDIA-Nemotron-Nano-9B-v2:
+          provider: DeepInfra
+          provider_model_id: deepinfra/nvidia/NVIDIA-Nemotron-Nano-9B-v2
+          input: 0.04
+          output: 0.16
+          source_url: https://cloudprice.net/models/nvidia-nemotron-nano-2-9b
+        OpenThinker3-7B:
+          provider: LlamaGate
+          provider_model_id: llamagate/openthinker-7b
+          input: 0.08
+          output: 0.15
+          source_url: https://www.getmaxim.ai/bifrost/llm-cost-calculator/provider/llamagate
+        cogito-v1-preview-llama-8B:
+          provider: Fireworks AI
+          provider_model_id: cogito-v1-preview-llama-8b
+          input: 0.20
+          output: 0.20
+          source_url: https://www.llmreference.com/model/cogito-v1-preview-llama-8b/fireworks-ai
+        gemma-2-9b-it:
+          provider: Fireworks AI
+          provider_model_id: fireworks_ai/accounts/fireworks/models/gemma2-9b-it
+          input: 0.20
+          output: 0.20
+          source_url: https://cloudprice.net/models/google-gemma-2-9b-instruct
+        granite-3.3-8b-instruct:
+          provider: Replicate
+          provider_model_id: replicate/ibm-granite/granite-3.3-8b-instruct
+          input: 0.03
+          output: 0.25
+          source_url: https://cloudprice.net/models/ibm-granite-3-3-8b-instruct
+        glm-4-9b-chat:
+          provider: SiliconFlow
+          provider_model_id: THUDM/glm-4-9b-chat
+          input: 0.0
+          output: 0.0
+          source_url: https://docs.siliconflow.com/cn/faqs/billing-rules
+      unmapped_price_notes:
+        DeepHermes-3-Llama-3-8B-Preview:
+          provider: OpenRouter catalog
+          provider_model_id: nousresearch/deephermes-3-llama-3-8b-preview
+          source_url: https://openrouter.ai/nousresearch/deephermes-3-llama-3-8b-preview
+          coverage_note: catalog_page_no_active_per_token_price
+        Fin-R1:
+          provider: Featherless
+          provider_model_id: SUFE-AIFLM-Lab/Fin-R1
+          source_url: https://featherless.ai/models/SUFE-AIFLM-Lab/Fin-R1
+          coverage_note: flat_rate_only_no_per_token_price
+        Intern-S1-mini:
+          provider: Hugging Face / self-host
+          provider_model_id: internlm/Intern-S1-mini
+          source_url: https://huggingface.co/internlm/Intern-S1-mini
+          coverage_note: exact_model_card_no_provider_token_price
+        Llama-3.1-8B-UltraMedical:
+          provider: Featherless
+          provider_model_id: TsinghuaC3I/Llama-3.1-8B-UltraMedical
+          source_url: https://featherless.ai/models/TsinghuaC3I/Llama-3.1-8B-UltraMedical
+          coverage_note: flat_rate_only_no_per_token_price
+        Llama-3.1-Nemotron-Nano-8B-v1:
+          provider: OpenRouter catalog
+          provider_model_id: nvidia/llama-3.1-nemotron-nano-8b-v1
+          source_url: https://openrouter.ai/nvidia/llama-3.1-nemotron-nano-8b-v1
+          coverage_note: catalog_page_no_active_per_token_price
+        MiMo-7B-RL-0530:
+          provider: Featherless
+          provider_model_id: XiaomiMiMo/MiMo-7B-RL-0530
+          source_url: https://featherless.ai/models/XiaomiMiMo/MiMo-7B-RL-0530
+          coverage_note: flat_rate_only_no_per_token_price
+        MiniCPM4.1-8B:
+          provider: ModelScope / self-host
+          provider_model_id: OpenBMB/MiniCPM4.1-8B
+          source_url: https://modelscope.cn/models/OpenBMB/MiniCPM4.1-8B
+          coverage_note: exact_model_card_no_provider_token_price
+        internlm3-8b-instruct:
+          provider: Hugging Face / self-host
+          provider_model_id: internlm/internlm3-8b-instruct
+          source_url: https://huggingface.co/internlm/internlm3-8b-instruct
+          coverage_note: exact_model_card_no_provider_token_price
+
+model_pool_scale:
+  sizes: [2, 4, 8, 12, 16, 20]
+  k: 16
+  d2_alpha: 1.0
+  d2_beta: 0.0
 
 model_pool_transfer:
   source_size: 8
   target_size: 8
+  source_sizes: [4, 8, 12]
+  target_sizes: [4, 8]
   k: 16
   d2_alpha: 1.0
   d2_beta: 0.0
-  direct_router_methods: [logistic, svm, knn]
+  direct_router_methods: [logistic, svm, knn, mlp, gradient_boosting]
   direct_router_max_iter: 500
   direct_router_knn_k: 15
 
@@ -182,16 +372,81 @@ new_model_calibration:
   k: 16
   alpha: 1.0
   beta: 0.0
-  max_holdout_models: 6
+  holdout_models:
+    - DeepHermes-3-Llama-3-8B-Preview
+    - DeepSeek-R1-0528-Qwen3-8B
+    - DeepSeek-R1-Distill-Qwen-7B
+    - Fin-R1
+    - GLM-Z1-9B-0414
+    - Intern-S1-mini
+    - Llama-3.1-8B-Instruct
+    - Llama-3.1-8B-UltraMedical
+    - Llama-3.1-Nemotron-Nano-8B-v1
+    - MiMo-7B-RL-0530
+    - MiniCPM4.1-8B
+    - NVIDIA-Nemotron-Nano-9B-v2
+    - OpenThinker3-7B
+    - Qwen2.5-Coder-7B-Instruct
+    - Qwen3-8B
+    - cogito-v1-preview-llama-8B
+    - gemma-2-9b-it
+    - glm-4-9b-chat
+    - granite-3.3-8b-instruct
+    - internlm3-8b-instruct
   r_values: [1, 2, 4, 8, 16, 32, 64]
+  direct_router_methods: [logistic, svm, knn]
+  direct_router_max_iter: 100
+  direct_router_logistic_solver: saga
+  direct_router_svm_backend: sgd
+  direct_router_tol: 0.01
+  direct_router_knn_k: 15
+
+stronger_direct_router_probe:
+  k: 16
+  alpha: 1.0
+  beta: 0.0
+  max_holdout_models: 2
+  r_values: [8, 64]
   direct_router_methods: [logistic, svm, knn, mlp, gradient_boosting]
-  direct_router_max_iter: 500
+  direct_router_max_iter: 200
   direct_router_knn_k: 15
 
 external_baselines:
   mf_rank: 4
   mf_alpha: 1.0
+  strong_model: Qwen3-8B
+  weak_model: MiMo-7B-RL-0530
   thresholds: [0.25, 0.5, 0.75]
+  embedllm_knn_neighbors: [3, 15, 131]
+  embedllm_knn_embedding_backend: sentence_transformers
+  embedllm_knn_sentence_transformer: all-mpnet-base-v2
+  embedllm_knn_local_files_only: true
+  embedllm_knn_batch_size: 32
+  frugalgpt_epochs: 1
+  frugalgpt_max_steps: 1
+  frugalgpt_max_length: 128
+  frugalgpt_batch_size: 16
+  frugalgpt_eval_batch_size: 64
+  frugalgpt_prob_thresholds: [0.5]
+  frugalgpt_reuse_saved_scorers: false
+
+transformer_backbones:
+  cache_dir: ~/.cache/huggingface/hub
+  requested_model_ids:
+    - sentence-transformers/all-MiniLM-L6-v2
+    - BAAI/bge-small-en-v1.5
+    - intfloat/e5-small-v2
+    - answerdotai/ModernBERT-base
+    - microsoft/deberta-v3-base
+  max_runnable_gb: 2.0
+
+transformer_embedding_router:
+  direct_router_methods: [logistic, svm, knn]
+  max_iter: 200
+  knn_k: 15
+  batch_size: 16
+  max_length: 256
+  device: auto
 
 bootstrap:
   n_bootstrap: 100

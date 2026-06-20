@@ -10,6 +10,13 @@ Learn explainable, utility-aware route labels for LLM routing and measure how ma
 
 Build a synthetic end-to-end demo before touching real LLM benchmarks.
 
+## Current Phase 3 handoff
+
+If this checkout already contains Phase 3 controlled results, read
+`PHASE3_AGENT_HANDOFF.md` after `AGENTS.md`. It summarizes the current
+ProbeCode / ProbeRoute++ method, data flow, metrics, result artifacts, and
+claim caveats.
+
 ## Files to read in order
 
 1. `AGENTS.md`
@@ -74,4 +81,3 @@ results/demo/*.csv exist
 results/demo/*.pdf exist
 results/demo/README.md explains what happened
 ```
-

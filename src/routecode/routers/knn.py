@@ -31,8 +31,9 @@ class KNNRouter:
             raise RuntimeError("KNNRouter must be fit before predict")
         aligned = embeddings.loc[query_info.index]
         _, neighbor_positions = self.neighbors.kneighbors(aligned.to_numpy())
-        selected = []
-        for positions in neighbor_positions:
-            neighbor_ids = self.train_index[positions]
-            selected.append(str(self.train_utility.loc[neighbor_ids].mean(axis=0).idxmax()))
+        train_values = self.train_utility.to_numpy(dtype=float)
+        neighbor_means = train_values[neighbor_positions].mean(axis=1)
+        selected_positions = neighbor_means.argmax(axis=1)
+        model_ids = [str(model_id) for model_id in self.train_utility.columns]
+        selected = [model_ids[position] for position in selected_positions]
         return pd.Series(selected, index=query_info.index, name="selected_model")

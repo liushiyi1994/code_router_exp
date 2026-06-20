@@ -1,0 +1,2 @@
+n_queries,selected_model_changes,selected_model_change_rate,mean_before_utility,mean_after_utility,mean_utility_delta,positive_utility_delta_rows,negative_utility_delta_rows,mean_predicted_gain,nonzero_predicted_gain_rows,mean_probe_cost
+41,2,0.04878048780487805,0.8536585365853658,0.8536585365853658,0.0,0,0,0.0,0,0.24559239363412275

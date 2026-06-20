@@ -1,0 +1,2 @@
+policy_name,candidate_type,selection_basis,n_queries,mean_utility,oracle_mean_utility,abs_gap_to_oracle,relative_gap_to_oracle,threshold,within_threshold,regret_count,mean_oracle_regret,route_labels,selected_models,method_caveat
+exact_math_qwen_intern,benchmark_label_route_rule,targeted_exact_math_benchmark_label_rule,41,0.926829268292683,0.926829268292683,0.0,0.0,0.03,True,0,0.0,"aime,math500","Intern-S1-mini,Qwen3-8B",Operational benchmark-label route rule; not the core latent-state RouteCode/ProbeRoute++ method and not a paper-level claim.

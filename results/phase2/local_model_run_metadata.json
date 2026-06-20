@@ -1,0 +1,19 @@
+{
+  "command": "python experiments/51_true_model_generation_matrix.py --config configs/phase2_local_smoke.yaml",
+  "config_path": "configs/phase2_local_smoke.yaml",
+  "dry_run": true,
+  "error_count": 0,
+  "generation_params": {
+    "max_tokens": 128,
+    "temperature": 0.0
+  },
+  "git_commit": "3c727f64a8954ccc913f527c9ca26d4c6901affd",
+  "model_ids": [
+    "dry_run_model"
+  ],
+  "model_revision": "dry-run",
+  "outcomes_sha256": "e5e5f302cb345e8ffd93ad56fc353fedbaf6fd96c104e23692fa21335502bf75",
+  "output_dir": "results/phase2",
+  "row_count": 20,
+  "task_count": 20
+}

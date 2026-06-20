@@ -46,6 +46,58 @@ resp = client.chat.completions.create(
 )
 ```
 
+For Phase 2 multi-model local runs, use one vLLM server per base model and give each server a separate port. The current Phase 2 runner supports this through `phase2_local_eval.openai_endpoints`.
+
+Example two-model layout:
+
+```bash
+env "PATH=/home/liush/miniconda3/envs/ml-gpu/bin:$PATH" \
+  VLLM_USE_V2_MODEL_RUNNER=0 \
+  /home/liush/miniconda3/envs/ml-gpu/bin/vllm serve Qwen/Qwen3-4B \
+  --host 127.0.0.1 \
+  --port 8001 \
+  --api-key local-routecode \
+  --dtype auto \
+  --max-model-len 1024 \
+  --max-num-seqs 8 \
+  --max-num-batched-tokens 1024 \
+  --gpu-memory-utilization 0.35 \
+  --served-model-name qwen3_4b_vllm
+
+env "PATH=/home/liush/miniconda3/envs/ml-gpu/bin:$PATH" \
+  VLLM_USE_V2_MODEL_RUNNER=0 \
+  /home/liush/miniconda3/envs/ml-gpu/bin/vllm serve Qwen/Qwen3-0.6B \
+  --host 127.0.0.1 \
+  --port 8002 \
+  --api-key local-routecode \
+  --dtype auto \
+  --max-model-len 1024 \
+  --max-num-seqs 8 \
+  --max-num-batched-tokens 1024 \
+  --gpu-memory-utilization 0.20 \
+  --served-model-name qwen3_0_6b_vllm
+```
+
+On this WSL/CUDA/vLLM 0.23.0 setup, `VLLM_USE_V2_MODEL_RUNNER=0` was required to avoid `RuntimeError: UVA is not available`. The quoted `PATH` prefix keeps the conda env `ninja` binary visible for JIT.
+
+Then run the 200-query exact-scored Phase 2 matrix:
+
+```bash
+python experiments/51_true_model_generation_matrix.py \
+  --config configs/phase2_local_vllm_two_model_all200_nothink.yaml
+```
+
+This writes `results/phase2/local_vllm_two_model_all200_nothink/local_model_outcomes.parquet`. The run still makes no GPT/Claude/Gemini API calls.
+
+To run the full Phase 2 chain after both servers are live, use:
+
+```bash
+PYTHONPATH=src python experiments/71_local_vllm_policy_pipeline.py \
+  --config configs/phase2_local_vllm_two_model_all200_nothink.yaml
+```
+
+This checks readiness, runs local generation, converts local outcomes into policy matrices, evaluates ProbeRoute++ policies, and refreshes the Phase 2 completion audit.
+
 ### Secondary: llama.cpp / llama-cpp-python
 
 Use for GGUF quantized models.
@@ -102,15 +154,25 @@ python -m sglang.launch_server \
 
 ---
 
-## 4. API caution
+## 4. API and closed-source model caution
 
-GPT/Claude chat subscriptions are useful for writing, debugging, and manual checks. They should not be assumed to cover batch API experiments.
+GPT, Claude, and Gemini chat subscriptions are useful for writing, debugging, and manual checks. They should not be assumed to cover batch API experiments.
+
+Closed-source provider families to keep in the future model-pool plan:
+
+```text
+OpenAI GPT-family
+Anthropic Claude-family
+Google Gemini-family
+```
 
 For any API-based experiment:
 
 - obtain API keys/credits explicitly;
 - cache every request/response;
 - record model version, date, prompt, temperature, token counts, and cost;
+- refresh provider pricing before the run and record source URLs plus checked dates;
+- keep provider token cost separate from local probe latency/GPU proxy cost;
 - start with calibration examples only, not full matrices.
 
 ---
@@ -120,9 +182,8 @@ For any API-based experiment:
 Do not start the project by:
 
 - fine-tuning a 7B router;
-- using GPT/Claude for full matrix generation;
+- using GPT/Claude/Gemini for full matrix generation;
 - building an LLM-based query summarizer for every query;
 - making local serving a blocker for benchmark pilots.
 
 The first pilot is fully offline and synthetic.
-

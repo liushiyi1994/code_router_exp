@@ -1,0 +1,6 @@
+method,status,n_queries,n_train,n_test,state_prediction_accuracy,state_prediction_accuracy_ci_low,state_prediction_accuracy_ci_high,routing_utility,observability_gap_closed,mean_probe_cost_proxy,regret_prediction_auc,notes
+query_only_state_predictor,executed,164,123,41,0.6097560975609756,0.4634146341463415,0.7560975609756098,,,0.854599370451238,,State prediction only; routing utility requires a state-to-model utility table.
+probe_only_state_predictor,executed,164,123,41,0.4878048780487805,0.34146341463414637,0.6469512195121946,,,0.854599370451238,,State prediction only; routing utility requires a state-to-model utility table.
+query_plus_probe_state_predictor,executed,164,123,41,0.6341463414634146,0.4878048780487805,0.7804878048780488,,,0.854599370451238,,State prediction only; routing utility requires a state-to-model utility table.
+query_plus_knn_uncertainty_state_predictor,executed,164,123,41,0.6097560975609756,0.4634146341463415,0.7560975609756098,,,0.854599370451238,,State prediction only; routing utility requires a state-to-model utility table.
+query_plus_confidence_state_predictor,executed,164,123,41,0.6341463414634146,0.4878048780487805,0.7804878048780488,,,0.854599370451238,,State prediction only; routing utility requires a state-to-model utility table.

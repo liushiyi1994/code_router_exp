@@ -1,0 +1,13 @@
+run:
+  name: phase2_local_server_readiness_vllm_qwen3_4b
+  output_dir: results/phase2/local_server_readiness_vllm_qwen3_4b
+
+phase2_local_server_readiness:
+  base_url: http://localhost:8001/v1
+  api_key: local-routecode
+  model_ids:
+    - __first_listed__
+  timeout_sec: 30.0
+  generation_params:
+    temperature: 0.0
+    max_tokens: 8

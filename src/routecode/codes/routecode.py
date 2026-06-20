@@ -14,10 +14,11 @@ class RouteCodeCodebook:
     learned train label embedding centroids, not test utility vectors.
     """
 
-    def __init__(self, n_labels: int, random_state: int = 0, max_iter: int = 25) -> None:
+    def __init__(self, n_labels: int, random_state: int = 0, max_iter: int = 25, n_init: int = 10) -> None:
         self.n_labels = int(n_labels)
         self.random_state = int(random_state)
         self.max_iter = int(max_iter)
+        self.n_init = int(n_init)
         self.effective_labels: int = 0
         self.train_labels_: pd.Series | None = None
         self.label_to_model: dict[int, str] = {}
@@ -45,7 +46,7 @@ class RouteCodeCodebook:
             kmeans = KMeans(
                 n_clusters=self.effective_labels,
                 random_state=self.random_state,
-                n_init=10,
+                n_init=self.n_init,
                 max_iter=self.max_iter,
             )
             labels = kmeans.fit_predict(values)

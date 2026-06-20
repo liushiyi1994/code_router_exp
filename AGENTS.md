@@ -57,6 +57,28 @@ Frame it as:
 - diagnosing benchmark compressibility;
 - optionally doing adaptive refinement for uncertain queries.
 
+Cost is part of the routing objective, not a later reporting detail. Main
+utility results should use or sweep:
+
+```text
+U(q,m) = quality(q,m) - lambda * normalized_cost(q,m)
+```
+
+Keep closed-source provider models in the long-term model-pool plan because
+applied routers often compare local/open models with frontier APIs. The provider
+families to remember are:
+
+```text
+OpenAI GPT-family
+Anthropic Claude-family
+Google Gemini-family
+```
+
+These are not default experiments. Do not call GPT, Claude, or Gemini APIs
+unless a later task explicitly enables provider API access, budget, caching,
+token logging, and refreshed pricing documentation. Chat subscriptions are not
+the same as batch API access.
+
 ---
 
 ## Main claims to test
@@ -338,3 +360,40 @@ For papers, benchmark URLs, and open-source repos, always check `REFERENCES.md`.
 - RouterBench: secondary public routing benchmark.
 - WebRouter and FineRouter: close novelty-boundary papers; do not claim first information bottleneck or first latent task discovery.
 - GraphRouter, BEST-Route, Universal Model Routing: top-conference comparison/positioning references.
+
+
+# LLM Routing Research Agent Instructions
+
+Use the Deli_AutoResearch skill for:
+- idea exploration
+- literature/novelty checking
+- experiment planning
+- benchmark implementation
+- failed-run diagnosis
+- ablation planning
+- evidence verification
+
+Do not use it for:
+- making final paper claims without verification
+- running expensive frontier-model API calls without explicit approval
+- deleting datasets or benchmark outputs
+- changing experiment metrics without logging the reason
+
+All research iterations must write to:
+- autoresearch/state/progress.json
+- autoresearch/state/findings.jsonl
+- autoresearch/state/directions_tried.json
+- autoresearch/logs/work.jsonl
+
+Every experiment must report:
+- hypothesis
+- command run
+- dataset/benchmark
+- model pool
+- metric
+- cost estimate if API models are used
+- result
+- whether the result supports or weakens the claim
+
+If an iteration produces no new finding, mark it stale.
+After two stale iterations, pivot structurally instead of tuning the same parameter again.

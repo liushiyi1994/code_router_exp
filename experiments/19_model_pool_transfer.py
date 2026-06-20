@@ -51,6 +51,8 @@ def run(config_path: str) -> None:
 
     source_size = int(transfer_config.get("source_size", min(8, max(2, len(train.model_ids) // 2))))
     target_size = int(transfer_config.get("target_size", min(8, max(2, len(train.model_ids) - source_size))))
+    source_sizes = [int(value) for value in transfer_config.get("source_sizes", [])] or None
+    target_sizes = [int(value) for value in transfer_config.get("target_sizes", [])] or None
     k = int(transfer_config.get("k", d2_config.get("k", route_config.get("selected_k_for_cards", 16))))
     alpha = float(transfer_config.get("d2_alpha", d2_config.get("selected_alpha", 3.0)))
     beta = float(transfer_config.get("d2_beta", d2_config.get("beta", 0.0)))
@@ -63,7 +65,13 @@ def run(config_path: str) -> None:
     n_bootstrap = int(bootstrap.get("n_bootstrap", 300))
     ci = float(bootstrap.get("ci", 0.95))
 
-    scenarios = build_model_pool_transfer_scenarios(train.utility, source_size=source_size, target_size=target_size)
+    scenarios = build_model_pool_transfer_scenarios(
+        train.utility,
+        source_size=source_size,
+        target_size=target_size,
+        source_sizes=source_sizes,
+        target_sizes=target_sizes,
+    )
     rows: list[dict[str, Any]] = []
     for scenario_index, scenario in enumerate(scenarios):
         rows.extend(
@@ -263,6 +271,7 @@ def write_memo(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         "## Transfer Readout",
         "",
         f"- Transfer scenarios: `{table['transfer_scenario'].nunique()}`.",
+        f"- Source/target size pairs: {_size_pair_summary(table)}.",
         f"- Source/target overlap max: `{int(table['source_target_overlap'].max())}`.",
     ]
     if transfer_rows.empty:
@@ -271,13 +280,15 @@ def write_memo(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         lines.append(
             "- Transferred D2 recovered-gap range: "
             f"`{transfer_rows['recovered_gap_vs_oracle'].min():.4f}` to "
-            f"`{transfer_rows['recovered_gap_vs_oracle'].max():.4f}`."
+            f"`{transfer_rows['recovered_gap_vs_oracle'].max():.4f}` "
+            f"(mean `{transfer_rows['recovered_gap_vs_oracle'].mean():.4f}`)."
         )
     if not direct_rows.empty:
         lines.append(
             "- Direct retraining recovered-gap range: "
             f"`{direct_rows['recovered_gap_vs_oracle'].min():.4f}` to "
-            f"`{direct_rows['recovered_gap_vs_oracle'].max():.4f}`."
+            f"`{direct_rows['recovered_gap_vs_oracle'].max():.4f}` "
+            f"(mean `{direct_rows['recovered_gap_vs_oracle'].mean():.4f}`)."
         )
     lines.extend(
         [
@@ -306,6 +317,10 @@ def append_readme(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         "- `table_model_pool_transfer.csv`: disjoint source/target pool transfer rows for target baselines, native D2, and transferred source-D2 labels.",
         "- `phase_f_g_model_pool_transfer_memo.md`: held-out model-pool transfer checkpoint memo.",
         "",
+        f"- Transfer scenarios: `{table['transfer_scenario'].nunique()}`.",
+        f"- Source/target size pairs: {_size_pair_summary(table)}.",
+        f"- Source/target overlap max: `{int(table['source_target_overlap'].max())}`.",
+        "",
         _markdown_table(_summary_table(table)),
         "",
     ]
@@ -323,6 +338,18 @@ def _summary_table(table: pd.DataFrame) -> pd.DataFrame:
         "recovered_gap_vs_oracle",
     ]
     return table.loc[:, columns].sort_values(["transfer_scenario", "method"]).reset_index(drop=True)
+
+
+def _size_pair_summary(table: pd.DataFrame) -> str:
+    if table.empty:
+        return "`none`"
+    pairs = sorted(
+        {
+            (int(row.source_model_count), int(row.target_model_count))
+            for row in table.loc[:, ["source_model_count", "target_model_count"]].itertuples(index=False)
+        }
+    )
+    return ", ".join(f"`{source}x{target}`" for source, target in pairs)
 
 
 def _markdown_table(frame: pd.DataFrame) -> str:

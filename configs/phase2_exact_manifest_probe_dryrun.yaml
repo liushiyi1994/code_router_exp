@@ -1,0 +1,14 @@
+run:
+  name: phase2_exact_manifest_probe_dryrun
+  output_dir: results/phase2/exact_manifest_probes
+
+phase2_exact_manifest_probe:
+  task_manifest_path: results/phase2/local_exact_task_manifest.csv
+  dry_run: true
+  model_ids:
+    - dry_probe
+  model_revision: dry-run
+  max_queries: 200
+  generation_params:
+    temperature: 0.0
+    max_tokens: 64

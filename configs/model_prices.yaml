@@ -1,0 +1,20 @@
+checked_date: 2026-06-17
+unit: usd_per_1m_tokens
+notes:
+  - Prices are standard text rates used for pre-call estimates and offline cost accounting.
+  - Batch/flex/priority discounts or surcharges are not used in the default controlled run.
+models:
+  gpt-5.5:
+    provider: openai
+    input_per_mtok: 5.00
+    cached_input_per_mtok: 0.50
+    output_per_mtok: 30.00
+    source_url: https://openai.com/api/pricing/
+    source_note: "OpenAI API pricing page, GPT-5.5 standard text pricing."
+  gemini-3.5-flash:
+    provider: google
+    input_per_mtok: 1.50
+    cached_input_per_mtok: 0.15
+    output_per_mtok: 9.00
+    source_url: https://ai.google.dev/gemini-api/docs/pricing
+    source_note: "Google Gemini API pricing page, Gemini 3.5 Flash standard pricing."

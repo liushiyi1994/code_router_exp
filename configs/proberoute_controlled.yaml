@@ -1,0 +1,50 @@
+project: proberoute_controlled_phase3
+run_id: controlled_surrogate_pilot_v1
+seed: 42
+execution_mode: controlled_surrogate
+
+budget:
+  allow_frontier_calls: false
+  max_total_frontier_spend_usd: 8.00
+  max_spend_per_frontier_model_usd: 6.00
+  cache_dir: results/controlled/raw_outputs
+  force_rerun: false
+  env_file: .env
+
+inputs:
+  model_prices: configs/model_prices.yaml
+  model_servers: configs/model_servers.yaml
+  benchmark_sampling: configs/benchmark_sampling.yaml
+
+routing:
+  lambda_cost: 0.35
+  lambda_latency: 0.05
+  cost_normalization: all_gpt_remote_cost_per_query
+  latency_normalization: all_gpt_p95_latency
+  latent_state_K_values: [4, 8, 16, 32]
+  main_K_values: [8, 16]
+  probe_policies: [never, entropy_threshold, margin_threshold, voi]
+  calibration_examples_per_state: [4, 8, 16, 32]
+
+surrogate:
+  # Offline surrogate is a control harness: it validates schemas, costs, routing math,
+  # plots, and claim gates before paid frontier or large local generation.
+  pilot_examples_per_benchmark: 100
+  dry_run_examples_per_benchmark: 5
+  write_raw_cache_records: true
+  input_tokens_base: 240
+  output_tokens_base: 96
+  prompt_template_version: controlled_surrogate_v1
+
+live_stage0:
+  max_output_tokens: 64
+  local_max_output_tokens: 96
+  request_timeout_s: 60
+  local_readiness_timeout_s: 2
+
+outputs:
+  output_dir: results/controlled
+  save_raw_outputs: true
+  save_scored_outputs: true
+  save_figures_pdf: true
+  save_tables_csv: true

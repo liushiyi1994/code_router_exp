@@ -21,6 +21,8 @@ def build_model_pool_transfer_scenarios(
     utility: pd.DataFrame,
     source_size: int,
     target_size: int,
+    source_sizes: list[int] | None = None,
+    target_sizes: list[int] | None = None,
 ) -> list[ModelPoolTransferScenario]:
     """Build deterministic disjoint source/target pool transfer scenarios.
 
@@ -30,26 +32,33 @@ def build_model_pool_transfer_scenarios(
 
     if utility.shape[1] < 4:
         raise ValueError("Model-pool transfer scenarios require at least four models")
-    source_n = min(max(2, int(source_size)), utility.shape[1] - 2)
-    target_n = min(max(1, int(target_size)), utility.shape[1] - source_n)
+    source_values = _normalized_source_sizes(utility, source_size, source_sizes)
+    target_values = _normalized_target_sizes(target_size, target_sizes)
     mean_order = [str(model) for model in utility.mean(axis=0).sort_values(ascending=False).index]
 
-    source_candidates = build_model_pool_scale_scenarios(utility, [source_n])
-    selected_sources = []
-    wanted = {
-        ("top", f"top_{source_n}"): "top_to_next",
-        ("complementary", f"complementary_{source_n}"): "complementary_to_remaining_top",
-        ("dominated", f"dominated_{source_n}"): "dominated_to_remaining_top",
-    }
-    for candidate in source_candidates:
-        key = (candidate.family, candidate.name)
-        if key in wanted:
-            selected_sources.append((wanted[key], candidate.family, candidate.models))
-
     scenarios: list[ModelPoolTransferScenario] = []
-    for name, family, source_models in selected_sources:
-        target_models = _top_remaining(mean_order, source_models, target_n)
-        scenarios.append(_scenario(name, family, source_models, target_models, utility))
+    include_size_suffix = len(source_values) > 1 or len(target_values) > 1
+    for source_n in source_values:
+        source_candidates = build_model_pool_scale_scenarios(utility, [source_n])
+        selected_sources = []
+        wanted = {
+            ("top", f"top_{source_n}"): "top_to_next",
+            ("complementary", f"complementary_{source_n}"): "complementary_to_remaining_top",
+            ("dominated", f"dominated_{source_n}"): "dominated_to_remaining_top",
+        }
+        for candidate in source_candidates:
+            key = (candidate.family, candidate.name)
+            if key in wanted:
+                selected_sources.append((wanted[key], candidate.family, candidate.models))
+        for target_n in target_values:
+            if source_n + target_n > utility.shape[1]:
+                continue
+            for base_name, family, source_models in selected_sources:
+                name = f"{base_name}_s{source_n}_t{target_n}" if include_size_suffix else base_name
+                target_models = _top_remaining(mean_order, source_models, target_n)
+                scenarios.append(_scenario(name, family, source_models, target_models, utility))
+    if not scenarios:
+        raise ValueError("No valid disjoint source/target model-pool transfer scenarios")
     return scenarios
 
 
@@ -85,6 +94,21 @@ def _top_remaining(mean_order: list[str], source_models: list[str], target_size:
     return remaining[:target_size]
 
 
+def _normalized_source_sizes(
+    utility: pd.DataFrame,
+    source_size: int,
+    source_sizes: list[int] | None,
+) -> list[int]:
+    raw_sizes = source_sizes if source_sizes is not None else [source_size]
+    sizes = sorted({min(max(2, int(size)), utility.shape[1] - 2) for size in raw_sizes})
+    return [size for size in sizes if size < utility.shape[1]]
+
+
+def _normalized_target_sizes(target_size: int, target_sizes: list[int] | None) -> list[int]:
+    raw_sizes = target_sizes if target_sizes is not None else [target_size]
+    return sorted({max(1, int(size)) for size in raw_sizes})
+
+
 def _scenario(
     name: str,
     source_family: str,
@@ -110,4 +134,3 @@ def _scenario(
             "target_winner_entropy": target_stats["winner_entropy"],
         },
     )
-

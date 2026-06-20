@@ -1,0 +1,7 @@
+source,model_id,provider,status,n_calls,total_cost_usd,cost_per_1k_calls_usd,mean_latency_s,p95_latency_s
+historical_live_broad100_qwen32_thinking_mcq,gemini-3.5-flash,google,skipped,200,0.3063315,1.5316575,4.090666770935058e-05,6.774663925170898e-05
+historical_live_broad100_qwen32_thinking_mcq,gpt-5.5,openai,skipped,200,1.030585,5.152925,4.2051076889038086e-05,7.352828979492184e-05
+historical_live_broad100_qwen32_thinking_mcq,qwen3-32b-awq-thinking-local,local,success,200,0.0,0.0,3.0431977844238283,3.403933846950531
+current_live_qwen06_smoke,qwen3-0.6b-probe-live-smoke,local,success,8,0.0,0.0,0.7022737817487723,0.8393619228481838
+current_frontier_readiness,gpt-5.5,openai,blocked_no_api_key,0,,,,
+current_frontier_readiness,gemini-3.5-flash,google,blocked_no_api_key,0,,,,

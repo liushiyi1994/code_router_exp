@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+import routecode.codes.routecode as routecode_module
 from routecode.data.schema import REQUIRED_OUTCOME_COLUMNS, validate_outcomes
 from routecode.data.splits import split_by_query
 from routecode.matrix import build_matrices
@@ -160,3 +161,33 @@ def test_routecode_codebook_can_assign_oracle_labels_from_utility_vectors():
 
     assert selected.loc["q0"] == "cheap"
     assert selected.loc["q3"] == "strong"
+
+
+def test_routecode_codebook_passes_n_init_to_kmeans(monkeypatch):
+    seen: dict[str, int] = {}
+
+    class FakeKMeans:
+        def __init__(self, n_clusters, random_state, n_init, max_iter):
+            seen["n_clusters"] = n_clusters
+            seen["random_state"] = random_state
+            seen["n_init"] = n_init
+            seen["max_iter"] = max_iter
+
+        def fit_predict(self, values):
+            assert values.shape == (4, 2)
+            return np.array([0, 0, 1, 1])
+
+    monkeypatch.setattr(routecode_module, "KMeans", FakeKMeans)
+    utility = pd.DataFrame(
+        {
+            "cheap": [0.9, 0.85, 0.2, 0.25],
+            "strong": [0.3, 0.35, 0.95, 0.9],
+        },
+        index=["q0", "q1", "q2", "q3"],
+    )
+    query_info = pd.DataFrame({"dataset": ["a", "a", "b", "b"]}, index=utility.index)
+    embeddings = pd.DataFrame(np.eye(4), index=utility.index)
+
+    RouteCodeCodebook(n_labels=2, random_state=7, max_iter=11, n_init=1).fit(query_info, utility, embeddings)
+
+    assert seen == {"n_clusters": 2, "random_state": 7, "n_init": 1, "max_iter": 11}

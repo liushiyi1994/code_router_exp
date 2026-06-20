@@ -18,6 +18,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+transformer = ["torch", "transformers", "sentencepiece", "sentence-transformers"]
+graphrouter = ["torch", "torch-geometric", "wandb", "bert-score", "litellm"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

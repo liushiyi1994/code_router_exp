@@ -1,0 +1,21 @@
+{
+  "backend": "transformers",
+  "config_path": "configs/phase2_exact_manifest_probe_qwen3_4b_transformers.yaml",
+  "created_at": "2026-06-17T04:15:07.598206+00:00",
+  "dry_run": false,
+  "error_rows": 0,
+  "feature_rows": 118,
+  "generation_params": {
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "max_tokens": 48,
+    "temperature": 0.0
+  },
+  "model_ids": [
+    "Qwen3-4B-transformers-local"
+  ],
+  "model_revision": "Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c",
+  "task_count": 118,
+  "task_manifest_path": "results/phase2/local_exact_task_manifest.csv"
+}

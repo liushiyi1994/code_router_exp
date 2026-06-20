@@ -204,6 +204,10 @@ Make learned route labels inspectable.
 
 Show that a new model can be integrated with fewer calibration examples.
 
+Detailed plan:
+
+- `docs/PHASE4_PHASE5_CALIBRATION_TRANSFER_PLAN.md`
+
 ### Protocol
 
 1. Freeze query-to-label predictor.
@@ -227,6 +231,52 @@ Show that a new model can be integrated with fewer calibration examples.
 ### Strong result
 
 RouteCode reaches high utility with far fewer query-model evaluations than direct router retraining.
+
+---
+
+## E5b: model-pool transfer
+
+### Goal
+
+Show that a RouteCode label space learned on one candidate model pool can be
+reused on another candidate model pool by recalibrating the label-to-model
+table, instead of retraining a full query-to-model router.
+
+Detailed plan:
+
+- `docs/PHASE4_PHASE5_CALIBRATION_TRANSFER_PLAN.md`
+
+### Protocol
+
+1. Fit RouteCode labels and the query-to-label predictor on a source model pool.
+2. Freeze the query-to-label predictor.
+3. Build a target model pool with added, removed, or replaced models.
+4. Estimate target-pool utility per route label on a target calibration split.
+5. Recompute the label-to-model table for the target pool.
+6. Evaluate on held-out target test queries.
+7. Compare against target direct routers under the same calibration budget.
+
+### Outputs
+
+- `table_model_pool_transfer.csv`
+- `phase_f_g_model_pool_transfer_memo.md`
+
+### Metrics
+
+- target mean utility;
+- target oracle regret;
+- transfer recovered gap vs target oracle;
+- transfer utility retention vs native target RouteCode;
+- calibration examples/evaluations;
+- source-target model overlap;
+- negative transfer rate;
+- bootstrap CI.
+
+### Strong result
+
+Transferred RouteCode labels match direct target-router utility with 3x--5x fewer
+target-pool calibration examples and remain competitive under low-overlap
+source/target model pools.
 
 ---
 
@@ -330,4 +380,3 @@ Vary:
 - noise.
 
 Use synthetic validation to verify that RouteCode recovers known low-rate or high-rate structure.
-

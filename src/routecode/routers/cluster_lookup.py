@@ -7,9 +7,10 @@ from sklearn.cluster import KMeans
 
 
 class EmbeddingClusterRouter:
-    def __init__(self, n_clusters: int, random_state: int = 0) -> None:
+    def __init__(self, n_clusters: int, random_state: int = 0, n_init: int = 10) -> None:
         self.n_clusters = int(n_clusters)
         self.random_state = int(random_state)
+        self.n_init = int(n_init)
         self.kmeans: KMeans | None = None
         self.label_to_model: dict[int, str] = {}
         self.fallback_model: str | None = None
@@ -29,7 +30,7 @@ class EmbeddingClusterRouter:
             labels = np.zeros(len(aligned), dtype=int)
             self.kmeans = None
         else:
-            self.kmeans = KMeans(n_clusters=self.effective_clusters, random_state=self.random_state, n_init=10)
+            self.kmeans = KMeans(n_clusters=self.effective_clusters, random_state=self.random_state, n_init=self.n_init)
             labels = self.kmeans.fit_predict(aligned.to_numpy())
         self.label_to_model = {}
         for label in range(self.effective_clusters):

@@ -1,0 +1,2 @@
+check_id,status,base_url,model_id,models_endpoint_status,model_listed,completion_status,latency_sec,tokens_input,tokens_output,blocking_reasons,error_type,error_message,created_at
+local_openai_server:qwen3_4b_vllm,ready,http://localhost:8001/v1,qwen3_4b_vllm,ok,True,ok,0.36191238700030226,19,3,,,,2026-06-17T17:36:13.858292+00:00

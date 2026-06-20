@@ -1,0 +1,9 @@
+{
+  "alpha": 0.0,
+  "belief_type": "one_hot_routecode_embedding_predicted",
+  "beta": 0.0,
+  "effective_labels": 32,
+  "k": 32,
+  "policy_rows": 41,
+  "train_rows": 1738
+}

@@ -50,6 +50,36 @@ def test_build_model_pool_transfer_scenarios_uses_disjoint_source_and_target_poo
         assert scenario.stats["target_oracle_gap"] >= 0.0
 
 
+def test_build_model_pool_transfer_scenarios_supports_multiple_pool_sizes():
+    utility = pd.DataFrame(
+        {
+            f"m{i}": [0.5 + 0.01 * i, 0.4 + 0.02 * (i % 3), 0.3 + 0.03 * (i % 4), 0.2 + 0.04 * (i % 5)]
+            for i in range(10)
+        },
+        index=["q0", "q1", "q2", "q3"],
+    )
+
+    scenarios = build_model_pool_transfer_scenarios(
+        utility,
+        source_size=4,
+        target_size=3,
+        source_sizes=[3, 4],
+        target_sizes=[2, 3],
+    )
+
+    assert len(scenarios) == 12
+    assert {scenario.source_family for scenario in scenarios} == {"top", "complementary", "dominated"}
+    assert {(len(scenario.source_models), len(scenario.target_models)) for scenario in scenarios} == {
+        (3, 2),
+        (3, 3),
+        (4, 2),
+        (4, 3),
+    }
+    assert len({scenario.name for scenario in scenarios}) == len(scenarios)
+    for scenario in scenarios:
+        assert set(scenario.source_models).isdisjoint(scenario.target_models)
+
+
 def test_fit_label_to_target_model_uses_train_labels_and_target_utilities_only():
     labels = pd.Series([0, 0, 1, 1], index=["q0", "q1", "q2", "q3"], name="route_label")
     target_utility = pd.DataFrame(
@@ -146,3 +176,5 @@ def test_model_pool_transfer_script_writes_table_memo_and_readme(tmp_path):
     assert "## Held-Out Model-Pool Transfer" in readme
     memo = memo_path.read_text(encoding="utf-8")
     assert "disjoint source and target model pools" in memo
+    assert "Source/target size pairs" in memo
+    assert "Direct retraining recovered-gap range" in memo

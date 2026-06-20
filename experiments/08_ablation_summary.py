@@ -17,11 +17,11 @@ from routecode.config import load_config, output_dir
 from routecode.data.splits import split_by_query
 from routecode.eval.ablation import configured_sweep_values, sample_train_query_ids
 from routecode.eval.evaluate import evaluate_selection
+from routecode.eval.new_model_calibration import fit_predict_budgeted_direct_router
 from routecode.matrix import Matrices, build_matrices
 from routecode.metrics import selected_values
 from routecode.pipeline import prepare_from_config
 from routecode.plots import save_seed_stability, save_sensitivity_k_lambda
-from routecode.predictors.classifiers import LogisticModelRouter, SVMModelRouter
 from routecode.reporting import upsert_markdown_section
 from routecode.routers.cluster_lookup import EmbeddingClusterRouter
 from routecode.routers.knn import KNNRouter
@@ -60,6 +60,7 @@ def main() -> None:
     max_iter = int(ablation.get("max_iter", route_config.get("max_iter", 25)))
     d2_alpha = float(ablation.get("d2_alpha", d2_config.get("selected_alpha", 3.0)))
     d2_beta = float(ablation.get("d2_beta", d2_config.get("beta", 0.0)))
+    fit_controls = ablation_fit_controls(config)
 
     rows: list[dict[str, Any]] = []
     rows.extend(
@@ -74,6 +75,8 @@ def main() -> None:
             d2_beta,
             n_bootstrap,
             ci,
+            fit_controls,
+            fit_controls["kmeans_n_init"],
         )
     )
     rows.extend(
@@ -88,6 +91,8 @@ def main() -> None:
             d2_alpha,
             n_bootstrap,
             ci,
+            fit_controls["kmeans_n_init"],
+            fit_controls,
         )
     )
     rows.extend(
@@ -100,6 +105,8 @@ def main() -> None:
             d2_beta,
             n_bootstrap,
             ci,
+            fit_controls,
+            fit_controls["kmeans_n_init"],
         )
     )
     rows.extend(
@@ -111,6 +118,12 @@ def main() -> None:
             seed,
             n_bootstrap,
             ci,
+            int(route_config.get("selected_k_for_cards", 16)),
+            max_iter,
+            d2_alpha,
+            d2_beta,
+            fit_controls,
+            fit_controls["kmeans_n_init"],
         )
     )
 
@@ -134,13 +147,21 @@ def _k_lambda_rows(
     d2_beta: float,
     n_bootstrap: int,
     ci: float,
+    fit_controls: dict[str, Any],
+    kmeans_n_init: int,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for lambda_cost in lambda_values:
         matrices = _matrices_by_split(outcomes, lambda_cost)
         train = matrices["train"]
         test = matrices["test"]
-        baseline_mean, learned_reference_mean, oracle_mean = _references(train, test, embeddings, seed)
+        baseline_mean, learned_reference_mean, oracle_mean = _references(
+            train,
+            test,
+            embeddings,
+            seed,
+            fit_controls,
+        )
         best_single = BestSingleRouter().fit(train.query_info, train.utility).predict(test.query_info)
         rows.append(
             _row(
@@ -158,7 +179,11 @@ def _k_lambda_rows(
             )
         )
         for k in k_values:
-            semantic = EmbeddingClusterRouter(k, random_state=seed).fit(train.query_info, train.utility, embeddings)
+            semantic = EmbeddingClusterRouter(k, random_state=seed, n_init=kmeans_n_init).fit(
+                train.query_info,
+                train.utility,
+                embeddings,
+            )
             semantic_labels = semantic.predict_labels(embeddings.loc[test.utility.index])
             rows.append(
                 _row(
@@ -177,7 +202,11 @@ def _k_lambda_rows(
                     lambda_cost=lambda_cost,
                 )
             )
-            flat = RouteCodeCodebook(k, random_state=seed, max_iter=max_iter).fit(train.query_info, train.utility, embeddings)
+            flat = RouteCodeCodebook(k, random_state=seed, max_iter=max_iter, n_init=kmeans_n_init).fit(
+                train.query_info,
+                train.utility,
+                embeddings,
+            )
             flat_labels = flat.predict_utility_labels(test.utility)
             rows.append(
                 _row(
@@ -196,7 +225,7 @@ def _k_lambda_rows(
                     lambda_cost=lambda_cost,
                 )
             )
-            regret = RegretOptimizedRouteCode(k, random_state=seed, max_iter=max_iter).fit(
+            regret = RegretOptimizedRouteCode(k, random_state=seed, max_iter=max_iter, n_init=kmeans_n_init).fit(
                 train.query_info,
                 train.utility,
                 embeddings,
@@ -225,6 +254,7 @@ def _k_lambda_rows(
                 beta=d2_beta,
                 random_state=seed,
                 max_iter=max_iter,
+                n_init=kmeans_n_init,
             ).fit(train.query_info, train.utility, embeddings)
             d2_labels = d2.predict_labels(embeddings.loc[test.utility.index])
             rows.append(
@@ -258,11 +288,14 @@ def _rate_penalty_rows(
     d2_alpha: float,
     n_bootstrap: int,
     ci: float,
+    kmeans_n_init: int = 10,
+    fit_controls: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     matrices = _matrices_by_split(outcomes, lambda_cost)
     train = matrices["train"]
     test = matrices["test"]
-    baseline_mean, learned_reference_mean, oracle_mean = _references(train, test, embeddings, seed)
+    controls = fit_controls or ablation_fit_controls({})
+    baseline_mean, learned_reference_mean, oracle_mean = _references(train, test, embeddings, seed, controls)
     rows: list[dict[str, Any]] = []
     for beta in beta_values:
         d2 = PredictabilityConstrainedRouteCode(
@@ -271,6 +304,7 @@ def _rate_penalty_rows(
             beta=float(beta),
             random_state=seed,
             max_iter=max_iter,
+            n_init=kmeans_n_init,
         ).fit(train.query_info, train.utility, embeddings)
         labels = d2.predict_labels(embeddings.loc[test.utility.index])
         rows.append(
@@ -303,6 +337,8 @@ def _seed_rows(
     d2_beta: float,
     n_bootstrap: int,
     ci: float,
+    fit_controls: dict[str, Any],
+    kmeans_n_init: int,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for seed in seed_values:
@@ -311,8 +347,25 @@ def _seed_rows(
         train = prepared.matrices["train"]
         test = prepared.matrices["test"]
         embeddings = prepared.embeddings
-        baseline_mean, learned_reference_mean, oracle_mean = _references(train, test, embeddings, seed)
-        methods = _deployable_methods(train, test, embeddings, seed, k, max_iter, d2_alpha, d2_beta)
+        baseline_mean, learned_reference_mean, oracle_mean = _references(
+            train,
+            test,
+            embeddings,
+            seed,
+            fit_controls,
+        )
+        methods = _deployable_methods(
+            train,
+            test,
+            embeddings,
+            seed,
+            k,
+            max_iter,
+            d2_alpha,
+            d2_beta,
+            fit_controls,
+            kmeans_n_init,
+        )
         for method, selected, labels in methods:
             rows.append(
                 _row(
@@ -343,28 +396,61 @@ def _train_fraction_rows(
     seed: int,
     n_bootstrap: int,
     ci: float,
+    k: int,
+    max_iter: int,
+    d2_alpha: float,
+    d2_beta: float,
+    fit_controls: dict[str, Any] | None = None,
+    kmeans_n_init: int = 10,
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
-    baseline_mean, learned_reference_mean, oracle_mean = _references(train, test, embeddings, seed)
+    controls = fit_controls or ablation_fit_controls({})
+    baseline_mean, learned_reference_mean, oracle_mean = _references(train, test, embeddings, seed, controls)
     for fraction in train_fractions:
         query_ids = sample_train_query_ids(train.utility.index, fraction, seed=seed + int(1000 * fraction))
         subset_query_info = train.query_info.loc[query_ids]
         subset_utility = train.utility.loc[query_ids]
-        for method, selected in [
+        best_single = BestSingleRouter().fit(subset_query_info, subset_utility).predict(test.query_info)
+        knn = KNNRouter(15).fit(subset_query_info, subset_utility, embeddings).predict(test.query_info, embeddings)
+        d2 = PredictabilityConstrainedRouteCode(
+            k,
+            alpha=d2_alpha,
+            beta=d2_beta,
+            random_state=seed,
+            max_iter=max_iter,
+            n_init=kmeans_n_init,
+        ).fit(subset_query_info, subset_utility, embeddings)
+        d2_labels = d2.predict_labels(embeddings.loc[test.utility.index])
+        for method, selected, labels, method_k in [
+            ("best_single", best_single, None, None),
+            ("kNN", knn, None, None),
             (
                 "logistic_embedding_router",
-                LogisticModelRouter(random_state=seed).fit(subset_query_info, subset_utility, embeddings).predict(
+                _fit_direct_router(
+                    "logistic",
+                    subset_utility,
                     test.query_info,
                     embeddings,
+                    seed,
+                    controls,
                 ),
+                None,
+                None,
             ),
             (
                 "svm_embedding_router",
-                SVMModelRouter(random_state=seed).fit(subset_query_info, subset_utility, embeddings).predict(
+                _fit_direct_router(
+                    "svm",
+                    subset_utility,
                     test.query_info,
                     embeddings,
+                    seed,
+                    controls,
                 ),
+                None,
+                None,
             ),
+            ("d2_embedding_centroid", d2.predict_from_labels(d2_labels), d2_labels, d2.effective_labels),
         ]:
             rows.append(
                 _row(
@@ -378,6 +464,8 @@ def _train_fraction_rows(
                     n_bootstrap,
                     ci,
                     seed,
+                    k=method_k,
+                    labels=labels,
                     train_fraction=fraction,
                     train_query_count=len(query_ids),
                 )
@@ -394,15 +482,35 @@ def _deployable_methods(
     max_iter: int,
     d2_alpha: float,
     d2_beta: float,
+    fit_controls: dict[str, Any],
+    kmeans_n_init: int,
 ) -> list[tuple[str, pd.Series, pd.Series | None]]:
     best_single = BestSingleRouter().fit(train.query_info, train.utility).predict(test.query_info)
     knn = KNNRouter(15).fit(train.query_info, train.utility, embeddings).predict(test.query_info, embeddings)
-    logistic = LogisticModelRouter(random_state=seed).fit(train.query_info, train.utility, embeddings).predict(
+    logistic = _fit_direct_router(
+        "logistic",
+        train.utility,
         test.query_info,
         embeddings,
+        seed,
+        fit_controls,
     )
-    svm = SVMModelRouter(random_state=seed).fit(train.query_info, train.utility, embeddings).predict(test.query_info, embeddings)
-    d2 = PredictabilityConstrainedRouteCode(k, alpha=d2_alpha, beta=d2_beta, random_state=seed, max_iter=max_iter).fit(
+    svm = _fit_direct_router(
+        "svm",
+        train.utility,
+        test.query_info,
+        embeddings,
+        seed,
+        fit_controls,
+    )
+    d2 = PredictabilityConstrainedRouteCode(
+        k,
+        alpha=d2_alpha,
+        beta=d2_beta,
+        random_state=seed,
+        max_iter=max_iter,
+        n_init=kmeans_n_init,
+    ).fit(
         train.query_info,
         train.utility,
         embeddings,
@@ -417,20 +525,71 @@ def _deployable_methods(
     ]
 
 
-def _references(train: Matrices, test: Matrices, embeddings: pd.DataFrame, seed: int) -> tuple[float, float, float]:
+def _references(
+    train: Matrices,
+    test: Matrices,
+    embeddings: pd.DataFrame,
+    seed: int,
+    fit_controls: dict[str, Any],
+) -> tuple[float, float, float]:
     best_single = BestSingleRouter().fit(train.query_info, train.utility).predict(test.query_info)
     baseline_mean = float(selected_values(test.utility, best_single).mean())
     oracle_mean = float(test.utility.max(axis=1).mean())
     learned = [
         KNNRouter(15).fit(train.query_info, train.utility, embeddings).predict(test.query_info, embeddings),
-        LogisticModelRouter(random_state=seed).fit(train.query_info, train.utility, embeddings).predict(
+        _fit_direct_router(
+            "logistic",
+            train.utility,
             test.query_info,
             embeddings,
+            seed,
+            fit_controls,
         ),
-        SVMModelRouter(random_state=seed).fit(train.query_info, train.utility, embeddings).predict(test.query_info, embeddings),
+        _fit_direct_router(
+            "svm",
+            train.utility,
+            test.query_info,
+            embeddings,
+            seed,
+            fit_controls,
+        ),
     ]
     learned_reference_mean = max([baseline_mean] + [float(selected_values(test.utility, selected).mean()) for selected in learned])
     return baseline_mean, learned_reference_mean, oracle_mean
+
+
+def _fit_direct_router(
+    method: str,
+    train_utility: pd.DataFrame,
+    test_query_info: pd.DataFrame,
+    embeddings: pd.DataFrame,
+    seed: int,
+    fit_controls: dict[str, Any],
+) -> pd.Series:
+    train_labels = train_utility.idxmax(axis=1).astype(str).rename("selected_model")
+    return fit_predict_budgeted_direct_router(
+        method=method,
+        train_labels=train_labels,
+        train_embeddings=embeddings.loc[train_utility.index],
+        test_embeddings=embeddings.loc[test_query_info.index],
+        random_state=seed,
+        max_iter=int(fit_controls["classifier_max_iter"]),
+        n_neighbors=15,
+        logistic_solver=str(fit_controls["logistic_solver"]),
+        svm_backend=str(fit_controls["svm_backend"]),
+        tol=float(fit_controls["classifier_tol"]),
+    )
+
+
+def ablation_fit_controls(config: dict) -> dict[str, Any]:
+    ablation = config.get("ablation", {})
+    return {
+        "classifier_max_iter": int(ablation.get("classifier_max_iter", 1000)),
+        "kmeans_n_init": int(ablation.get("kmeans_n_init", 10)),
+        "logistic_solver": str(ablation.get("logistic_solver", "lbfgs")),
+        "svm_backend": str(ablation.get("svm_backend", "linear_svc")),
+        "classifier_tol": float(ablation.get("classifier_tol", 1e-4)),
+    }
 
 
 def _matrices_by_split(outcomes: pd.DataFrame, lambda_cost: float) -> dict[str, Matrices]:
@@ -518,7 +677,7 @@ def append_readme(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         "",
         "Outputs:",
         "",
-        "- `table_ablation_summary.csv`: bounded seed, K/lambda, rate-penalty, and training-fraction ablation rows.",
+        "- `table_ablation_summary.csv`: bounded seed, K/lambda, rate-penalty, and training-fraction ablation rows, including D2 RouteCode train-size rows.",
         "- `fig_sensitivity_k_lambda.pdf`: recovered-gap heatmaps over K and lambda.",
         "- `fig_seed_stability.pdf`: seed-stability bars with standard deviations.",
         "- `phase_f_g_ablation_memo.md`: robustness checkpoint memo.",
@@ -569,7 +728,7 @@ def write_memo(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         "",
         "## Current Readout",
         "",
-        "- This covers seed stability, K/lambda sensitivity through the configured K sweep, semantic vs utility-vector vs regret-objective vs predictability-constrained code-objective comparison, D2 rate-penalty sensitivity, and training-fraction sensitivity for lightweight local methods.",
+        "- This covers seed stability, K/lambda sensitivity through the configured K sweep, semantic vs utility-vector vs regret-objective vs predictability-constrained code-objective comparison, D2 rate-penalty sensitivity, and training-fraction sensitivity for best-single, kNN, lightweight direct routers, and D2 RouteCode.",
         "- Regret-objective RouteCode is strong as an oracle-code diagnostic, but its embedding-centroid deployable rows in `table_rate_distortion.csv` remain far below the oracle-code ceiling.",
         "- The separate Phase G sensitivity suite covers local embedding-feature variants, clustering algorithm, label noise, cost mis-estimation, bounded model-pool scenarios, query length, and bootstrap counts.",
         "- Remaining robustness work still includes external embedding backbones, broader domain granularity beyond the coarse configured domain map, broader model pools, and stronger external baselines.",

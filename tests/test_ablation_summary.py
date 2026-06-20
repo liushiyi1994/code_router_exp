@@ -75,3 +75,59 @@ def test_rate_penalty_rows_emit_one_d2_row_per_beta():
     assert list(table["ablation"]) == ["rate_penalty", "rate_penalty"]
     assert list(table["method"]) == ["d2_embedding_centroid", "d2_embedding_centroid"]
     assert list(table["d2_beta"]) == [0.0, 0.5]
+
+
+def test_train_fraction_rows_include_routecode_and_neighbor_baselines():
+    module = _load_ablation_script()
+    matrices = module._matrices_by_split(_toy_outcomes(), lambda_cost=0.0)
+
+    rows = module._train_fraction_rows(
+        matrices["train"],
+        matrices["test"],
+        _toy_embeddings(),
+        train_fractions=[0.5],
+        seed=0,
+        n_bootstrap=5,
+        ci=0.95,
+        k=2,
+        max_iter=5,
+        d2_alpha=1.0,
+        d2_beta=0.0,
+    )
+
+    table = pd.DataFrame(rows)
+    assert set(table["ablation"]) == {"train_fraction"}
+    assert {
+        "best_single",
+        "kNN",
+        "logistic_embedding_router",
+        "svm_embedding_router",
+        "d2_embedding_centroid",
+    }.issubset(set(table["method"]))
+    d2_row = table.set_index("method").loc["d2_embedding_centroid"]
+    assert d2_row["K"] == 2
+    assert d2_row["train_fraction"] == 0.5
+
+
+def test_ablation_fit_controls_read_classifier_runtime_overrides():
+    module = _load_ablation_script()
+
+    controls = module.ablation_fit_controls(
+        {
+            "ablation": {
+                "classifier_max_iter": 75,
+                "kmeans_n_init": 2,
+                "logistic_solver": "saga",
+                "svm_backend": "sgd",
+                "classifier_tol": 0.01,
+            }
+        }
+    )
+
+    assert controls == {
+        "classifier_max_iter": 75,
+        "kmeans_n_init": 2,
+        "logistic_solver": "saga",
+        "svm_backend": "sgd",
+        "classifier_tol": 0.01,
+    }

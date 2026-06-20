@@ -132,6 +132,27 @@ The project is about:
 4. diagnosing benchmark compressibility and leakage;
 5. optionally performing adaptive refinement only for ambiguous queries.
 
+Cost is part of the decision problem throughout the project. RouteCode should
+evaluate model choices under a cost--quality objective such as:
+
+```text
+U(q,m) = quality(q,m) - lambda * normalized_cost(q,m)
+```
+
+The model-pool story should include both local/open models and later
+closed-source provider models. Closed-source provider families to keep in scope:
+
+```text
+OpenAI GPT-family
+Anthropic Claude-family
+Google Gemini-family
+```
+
+Provider models are later explicit-budget experiments, not default pilot runs.
+Do not call GPT, Claude, or Gemini APIs unless API access, budget, caching,
+token logging, model version/date recording, and refreshed pricing source URLs
+are explicitly configured for that run.
+
 ### 2.3 Core claim hierarchy
 
 Do not claim all benefits equally. The target paper should have a clear center.
@@ -900,4 +921,3 @@ Pause or pivot if:
 - predicted codes cannot beat kNN/embedding clusters despite multiple predictors;
 - model-pool transfer is absent;
 - only result is "we save router tokens".
-

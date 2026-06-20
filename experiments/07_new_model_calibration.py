@@ -57,6 +57,9 @@ def main() -> None:
     direct_max_iter = int(calibration_config.get("direct_router_max_iter", 1000))
     direct_methods = [str(method) for method in calibration_config.get("direct_router_methods", ["logistic", "svm", "knn"])]
     direct_knn_k = int(calibration_config.get("direct_router_knn_k", config.get("routers", {}).get("knn_k", 15)))
+    direct_logistic_solver = str(calibration_config.get("direct_router_logistic_solver", "lbfgs"))
+    direct_svm_backend = str(calibration_config.get("direct_router_svm_backend", "linear_svc"))
+    direct_tol = float(calibration_config.get("direct_router_tol", 1e-4))
     holdout_models = _holdout_models(calibration_config, train.utility)
 
     best_single_full = BestSingleRouter().fit(train.query_info, train.utility).predict(test.query_info)
@@ -199,10 +202,13 @@ def main() -> None:
                     train_labels=direct_train_labels,
                     train_embeddings=embeddings.loc[train.utility.index],
                     test_embeddings=embeddings.loc[test.utility.index],
-                    random_state=seed,
-                    max_iter=direct_max_iter,
-                    n_neighbors=direct_knn_k,
-                )
+                        random_state=seed,
+                        max_iter=direct_max_iter,
+                        n_neighbors=direct_knn_k,
+                        logistic_solver=direct_logistic_solver,
+                        svm_backend=direct_svm_backend,
+                        tol=direct_tol,
+                    )
                 rows.append(
                     _row(
                         method=f"direct_retraining_budgeted_{direct_method}",
@@ -345,19 +351,39 @@ def append_readme(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         return
     existing = readme_path.read_text(encoding="utf-8")
     marker = "## New-Model Calibration"
-    compact = table[
+    comparable = table[
         (table["method"] == "routecode_label_calibration")
         | table["method"].astype(str).str.startswith("direct_retraining_budgeted_")
-    ][
-        [
-            "method",
-            "new_model_id",
-            "examples_per_label",
-            "calibration_query_count",
-            "mean_utility",
-            "recovered_gap_vs_oracle",
-        ]
-    ].sort_values(["new_model_id", "method", "examples_per_label"])
+    ].copy()
+    if comparable.empty:
+        summary = comparable
+        best_rows = comparable
+    else:
+        summary = (
+            comparable.groupby(["method", "examples_per_label"], as_index=False)
+            .agg(
+                holdout_model_count=("new_model_id", "nunique"),
+                calibration_query_count=("calibration_query_count", "mean"),
+                mean_utility=("mean_utility", "mean"),
+                recovered_gap_vs_oracle=("recovered_gap_vs_oracle", "mean"),
+            )
+            .sort_values(["method", "examples_per_label"])
+        )
+        best_rows = (
+            comparable.sort_values("mean_utility", ascending=False)
+            .groupby("method", as_index=False)
+            .head(1)[
+                [
+                    "method",
+                    "new_model_id",
+                    "examples_per_label",
+                    "calibration_query_count",
+                    "mean_utility",
+                    "recovered_gap_vs_oracle",
+                ]
+            ]
+            .sort_values(["method", "mean_utility"], ascending=[True, False])
+        )
     lines = [
         marker,
         "",
@@ -373,7 +399,13 @@ def append_readme(out_dir: Path, config_path: str, table: pd.DataFrame) -> None:
         "- `fig_transfer_calibration_curve.pdf`: utility vs new-model calibration evaluations.",
         "- `phase_e5_new_model_calibration_memo.md`: D4/E5 checkpoint memo.",
         "",
-        _markdown_table(compact),
+        "Mean across held-out models:",
+        "",
+        _markdown_table(summary),
+        "",
+        "Best budgeted rows:",
+        "",
+        _markdown_table(best_rows),
         "",
     ]
     readme_path.write_text(upsert_markdown_section(existing, marker, lines), encoding="utf-8")

@@ -1,0 +1,43 @@
+project: routecode_phase3_final_eval
+run_id: phase3_final_eval_v1
+seed: 17
+
+method:
+  name: ProbeCode-StateCal
+  current_best_method: et_flip_leaf4_thr0.8502_capNone
+  compact_state_method: gb_depth2_thr0.9844_state_k8
+  base_method: extratrees_d3_leaf8_thr0.5997_tool_cap_e0.75
+  lambda_cost: 0.35
+  allow_verifiable_actions: true
+  caveat: "Clean no-tool routing is not claimed as solved."
+
+inputs:
+  broad100_outputs: results/controlled/broad100_vllm_self_consistency_probe/model_outputs_with_self_consistency.parquet
+  broad100_current_best_eval: results/controlled/broad100_current_best_method_package/table_broad100_current_best_main_eval.csv
+  broad100_current_best_choices: results/controlled/broad100_current_best_method_package/table_broad100_current_best_query_choices.csv
+  broad100_current_best_action_mix: results/controlled/broad100_current_best_method_package/table_broad100_current_best_action_mix.csv
+  broad100_probe_features: results/controlled/broad100_probe_state_routecode/table_probe_state_features.csv
+  broad100_learned_verifiability_assignments: results/controlled/broad100_learned_verifiability_probe_state/table_learned_verifiability_assignments.csv
+  broad100_self_consistency_probe: results/controlled/broad100_vllm_self_consistency_probe/table_vllm_self_consistency_probe.csv
+  broad100_mpnet_embedding_cache: results/controlled/broad100_embedding_self_action_gate_mpnet/embedding_cache
+  broad100_literature_baselines: results/phase3_final/literature_baselines/table_broad100_literature_baselines.csv
+  broad100_literature_baseline_choices: results/phase3_final/literature_baselines/table_broad100_literature_baseline_choices.csv
+  broad100_literature_baseline_status: results/phase3_final/literature_baselines/table_broad100_literature_baseline_status.csv
+  learned_verifiability_code_cards: results/controlled/broad100_learned_verifiability_probe_state/table_learned_verifiability_code_cards.csv
+  final_claims: results/controlled/phase3_final_claim_package/table_phase3_final_claims.csv
+  external_readiness: results/llmrouterbench_broad20/table_external_command_readiness.csv
+
+outputs:
+  root: results/phase3_final
+
+baselines:
+  simple:
+    - random_assignment
+    - all_local_models
+    - all_gpt
+    - all_gemini
+    - cost_aware_oracle
+  literature:
+    - routellm_mf
+    - graphrouter
+    - avengerspro

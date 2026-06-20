@@ -1,0 +1,16 @@
+run:
+  name: phase2_local_smoke
+  output_dir: results/phase2
+
+phase2_local_eval:
+  dry_run: true
+  model_ids:
+    - dry_run_model
+  model_revision: dry-run
+  max_queries: 20
+  datasets:
+    - gsm8k_smoke
+    - mmlu_smoke
+  generation_params:
+    temperature: 0.0
+    max_tokens: 128

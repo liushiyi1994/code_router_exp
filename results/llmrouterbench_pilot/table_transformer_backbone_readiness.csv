@@ -1,9 +1,12 @@
 model_id,cache_status,runnable_as_encoder_baseline,reason,architecture,model_type,hidden_size,size_gb,local_path
+BAAI/bge-small-en-v1.5,cached,True,cached_encoder_candidate,BertModel,bert,384,0.3735622260719538,/home/liush/.cache/huggingface/hub/models--BAAI--bge-small-en-v1.5/snapshots/5c38ec7c405ec4b44b94cc5a9bb96e735b38267a
 Qwen/Qwen3-4B,cached,False,causal_lm_not_lightweight_encoder,Qwen3ForCausalLM,qwen3,2560,7.507295250892639,/home/liush/.cache/huggingface/hub/models--Qwen--Qwen3-4B/snapshots/1cfa9a7208912126459214e8b04321603b3df60c
 Tongyi-MAI/Z-Image,cached,False,missing_transformer_config,,,,19.13633161690086,/home/liush/.cache/huggingface/hub/models--Tongyi-MAI--Z-Image
 ai-toolkit/flux2_vae,cached,False,missing_transformer_config,,,,0.3131212033331394,/home/liush/.cache/huggingface/hub/models--ai-toolkit--flux2_vae
-answerdotai/ModernBERT-base,missing_local_cache,False,missing_local_cache,,,,0.0,
+answerdotai/ModernBERT-base,cached,True,cached_encoder_candidate,ModernBertForMaskedLM,modernbert,768,0.5595299750566483,/home/liush/.cache/huggingface/hub/models--answerdotai--ModernBERT-base/snapshots/8949b909ec900327062f0ebf497f51aef5e6f0c8
 black-forest-labs/FLUX.1-Kontext-dev,cached,False,missing_transformer_config,,,,8.118077362887561,/home/liush/.cache/huggingface/hub/models--black-forest-labs--FLUX.1-Kontext-dev
 black-forest-labs/FLUX.2-klein-4B,cached,False,missing_transformer_config,,,,0.0,/home/liush/.cache/huggingface/hub/models--black-forest-labs--FLUX.2-klein-4B
 black-forest-labs/FLUX.2-klein-base-4B,cached,False,missing_transformer_config,,,,22.101436973549426,/home/liush/.cache/huggingface/hub/models--black-forest-labs--FLUX.2-klein-base-4B
-microsoft/deberta-v3-base,missing_local_cache,False,missing_local_cache,,,,0.0,
+intfloat/e5-small-v2,cached,True,cached_encoder_candidate,BertModel,bert,384,0.7480388842523098,/home/liush/.cache/huggingface/hub/models--intfloat--e5-small-v2/snapshots/ffb93f3bd4047442299a41ebb6fa998a38507c52
+microsoft/deberta-v3-base,cached,True,cached_encoder_candidate,,deberta-v2,768,0.6935678403824568,/home/liush/.cache/huggingface/hub/models--microsoft--deberta-v3-base/snapshots/8ccc9b6f36199bec6961081d44eb72fb3f7353f3
+sentence-transformers/all-MiniLM-L6-v2,cached,True,cached_encoder_candidate,BertModel,bert,384,0.0852786423638463,/home/liush/.cache/huggingface/hub/models--sentence-transformers--all-MiniLM-L6-v2/snapshots/1110a243fdf4706b3f48f1d95db1a4f5529b4d41

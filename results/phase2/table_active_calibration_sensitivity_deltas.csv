@@ -1,0 +1,13 @@
+sensitivity_name,sensitivity_k,sensitivity_alpha,baseline,paired_rows,active_minus_baseline_mean,active_minus_baseline_std,active_minus_baseline_min,active_minus_baseline_max,positive,negative,tied
+k_16_alpha_3p0,16,3.0,uniform_route_state_calibration,18,-0.02318,0.050562,-0.144828,0.063793,5,11,2
+k_32_alpha_3p0,32,3.0,uniform_route_state_calibration,18,-0.012835,0.040154,-0.089655,0.051724,7,11,0
+k_8_alpha_3p0,8,3.0,uniform_route_state_calibration,18,-0.020594,0.05427,-0.089655,0.118966,3,14,1
+k_16_alpha_3p0,16,3.0,random_route_state_calibration,18,-0.00977,0.059726,-0.137931,0.096552,9,9,0
+k_32_alpha_3p0,32,3.0,random_route_state_calibration,18,-0.013027,0.035246,-0.12069,0.024138,7,11,0
+k_8_alpha_3p0,8,3.0,random_route_state_calibration,18,-0.002586,0.071133,-0.122414,0.17931,7,11,0
+k_16_alpha_3p0,16,3.0,dataset_stratified_calibration,18,-0.025862,0.04414,-0.143103,0.041379,6,12,0
+k_32_alpha_3p0,32,3.0,dataset_stratified_calibration,18,-0.031322,0.034575,-0.081034,0.018966,5,13,0
+k_8_alpha_3p0,8,3.0,dataset_stratified_calibration,18,-0.031034,0.073376,-0.206897,0.065517,6,10,2
+k_16_alpha_3p0,16,3.0,embedding_cluster_calibration,18,-0.02864,0.037346,-0.108621,0.025862,4,14,0
+k_32_alpha_3p0,32,3.0,embedding_cluster_calibration,18,-0.029885,0.052735,-0.117241,0.106897,4,13,1
+k_8_alpha_3p0,8,3.0,embedding_cluster_calibration,18,-0.035441,0.06998,-0.187931,0.089655,5,11,2

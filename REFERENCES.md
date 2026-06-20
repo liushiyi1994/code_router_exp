@@ -2,7 +2,7 @@
 
 This file is a first-class input for Codex/agents. Before making novelty claims, choosing baselines, or implementing external comparisons, inspect and update this file.
 
-Last updated: 2026-06-14
+Last updated: 2026-06-19
 
 ---
 
@@ -130,6 +130,59 @@ These are the papers most likely to make reviewers ask, “Isn’t this already 
 - arXiv: https://arxiv.org/abs/2601.07206
 - Code/data: https://github.com/ynulihao/LLMRouterBench
 - Role: both primary benchmark and motivation; reports similar performance across many routers and persistent model-recall failures.
+
+## 3A. Probe-signal and SLM/LLM gap papers
+
+These are for Phase 3 probe research: finding cheap early signals that predict when local/small models differ from stronger local or frontier models in a utility-improving way.
+
+### LLMs Encode Their Failures - pre-generation activation success prediction
+- arXiv: https://arxiv.org/abs/2602.09924
+- Code: https://github.com/KabakaWilliam/llms_know_difficulty
+- Role: strongest direct motivation for frozen pre-generation activation probes that predict model success before generation.
+
+### LLM Router: Rethinking Routing with Prefill Activations
+- arXiv: https://arxiv.org/abs/2603.20895
+- Role: uses open-weight encoder/prefill activations to estimate target-model correctness, including closed-source targets.
+
+### No Answer Needed - question-only correctness probes
+- arXiv: https://arxiv.org/abs/2509.10625
+- Role: tests whether hidden states after reading the question, before answer generation, predict model correctness.
+
+### Query-Level Uncertainty in LLMs
+- arXiv: https://arxiv.org/abs/2506.09669
+- Code: https://github.com/tigerchen52/query_level_uncertainty
+- Role: non-training internal-confidence signal for deciding whether a model can address a query before generating tokens.
+
+### R2R - small-large token divergence routing
+- OpenReview: https://openreview.net/forum?id=DpeJYRFRQY
+- arXiv: https://arxiv.org/abs/2505.21600
+- Code: https://github.com/thu-nics/R2R
+- Role: studies where SLM and LLM reasoning paths diverge; useful for SLM-vs-medium divergence signals and path-divergence route labels.
+
+### Fast and Slow Generating - SLM/LLM collaborative decoding
+- arXiv: https://arxiv.org/abs/2406.12295
+- Code: https://github.com/TsinghuaC3I/FS-GEN
+- Role: analyzes differential knowledge between SLMs and LLMs and motivates uncertainty-based collaboration points.
+
+### Semantic Entropy and Semantic Entropy Probes
+- Semantic Entropy: https://www.nature.com/articles/s41586-024-07421-0
+- Semantic Entropy Probes: https://arxiv.org/abs/2406.15927
+- SEP code: https://github.com/OATML/semantic-entropy-probes
+- Role: use sampled meaning-level uncertainty as a non-training signal, then optionally distill it into cheap hidden-state probes.
+
+### PredictaBoard - predictability diagnosis
+- Paper: https://aclanthology.org/2025.findings-acl.790/
+- Code: https://github.com/Kinds-of-Intelligence-CFI/PredictaBoard
+- Role: evaluate whether failures are predictable, not only whether average model accuracy is high.
+
+### Speculative Cascades / Faster Cascades via Speculative Decoding
+- arXiv: https://arxiv.org/abs/2405.19261
+- Google Research blog: https://research.google/blog/speculative-cascades-a-hybrid-approach-for-smarter-faster-llm-inference/
+- Role: combines cascade deferral and speculative verification; useful for SLM/LLM disagreement and early deferral rules.
+
+### Learning to Decode Collaboratively with Multiple Language Models
+- ACL 2024: https://aclanthology.org/2024.acl-long.701/
+- Role: token-level latent model collaboration; useful conceptual precedent for sub-query and reasoning-step routing.
 
 ---
 

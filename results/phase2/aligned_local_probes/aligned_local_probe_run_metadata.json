@@ -1,0 +1,17 @@
+{
+  "config_path": "configs/llmrouterbench_pilot.yaml",
+  "created_at": "2026-06-17T02:46:42.623339+00:00",
+  "dry_run": true,
+  "error_rows": 0,
+  "feature_rows": 50,
+  "generation_params": {
+    "max_tokens": 64,
+    "temperature": 0.0
+  },
+  "model_ids": [
+    "dry_probe"
+  ],
+  "model_revision": "dry-run",
+  "state_targets_path": "results/phase2/aligned_offline/aligned_state_targets.csv",
+  "task_count": 50
+}

@@ -12,5 +12,15 @@
   "source_repo": "https://github.com/ynulihao/LLMRouterBench/tree/main/baselines/AvengersPro",
   "official_command_path": false,
   "no_api_calls": true,
-  "split_aligned_with_routecode": true
+  "split_aligned_with_routecode": true,
+  "upstream_smoke_assets": {
+    "smoke_train_path": "results/llmrouterbench_pilot/avengerspro_split_aligned/smoke_train.jsonl",
+    "smoke_test_path": "results/llmrouterbench_pilot/avengerspro_split_aligned/smoke_test.jsonl",
+    "embedding_cache_path": "results/llmrouterbench_pilot/avengerspro_split_aligned/embedding_cache.jsonl",
+    "config_path": "results/llmrouterbench_pilot/avengerspro_split_aligned/simple_cluster_config.local.json",
+    "expected_output_path": "results/llmrouterbench_pilot/avengerspro_split_aligned/simple_cluster_smoke_results.json",
+    "smoke_train_queries": 32,
+    "smoke_test_queries": 32,
+    "smoke_clusters": 16
+  }
 }

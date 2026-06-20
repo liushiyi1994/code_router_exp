@@ -41,6 +41,8 @@ from routecode.routers.single_best import BestSingleRouter
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
+    parser.add_argument("--rate-only", action="store_true", help="Only compute missing split-rate threshold rows.")
+    parser.add_argument("--max-scenarios", type=int, default=None, help="Maximum new scenarios to compute in this invocation.")
     args = parser.parse_args()
 
     config = load_config(args.config)
@@ -54,9 +56,26 @@ def main() -> None:
     sensitivity_config = config.get("split_sensitivity", {})
 
     scenarios = build_scenarios(outcomes, embeddings, config)
-    all_rows = []
-    rate_rows = []
+    if args.rate_only:
+        run_rate_only(
+            out_dir=out_dir,
+            scenarios=scenarios,
+            embeddings=embeddings,
+            config=config,
+            lambda_cost=lambda_cost,
+            max_scenarios=args.max_scenarios,
+        )
+        return
+
+    resume_partial = bool(sensitivity_config.get("resume_partial", False))
+    checkpoint_partial = bool(sensitivity_config.get("checkpoint_partial", resume_partial))
+    if resume_partial:
+        all_rows, rate_rows, completed_scenarios = load_partial_tables(out_dir)
+    else:
+        all_rows, rate_rows, completed_scenarios = [], [], set()
     for scenario_name, scenario_type, split_outcomes, model_subset in scenarios:
+        if scenario_name in completed_scenarios:
+            continue
         try:
             metrics, rate = evaluate_scenario(
                 scenario_name,
@@ -69,9 +88,15 @@ def main() -> None:
             )
         except ValueError as exc:
             all_rows.append({"scenario": scenario_name, "scenario_type": scenario_type, "method": "SKIPPED", "error": str(exc)})
+            completed_scenarios.add(scenario_name)
+            if checkpoint_partial:
+                write_partial_tables(out_dir, all_rows, rate_rows)
             continue
         all_rows.extend(metrics)
         rate_rows.append(rate)
+        completed_scenarios.add(scenario_name)
+        if checkpoint_partial:
+            write_partial_tables(out_dir, all_rows, rate_rows)
 
     sensitivity = pd.DataFrame(all_rows)
     sensitivity.to_csv(out_dir / "table_split_sensitivity.csv", index=False)
@@ -80,7 +105,57 @@ def main() -> None:
     rank_corr.to_csv(out_dir / "table_split_rank_correlation.csv", index=False)
     save_split_sensitivity(sensitivity[sensitivity["method"] != "SKIPPED"], out_dir / "fig_split_sensitivity.pdf")
     append_readme(out_dir, args.config, sensitivity, rank_corr)
+    clear_partial_tables(out_dir)
     print(f"Wrote split sensitivity outputs to {out_dir}")
+
+
+def run_rate_only(
+    out_dir: Path,
+    scenarios: list[tuple[str, str, pd.DataFrame, list[str] | None]],
+    embeddings: pd.DataFrame,
+    config: dict,
+    lambda_cost: float,
+    max_scenarios: int | None = None,
+) -> None:
+    sensitivity_path = out_dir / "table_split_sensitivity.csv"
+    if not sensitivity_path.exists():
+        raise FileNotFoundError(f"Rate-only mode requires existing split sensitivity metrics: {sensitivity_path}")
+    sensitivity = pd.read_csv(sensitivity_path)
+    _, rate_path = partial_table_paths(out_dir)
+    if rate_path.exists() and rate_path.stat().st_size > 0:
+        rate_rows = pd.read_csv(rate_path).to_dict("records")
+    else:
+        rate_rows = []
+    completed = {str(row["scenario"]) for row in rate_rows if pd.notna(row.get("scenario"))}
+    computed = 0
+    for scenario_name, scenario_type, split_outcomes, model_subset in scenarios:
+        if scenario_name in completed:
+            continue
+        references = reference_values_for_scenario(sensitivity, scenario_name)
+        rate = evaluate_scenario_rate(
+            scenario_name,
+            scenario_type,
+            split_outcomes,
+            embeddings,
+            config,
+            lambda_cost,
+            references,
+            model_subset=model_subset,
+        )
+        rate_rows.append(rate)
+        completed.add(scenario_name)
+        pd.DataFrame(rate_rows).to_csv(rate_path, index=False)
+        computed += 1
+        if max_scenarios is not None and computed >= max_scenarios:
+            break
+
+    if completed.issuperset({scenario_name for scenario_name, _, _, _ in scenarios}):
+        final_rate = pd.DataFrame(rate_rows)
+        final_rate.to_csv(out_dir / "table_split_rate_threshold.csv", index=False)
+        rate_path.unlink(missing_ok=True)
+        print(f"Wrote complete split-rate threshold outputs to {out_dir}")
+    else:
+        print(f"Wrote partial split-rate threshold outputs to {rate_path}")
 
 
 def build_scenarios(outcomes: pd.DataFrame, embeddings: pd.DataFrame, config: dict) -> list[tuple[str, str, pd.DataFrame, list[str] | None]]:
@@ -177,6 +252,7 @@ def evaluate_scenario(
     knn_k = min(int(router_config.get("knn_k", 15)), max(1, len(train.utility)))
     route_k = int(route_config.get("selected_k_for_cards", 16))
     classifier_max_iter = int(sensitivity_config.get("classifier_max_iter", 1000))
+    rate_fit = split_rate_fit_controls(config)
 
     best_single = BestSingleRouter().fit(train.query_info, train.utility).predict(test.query_info)
     baseline_mean = selected_values(test.utility, best_single).mean()
@@ -249,8 +325,13 @@ def evaluate_scenario(
 
     rate_rows = []
     for k in split_rate_k_values(config):
-        codebook = RouteCodeCodebook(k, random_state=seed, max_iter=int(route_config.get("max_iter", 25))).fit(train.query_info, train.utility, embeddings)
-        classifier = RouteCodeLabelClassifier(random_state=seed, max_iter=classifier_max_iter).fit(codebook, embeddings)
+        codebook = RouteCodeCodebook(
+            k,
+            random_state=seed,
+            max_iter=rate_fit["codebook_max_iter"],
+            n_init=rate_fit["codebook_n_init"],
+        ).fit(train.query_info, train.utility, embeddings)
+        classifier = RouteCodeLabelClassifier(random_state=seed, max_iter=rate_fit["classifier_max_iter"]).fit(codebook, embeddings)
         labels = classifier.predict_labels(embeddings.loc[test.utility.index])
         models = classifier.predict(test.query_info, embeddings)
         rate_rows.append(
@@ -279,11 +360,139 @@ def evaluate_scenario(
     return rows, rate
 
 
+def evaluate_scenario_rate(
+    scenario: str,
+    scenario_type: str,
+    split_outcomes: pd.DataFrame,
+    embeddings: pd.DataFrame,
+    config: dict,
+    lambda_cost: float,
+    references: dict[str, float],
+    model_subset: list[str] | None = None,
+) -> dict:
+    if model_subset is not None:
+        split_outcomes = split_outcomes[split_outcomes["model_id"].isin(model_subset)].copy()
+    train_outcomes = split_outcomes[split_outcomes["split"] == "train"]
+    test_outcomes = split_outcomes[split_outcomes["split"] == "test"]
+    if train_outcomes["query_id"].nunique() < 2 or test_outcomes["query_id"].nunique() < 1:
+        raise ValueError("Scenario lacks enough train/test queries")
+    train = build_matrices(train_outcomes, lambda_cost=lambda_cost)
+    test = build_matrices(test_outcomes, lambda_cost=lambda_cost)
+    seed = int(config.get("run", {}).get("random_seed", 0))
+    ci = float(config.get("bootstrap", {}).get("ci", 0.95))
+    rate_fit = split_rate_fit_controls(config)
+    rate_rows = []
+    for k in split_rate_k_values(config):
+        codebook = RouteCodeCodebook(
+            k,
+            random_state=seed,
+            max_iter=rate_fit["codebook_max_iter"],
+            n_init=rate_fit["codebook_n_init"],
+        ).fit(train.query_info, train.utility, embeddings)
+        classifier = RouteCodeLabelClassifier(random_state=seed, max_iter=rate_fit["classifier_max_iter"]).fit(codebook, embeddings)
+        labels = classifier.predict_labels(embeddings.loc[test.utility.index])
+        models = classifier.predict(test.query_info, embeddings)
+        rate_rows.append(
+            evaluate_selection(
+                method="routecode_predicted_labels",
+                selected_models=models,
+                matrices=test,
+                baseline_mean=references["baseline_mean"],
+                learned_reference_mean=references["learned_reference_mean"],
+                oracle_mean=references["oracle_mean"],
+                n_bootstrap=1,
+                ci=ci,
+                seed=seed,
+                k=k,
+                labels=labels,
+            )
+        )
+    rate_table = pd.DataFrame(rate_rows)
+    return {
+        "scenario": scenario,
+        "scenario_type": scenario_type,
+        "rate_log2K_to_80pct_learned_gain": compression_rate_to_reach(rate_table, threshold=0.80),
+        "best_routecode_predicted_recovered_gap_vs_learned": float(rate_table["recovered_gap_vs_learned"].max()),
+        "best_routecode_predicted_recovered_gap_vs_oracle": float(rate_table["recovered_gap_vs_oracle"].max()),
+    }
+
+
+def reference_values_for_scenario(sensitivity: pd.DataFrame, scenario: str) -> dict[str, float]:
+    group = sensitivity[sensitivity["scenario"].astype(str) == str(scenario)]
+    if group.empty:
+        raise ValueError(f"Missing completed split sensitivity metrics for scenario: {scenario}")
+
+    def method_mean(method: str) -> float:
+        values = group.loc[group["method"] == method, "mean_utility"]
+        if values.empty:
+            raise ValueError(f"Missing method `{method}` for scenario: {scenario}")
+        return float(values.iloc[0])
+
+    learned_methods = {"kNN", "logistic_embedding_router", "routecode_predicted_labels"}
+    learned = group[group["method"].isin(learned_methods)]
+    if learned.empty:
+        raise ValueError(f"Missing learned-router reference methods for scenario: {scenario}")
+    return {
+        "baseline_mean": method_mean("best_single"),
+        "learned_reference_mean": float(learned["mean_utility"].max()),
+        "oracle_mean": method_mean("query_oracle"),
+    }
+
+
 def split_rate_k_values(config: dict) -> list[int]:
     sensitivity_config = config.get("split_sensitivity", {})
     route_config = config.get("routecode", {})
     values = sensitivity_config.get("k_values", route_config.get("k_values", [1, 2, 4, 8, 16, 32]))
     return [int(value) for value in values]
+
+
+def split_rate_fit_controls(config: dict) -> dict[str, int]:
+    sensitivity_config = config.get("split_sensitivity", {})
+    route_config = config.get("routecode", {})
+    classifier_max_iter = int(
+        sensitivity_config.get("rate_classifier_max_iter", sensitivity_config.get("classifier_max_iter", 1000))
+    )
+    codebook_max_iter = int(sensitivity_config.get("rate_codebook_max_iter", route_config.get("max_iter", 25)))
+    codebook_n_init = int(sensitivity_config.get("rate_codebook_n_init", 10))
+    return {
+        "classifier_max_iter": classifier_max_iter,
+        "codebook_max_iter": codebook_max_iter,
+        "codebook_n_init": codebook_n_init,
+    }
+
+
+def partial_table_paths(out_dir: Path) -> tuple[Path, Path]:
+    return out_dir / "table_split_sensitivity.partial.csv", out_dir / "table_split_rate_threshold.partial.csv"
+
+
+def write_partial_tables(out_dir: Path, sensitivity_rows: list[dict], rate_rows: list[dict]) -> None:
+    sensitivity_path, rate_path = partial_table_paths(out_dir)
+    pd.DataFrame(sensitivity_rows).to_csv(sensitivity_path, index=False)
+    pd.DataFrame(rate_rows).to_csv(rate_path, index=False)
+
+
+def load_partial_tables(out_dir: Path) -> tuple[list[dict], list[dict], set[str]]:
+    sensitivity_path, rate_path = partial_table_paths(out_dir)
+    sensitivity_rows: list[dict] = []
+    rate_rows: list[dict] = []
+    completed: set[str] = set()
+    if sensitivity_path.exists():
+        sensitivity_frame = pd.read_csv(sensitivity_path)
+        sensitivity_rows = sensitivity_frame.to_dict("records")
+        if not sensitivity_frame.empty and {"scenario", "method"}.issubset(sensitivity_frame.columns):
+            skipped = sensitivity_frame.loc[sensitivity_frame["method"] == "SKIPPED", "scenario"].dropna().astype(str)
+            completed.update(skipped.tolist())
+    if rate_path.exists():
+        rate_frame = pd.read_csv(rate_path)
+        rate_rows = rate_frame.to_dict("records")
+        if not rate_frame.empty and "scenario" in rate_frame.columns:
+            completed.update(rate_frame["scenario"].dropna().astype(str).tolist())
+    return sensitivity_rows, rate_rows, completed
+
+
+def clear_partial_tables(out_dir: Path) -> None:
+    for path in partial_table_paths(out_dir):
+        path.unlink(missing_ok=True)
 
 
 def split_rank_correlations(sensitivity: pd.DataFrame) -> pd.DataFrame:

@@ -54,6 +54,24 @@ def run(config_path: str) -> None:
     _write_jsonl(run_dir / "train.jsonl", assets.train_records)
     _write_jsonl(run_dir / "test.jsonl", assets.test_records)
     _write_json(run_dir / "baseline_scores.json", assets.baseline_scores)
+    clusters = _cluster_values(config, baseline_config)
+    top_k = int(baseline_config.get("avengerspro_top_k", 1))
+    beta = float(baseline_config.get("avengerspro_beta", 9.0))
+    performance_weight = float(baseline_config.get("avengerspro_performance_weight", 0.7))
+    cost_sensitivity = float(baseline_config.get("avengerspro_cost_sensitivity", 0.3))
+    min_quality_threshold = float(baseline_config.get("avengerspro_min_quality_threshold", 0.0))
+    smoke_assets = _write_upstream_smoke_assets(
+        run_dir=run_dir,
+        train_records=assets.train_records,
+        test_records=assets.test_records,
+        embeddings=prepared.embeddings,
+        clusters=clusters,
+        top_k=top_k,
+        beta=beta,
+        seed=seed,
+        performance_weight=performance_weight,
+        cost_sensitivity=cost_sensitivity,
+    )
 
     best_single = BestSingleRouter().fit(train.query_info, train.utility).predict(test.query_info)
     baseline_mean = float(selected_values(test.utility, best_single).mean())
@@ -67,12 +85,6 @@ def run(config_path: str) -> None:
 
     rows: list[dict[str, Any]] = []
     raw_results: dict[str, Any] = {}
-    clusters = _cluster_values(config, baseline_config)
-    top_k = int(baseline_config.get("avengerspro_top_k", 1))
-    beta = float(baseline_config.get("avengerspro_beta", 9.0))
-    performance_weight = float(baseline_config.get("avengerspro_performance_weight", 0.7))
-    cost_sensitivity = float(baseline_config.get("avengerspro_cost_sensitivity", 0.3))
-    min_quality_threshold = float(baseline_config.get("avengerspro_min_quality_threshold", 0.0))
 
     for offset, n_clusters in enumerate(clusters):
         simple = AvengersProClusterRouter(
@@ -158,6 +170,7 @@ def run(config_path: str) -> None:
             "official_command_path": False,
             "no_api_calls": True,
             "split_aligned_with_routecode": True,
+            "upstream_smoke_assets": smoke_assets,
         },
     )
     write_memo(out_dir, config_path, run_dir, table)
@@ -174,6 +187,91 @@ def _cluster_values(config: dict[str, Any], baseline_config: dict[str, Any]) -> 
     else:
         values = [int(value) for value in configured]
     return sorted({max(1, value) for value in values})
+
+
+def _write_upstream_smoke_assets(
+    *,
+    run_dir: Path,
+    train_records: list[dict[str, Any]],
+    test_records: list[dict[str, Any]],
+    embeddings: pd.DataFrame,
+    clusters: list[int],
+    top_k: int,
+    beta: float,
+    seed: int,
+    performance_weight: float,
+    cost_sensitivity: float,
+) -> dict[str, Any]:
+    max_clusters = max(clusters) if clusters else 1
+    smoke_train_count = min(len(train_records), max(8, max_clusters * 2))
+    smoke_test_count = min(len(test_records), 32)
+    smoke_train = list(train_records[:smoke_train_count])
+    smoke_test = list(test_records[:smoke_test_count])
+    if not smoke_train:
+        raise ValueError("Avengers-Pro smoke train asset requires at least one train record")
+    if not smoke_test:
+        raise ValueError("Avengers-Pro smoke test asset requires at least one test record")
+
+    smoke_train_path = run_dir / "smoke_train.jsonl"
+    smoke_test_path = run_dir / "smoke_test.jsonl"
+    cache_path = run_dir / "embedding_cache.jsonl"
+    config_path = run_dir / "simple_cluster_config.local.json"
+    output_path = run_dir / "simple_cluster_smoke_results.json"
+    _write_jsonl(smoke_train_path, smoke_train)
+    _write_jsonl(smoke_test_path, smoke_test)
+    cache_rows = _embedding_cache_rows(smoke_train + smoke_test, embeddings)
+    _write_jsonl(cache_path, cache_rows)
+
+    smoke_clusters = max(1, min(max_clusters, len(smoke_train)))
+    smoke_top_k = max(1, min(top_k, smoke_clusters))
+    _write_json(
+        config_path,
+        {
+            "train_data_path": str(smoke_train_path.resolve()),
+            "test_data_path": str(smoke_test_path.resolve()),
+            "baseline_scores_path": str((run_dir / "baseline_scores.json").resolve()),
+            "embedding_cache_path": str(cache_path.resolve()),
+            "embedding_api_key": "",
+            "embedding_base_url": "",
+            "embedding_model": "routecode-cache",
+            "n_clusters": smoke_clusters,
+            "max_router": 1,
+            "top_k": smoke_top_k,
+            "beta": beta,
+            "seed": seed,
+            "max_workers": 1,
+            "cluster_batch_size": 64,
+            "performance_weight": performance_weight,
+            "cost_sensitivity": cost_sensitivity,
+        },
+    )
+    return {
+        "smoke_train_path": str(smoke_train_path),
+        "smoke_test_path": str(smoke_test_path),
+        "embedding_cache_path": str(cache_path),
+        "config_path": str(config_path),
+        "expected_output_path": str(output_path),
+        "smoke_train_queries": len(smoke_train),
+        "smoke_test_queries": len(smoke_test),
+        "smoke_clusters": smoke_clusters,
+    }
+
+
+def _embedding_cache_rows(records: list[dict[str, Any]], embeddings: pd.DataFrame) -> list[dict[str, Any]]:
+    rows_by_query: dict[str, dict[str, Any]] = {}
+    for record in records:
+        query = str(record["query"])
+        if query in rows_by_query:
+            continue
+        query_id = str(record["query_id"])
+        if query_id not in embeddings.index:
+            raise ValueError(f"Missing embedding for Avengers-Pro smoke query_id={query_id}")
+        rows_by_query[query] = {
+            "query_id": query_id,
+            "query": query,
+            "embedding": embeddings.loc[query_id].to_numpy(dtype=float).tolist(),
+        }
+    return list(rows_by_query.values())
 
 
 def _evaluate_router(
@@ -286,7 +384,7 @@ def write_memo(out_dir: Path, config_path: str, run_dir: Path, table: pd.DataFra
         "## Adapter Notes",
         "",
         "- Avengers-Pro source inspected: `data/raw/external/LLMRouterBench/baselines/AvengersPro`.",
-        "- Official Avengers-Pro scripts require an embedding service configuration; this local run bypasses that with cached RouteCode hash embeddings.",
+        "- Official Avengers-Pro scripts require an embedding service configuration by default; RouteCode also writes a bounded cache-backed smoke config for local no-API upstream command checks.",
         "- GraphRouter remains blocked for local metric rows because the current environment lacks PyG packages and its data construction path expects generated graph inputs plus embedding configuration.",
         "",
         "## References Used",
@@ -319,6 +417,7 @@ def append_readme(out_dir: Path, config_path: str, run_dir: Path, table: pd.Data
         "",
         "- `table_avengerspro_split_aligned.csv`: RouteCode utility rows from a local implementation of the Avengers-Pro cluster-routing contract.",
         f"- `{run_dir.name}/train.jsonl`, `{run_dir.name}/test.jsonl`, and `{run_dir.name}/baseline_scores.json`: split-aligned Avengers-Pro-format assets.",
+        f"- `{run_dir.name}/smoke_train.jsonl`, `{run_dir.name}/smoke_test.jsonl`, `{run_dir.name}/embedding_cache.jsonl`, and `{run_dir.name}/simple_cluster_config.local.json`: bounded no-API assets for the upstream Avengers-Pro command path.",
         "- `phase_e_avengerspro_split_aligned_memo.md`: caveats and adapter notes.",
         "",
         _markdown_table(summary),

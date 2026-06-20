@@ -16,7 +16,7 @@ This is not an official upstream command-path run, not an upstream checkpoint, a
 ## Adapter Notes
 
 - Avengers-Pro source inspected: `data/raw/external/LLMRouterBench/baselines/AvengersPro`.
-- Official Avengers-Pro scripts require an embedding service configuration; this local run bypasses that with cached RouteCode hash embeddings.
+- Official Avengers-Pro scripts require an embedding service configuration by default; RouteCode also writes a bounded cache-backed smoke config for local no-API upstream command checks.
 - GraphRouter remains blocked for local metric rows because the current environment lacks PyG packages and its data construction path expects generated graph inputs plus embedding configuration.
 
 ## References Used

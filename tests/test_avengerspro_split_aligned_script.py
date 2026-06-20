@@ -69,7 +69,11 @@ def test_avengerspro_split_aligned_script_writes_assets_table_and_memo(tmp_path)
     memo_path = out_dir / "phase_e_avengerspro_split_aligned_memo.md"
     assert (run_dir / "train.jsonl").exists()
     assert (run_dir / "test.jsonl").exists()
+    assert (run_dir / "smoke_train.jsonl").exists()
+    assert (run_dir / "smoke_test.jsonl").exists()
     assert (run_dir / "baseline_scores.json").exists()
+    assert (run_dir / "embedding_cache.jsonl").exists()
+    assert (run_dir / "simple_cluster_config.local.json").exists()
     assert (run_dir / "metadata.json").exists()
     assert table_path.exists()
     assert memo_path.exists()
@@ -85,6 +89,13 @@ def test_avengerspro_split_aligned_script_writes_assets_table_and_memo(tmp_path)
     assert table["no_api_calls"].all()
     assert not table["official_command_path"].any()
     assert table["selected_model_entropy"].ge(0.0).all()
+
+    config = (run_dir / "simple_cluster_config.local.json").read_text(encoding="utf-8")
+    assert "embedding_cache.jsonl" in config
+    assert "smoke_train.jsonl" in config
+    cache_line = (run_dir / "embedding_cache.jsonl").read_text(encoding="utf-8").splitlines()[0]
+    assert '"embedding"' in cache_line
+    assert '"query"' in cache_line
 
     readme = (out_dir / "README.md").read_text(encoding="utf-8")
     assert "## Avengers-Pro Split-Aligned Evaluation" in readme

@@ -1,0 +1,7 @@
+group_method,deployability,n_test_groups,best_model_identification_accuracy,traffic_weighted_best_model_identification_accuracy
+calibration_aware_routecode_state_k8,learned_probe_state_plus_observable_bits,11,0.8181818181818182,0.9186046511627907
+utility_cluster_k8_diagnostic,diagnostic_uses_hidden_utility_vectors,8,0.75,0.7411764705882353
+routecode_state_k8,learned_probe_state,6,0.6666666666666666,0.6802325581395349
+benchmark_label,diagnostic_label,9,0.5555555555555556,0.5348837209302325
+text_cluster_k8,train_fit_text_cluster,8,0.375,0.45348837209302323
+random_k8,random_baseline,8,0.375,0.4186046511627907

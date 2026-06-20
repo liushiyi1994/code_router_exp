@@ -1,0 +1,7 @@
+{
+  "policy_rows": 41,
+  "probe_feature_count": 8,
+  "query_feature_count": 256,
+  "state_count": 16,
+  "train_rows": 123
+}

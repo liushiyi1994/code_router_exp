@@ -4,6 +4,7 @@ __pycache__/
 .ruff_cache/
 .venv/
 venv/
+.env
 
 *:Zone.Identifier
 
@@ -19,3 +20,4 @@ results/**/synthetic_query_embeddings.csv
 results/**/*.jsonl
 results/**/*.npy
 results/**/*.pt
+results/**/vllm_server_logs/

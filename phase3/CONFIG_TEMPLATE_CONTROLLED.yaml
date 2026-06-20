@@ -1,0 +1,125 @@
+project: proberoute_controlled_phase2
+seed: 42
+
+budget:
+  allow_frontier_calls: false  # set true only after dry-run and cost estimate
+  max_frontier_spend_usd: 100.0
+  cache_dir: results/controlled/raw_outputs
+  force_rerun: false
+
+models:
+  local:
+    - id: Qwen/Qwen3.5-0.8B
+      role: cheap_probe
+      backend: vllm
+      enabled: true
+    - id: Qwen/Qwen3.5-9B
+      role: general_local
+      backend: vllm
+      enabled: true
+    - id: Qwen/Qwen3-Coder-30B-A3B-Instruct
+      role: code_specialist
+      backend: vllm_or_llamacpp_quantized
+      enabled: true
+    - id: Qwen/Qwen3.6-35B-A3B
+      role: strong_local
+      backend: vllm_quantized_or_fp8
+      enabled: true
+    - id: google/gemma-3-12b-it
+      role: diverse_general
+      backend: vllm_or_llamacpp
+      enabled: true
+  frontier:
+    - id: gpt-5.5
+      provider: openai
+      enabled: false
+    - id: claude-sonnet-4-6
+      provider: anthropic
+      enabled: false
+
+pricing:
+  # Fill with current official API prices before run.
+  # Units are USD per 1M tokens.
+  gpt-5.5:
+    input_per_mtok: 5.00
+    output_per_mtok: 30.00
+    cached_input_per_mtok: 0.50
+    source: official OpenAI docs, verify before run
+  claude-sonnet-4-6:
+    input_per_mtok: 3.00
+    output_per_mtok: 15.00
+    source: official Anthropic docs, verify before run
+
+benchmarks:
+  sample_mode: stratified
+  dry_run_examples_per_benchmark: 5
+  pilot_examples_per_benchmark: 100
+  main_examples_per_benchmark: 300
+  list:
+    - name: GSM8K
+      domain: math_easy
+      metric: exact_final_answer
+      max_output_tokens: 512
+    - name: MATH500
+      domain: math_hard
+      metric: exact_final_answer
+      max_output_tokens: 1024
+    - name: AIME
+      domain: math_competition
+      metric: exact_final_answer
+      max_output_tokens: 1024
+    - name: HumanEval
+      domain: code
+      metric: pass_at_1
+      max_output_tokens: 1024
+    - name: MBPP
+      domain: code
+      metric: pass_at_1
+      max_output_tokens: 1024
+    - name: LiveCodeBench
+      domain: code_live
+      metric: pass_at_1
+      max_output_tokens: 1536
+    - name: GPQA
+      domain: science_reasoning
+      metric: multiple_choice
+      max_output_tokens: 256
+    - name: MMLU-Pro
+      domain: broad_knowledge
+      metric: multiple_choice
+      max_output_tokens: 256
+    - name: BBH
+      domain: logical_reasoning
+      metric: exact_or_multiple_choice
+      max_output_tokens: 512
+      optional: true
+
+routing:
+  lambda_cost_values: [0.0, 0.25, 0.5, 1.0]
+  lambda_latency_values: [0.0, 0.25]
+  latent_state_K_values: [4, 8, 16, 32]
+  main_K_values: [8, 16]
+  probe_policies: [never, always, entropy_threshold, margin_threshold, voi]
+  calibration_examples_per_state: [4, 8, 16, 32]
+
+probe:
+  default_model: Qwen/Qwen3.5-0.8B
+  max_probe_tokens: 32
+  use_knn_uncertainty: true
+  use_embedding_margin: true
+  use_self_confidence_probe: true
+  use_logprobs_if_available: true
+
+latency:
+  sla_budgets_s: [2, 5, 10, 20]
+  local_speed_multipliers: [1, 2, 4]
+
+frontier_price_sensitivity:
+  multipliers: [0.5, 1, 2, 5]
+
+outputs:
+  output_dir: results/controlled
+  save_raw_outputs: true
+  save_scored_outputs: true
+  save_figures_pdf: true
+  save_tables_csv: true

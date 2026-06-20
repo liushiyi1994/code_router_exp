@@ -1,0 +1,57 @@
+{
+  "backend": "openai_multi_endpoint",
+  "command": "python experiments/51_true_model_generation_matrix.py --config configs/phase2_local_vllm_two_model_all200_nothink.yaml",
+  "config_path": "configs/phase2_local_vllm_two_model_all200_nothink.yaml",
+  "dry_run": false,
+  "error_count": 0,
+  "generation_params": {
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "max_tokens": 128,
+    "temperature": 0.0
+  },
+  "git_commit": "3c727f64a8954ccc913f527c9ca26d4c6901affd",
+  "model_ids": [
+    "qwen3_4b_vllm",
+    "qwen3_0_6b_vllm"
+  ],
+  "model_revision": "Qwen/Qwen3-4B via vLLM, thinking disabled; Qwen/Qwen3-0.6B via vLLM, thinking disabled",
+  "openai_endpoints": [
+    {
+      "base_url": "http://localhost:8001/v1",
+      "generation_params": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "max_tokens": 128,
+        "temperature": 0.0
+      },
+      "model_ids": [
+        "qwen3_4b_vllm"
+      ],
+      "model_revision": "Qwen/Qwen3-4B via vLLM, thinking disabled",
+      "name": "qwen3_4b_vllm"
+    },
+    {
+      "base_url": "http://localhost:8002/v1",
+      "generation_params": {
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "max_tokens": 128,
+        "temperature": 0.0
+      },
+      "model_ids": [
+        "qwen3_0_6b_vllm"
+      ],
+      "model_revision": "Qwen/Qwen3-0.6B via vLLM, thinking disabled",
+      "name": "second_local_vllm"
+    }
+  ],
+  "outcomes_sha256": "c72441d375c72bdfd4fdaa6dfe5526bdb7823717140b07aed38885e49145b09c",
+  "output_dir": "results/phase2/local_vllm_two_model_all200_nothink",
+  "row_count": 400,
+  "task_count": 200,
+  "task_manifest_path": "results/phase2/all200_exact_task_manifest/local_exact_task_manifest.csv"
+}

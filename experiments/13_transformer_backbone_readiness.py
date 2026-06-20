@@ -82,6 +82,14 @@ def write_memo(
     table: pd.DataFrame,
 ) -> None:
     runnable = table[table["runnable_as_encoder_baseline"] == True] if not table.empty else table
+    requested_missing = (
+        table[
+            table["model_id"].isin(requested)
+            & (table["runnable_as_encoder_baseline"] != True)
+        ]
+        if not table.empty
+        else table
+    )
     lines = [
         "# Phase F/G Transformer Backbone Readiness Memo",
         "",
@@ -104,7 +112,7 @@ def write_memo(
     else:
         lines.extend(
             [
-                "At least one cached lightweight encoder candidate is available. A future run can add a transformer-embedding direct-router baseline using `local_files_only=True` and the same query-id split.",
+                "At least one cached lightweight encoder candidate is available. Transformer-embedding direct-router rows should be checked in `table_transformer_embedding_router.csv`; extraction must use `local_files_only=True` and the same query-id split.",
                 "",
             ]
         )
@@ -117,16 +125,23 @@ def write_memo(
             "## Compatibility",
             "",
             "- This artifact is a readiness audit, not a routing metric table.",
-            "- It does not satisfy the full ModernBERT/DeBERTa predictor-type ablation until a cached encoder is evaluated on the RouteCode split.",
-            "- It does move the Research Flow forward by making the missing transformer-backbone dependency explicit and reproducible.",
+            "- It does not satisfy the full requested predictor-type ablation until each claim-critical cached encoder is evaluated on the RouteCode split.",
+            "- It moves the Research Flow forward by making available and missing transformer-backbone dependencies explicit and reproducible.",
             "",
             "## Next Step",
             "",
-            "- Cache a small text encoder such as `answerdotai/ModernBERT-base` or `microsoft/deberta-v3-base`, then add a local-files-only embedding extraction script and direct-router rows.",
+            _next_step_line(requested_missing),
             "",
         ]
     )
     (out_dir / "phase_f_g_transformer_backbone_readiness_memo.md").write_text("\n".join(lines), encoding="utf-8")
+
+
+def _next_step_line(missing: pd.DataFrame) -> str:
+    if missing.empty:
+        return "- Evaluate any additional claim-critical encoder backbones under the local-files-only transformer embedding router before making predictor-type claims."
+    missing_ids = ", ".join(str(model_id) for model_id in missing["model_id"].tolist())
+    return f"- Cache and evaluate the remaining requested encoder backbones under the local-files-only transformer embedding router: `{missing_ids}`."
 
 
 def _summary_table(table: pd.DataFrame) -> pd.DataFrame:

@@ -23,4 +23,6 @@ This audit scans raw LLMRouterBench result JSON files before canonical schema va
 ## Readout
 
 - Largest candidate by complete query count uses `20` models over `18` datasets with `14041` complete queries.
+- The 18-dataset/20-model candidate is now evaluated in `results/llmrouterbench_broad20`.
+- The 32-model/5-dataset candidate is now evaluated as a model-pool scale and disjoint 16-source/16-target transfer stress test in `results/llmrouterbench_32model`.
 - Use these candidates to choose larger real-data configs; do not infer routing performance from coverage alone.

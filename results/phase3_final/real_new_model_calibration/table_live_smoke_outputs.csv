@@ -1,0 +1,23 @@
+run_id,query_id,split,benchmark,domain,metric,model_id,model_name,provider,server_backend,base_url,status,error_type,latency_s,prompt_tokens,completion_tokens,parsed_answer,gold_answer,quality_score,cost_total_usd,raw_output
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:53,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.9012859069989645,359,64,25,610,0.0,0.0,"<think>
+Okay, so I need to figure out how many values of N between 1 and 1000 inclusive satisfy the condition that the greedy algorithm works. The problem says that the greedy algorithm works if no other combination of 1, 10, and 25-cent coins gives a total value"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:54,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.6384141249945969,196,64,0,149,0.0,0.0,"<think>
+Okay, let's try to solve this problem step by step. The problem says there are n values of x in the interval 0 < x < 2π where f(x) = sin(7π·sin(5x)) = 0. Then, for t of these n values, the"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:55,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.6231878140024492,171,64,16,907,0.0,0.0,"<think>
+Okay, so I need to solve this problem where there are 16 chairs in a row, and 8 people each choose a chair. The condition is that no person sits next to two other people. Then, I have to find the number of subsets of 16 chairs that could be selected,"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:56,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.6349837419984397,159,64,12,113,0.0,0.0,"<think>
+Okay, so I need to solve this problem about a regular 24-gon and find the number of ways to draw 12 segments of equal lengths such that each vertex is an endpoint of exactly one segment. Let me try to break this down step by step.
+
+First, let me visualize the problem"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:57,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.7038091619979241,326,64,11,19,0.0,0.0,"<think>
+Okay, let's try to tackle this problem step by step. First, let me make sure I understand all the given information and what needs to be found.
+
+We have an 11-sided non-convex simple polygon named A₁A₂...A₁₁. The area of each of the triangles"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:58,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.6934643799977493,234,64,2,248,0.0,0.0,"<think>
+Okay, so I need to solve this problem where I have a sequence defined by x₁ = 25/11 and each subsequent term is given by x_{k+1} = (1/3)(x_k + 1/x_k - 1). The question asks for x_{2"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:59,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.6986848860033206,201,64,38,104,0.0,0.0,"<think>
+Okay, so I need to solve this geometry problem. Let me try to visualize triangle ABC first. It's a right triangle with a right angle at A, and the hypotenuse BC is 38 units long. There are points K and L inside the triangle such that all four of these distances are"
+phase3_real_new_model_calibration_live_smoke,aime:hybrid:6,test,aime,math,exact_final_answer,qwen3-0.6b-probe-live-smoke,Qwen/Qwen3-0.6B,local,vllm,http://localhost:8001/v1,success,,0.7243602379967342,187,64,3,385,0.0,0.0,"<think>
+Okay, so I need to find the number of intersections between the graphs of two functions: y = 4g(f(sin(2πx))) and x = 4g(f(cos(3πy))). Let me start by understanding what each function is doing and how they interact.
+
+First, let me"

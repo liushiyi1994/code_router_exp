@@ -1,0 +1,20 @@
+run:
+  name: phase2_local_vllm_qwen3_4b_all200_nothink
+  output_dir: results/phase2/local_vllm_qwen3_4b_all200_nothink
+
+phase2_local_eval:
+  backend: openai
+  dry_run: false
+  base_url: http://localhost:8001/v1
+  api_key: local-routecode
+  timeout_sec: 120.0
+  model_ids:
+    - __first_listed__
+  model_revision: Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c via vLLM, thinking disabled
+  task_manifest_path: results/phase2/all200_exact_task_manifest/local_exact_task_manifest.csv
+  max_queries: 200
+  generation_params:
+    temperature: 0.0
+    max_tokens: 128
+    chat_template_kwargs:
+      enable_thinking: false

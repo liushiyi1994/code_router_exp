@@ -1,8 +1,10 @@
 {
-  "compatibility_note": "Assets are ready for the local LLMRouterBench RouteLLM MF trainer. This script does not train or evaluate an official RouteLLM MF model.",
+  "compatibility_note": "Assets are ready for the local LLMRouterBench RouteLLM MF trainer and cache-backed upstream RouteLLM MF evaluation. This script does not train or evaluate an official RouteLLM MF model.",
   "config_path": "configs/llmrouterbench_pilot.yaml",
   "data_source": "llmrouterbench",
+  "embedding_cache_path": "results/llmrouterbench_pilot/routellm_mf_assets/embedding_cache.jsonl",
   "embedding_dim": 256,
+  "eval_config_path": "results/llmrouterbench_pilot/routellm_mf_assets/mf_eval_config.local.json",
   "model_a": "Qwen3-8B",
   "model_b": "Qwen2.5-Coder-7B-Instruct",
   "official_model_ids_source": "/home/liush/projects/code_router_exp/data/raw/external/LLMRouterBench/baselines/RouteLLM/routers/matrix_factorization/model.py",

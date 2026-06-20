@@ -1,0 +1,7 @@
+experiment,model_id,provider,status,n_calls,mean_quality,mean_utility,total_cost_usd,mean_latency_s,evidence_type,claim_supported,notes
+historical_live_broad100_qwen32_thinking_mcq,gemini-3.5-flash,google,skipped,200,,,0.3063315,4.090666770935058e-05,historical_live_or_frontier_cost_estimate,False,"Existing local live Broad100 artifact; frontier rows were skipped/estimated, not called."
+historical_live_broad100_qwen32_thinking_mcq,gpt-5.5,openai,skipped,200,,,1.030585,4.2051076889038086e-05,historical_live_or_frontier_cost_estimate,False,"Existing local live Broad100 artifact; frontier rows were skipped/estimated, not called."
+historical_live_broad100_qwen32_thinking_mcq,qwen3-32b-awq-thinking-local,local,success,200,0.045,0.045,0.0,3.0431977844238283,historical_live_or_frontier_cost_estimate,False,"Existing local live Broad100 artifact; frontier rows were skipped/estimated, not called."
+current_live_qwen06_smoke,qwen3-0.6b-probe-live-smoke,local,success,8,0.0,0.0,0.0,0.7022737817487723,current_local_live_smoke,False,Tiny vLLM smoke verifies serving and logging only; it is not a full calibration result.
+frontier_live_call_readiness,gpt-5.5,openai,blocked_no_api_key,0,,,,,environment_readiness,False,No closed-source calls were made without provider keys and explicit budget.
+frontier_live_call_readiness,gemini-3.5-flash,google,blocked_no_api_key,0,,,,,environment_readiness,False,No closed-source calls were made without provider keys and explicit budget.

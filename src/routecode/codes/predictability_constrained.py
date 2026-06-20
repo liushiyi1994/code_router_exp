@@ -26,6 +26,7 @@ class PredictabilityConstrainedRouteCode:
         random_state: int = 0,
         max_iter: int = 25,
         refinement_iter: int = 10,
+        n_init: int = 10,
     ) -> None:
         self.n_labels = int(n_labels)
         self.alpha = float(alpha)
@@ -33,6 +34,7 @@ class PredictabilityConstrainedRouteCode:
         self.random_state = int(random_state)
         self.max_iter = int(max_iter)
         self.refinement_iter = int(refinement_iter)
+        self.n_init = int(n_init)
 
         self.effective_labels: int = 0
         self.train_labels_: pd.Series | None = None
@@ -83,7 +85,7 @@ class PredictabilityConstrainedRouteCode:
             kmeans = KMeans(
                 n_clusters=self.effective_labels,
                 random_state=self.random_state,
-                n_init=10,
+                n_init=self.n_init,
                 max_iter=self.max_iter,
             )
             labels = kmeans.fit_predict(initial_features)
@@ -113,13 +115,23 @@ class PredictabilityConstrainedRouteCode:
     def predict_label_confidence(self, embeddings: pd.DataFrame) -> pd.Series:
         if self._embedding_centroids_scaled is None:
             raise RuntimeError("PredictabilityConstrainedRouteCode must be fit before predict")
+        probabilities = self.predict_label_distribution(embeddings).to_numpy(dtype=float)
+        return pd.Series(probabilities.max(axis=1), index=embeddings.index, name="route_label_confidence")
+
+    def predict_label_distribution(self, embeddings: pd.DataFrame) -> pd.DataFrame:
+        if self._embedding_centroids_scaled is None:
+            raise RuntimeError("PredictabilityConstrainedRouteCode must be fit before predict")
         embedding_scaled = self._transform_embeddings(embeddings)
         distances = _squared_distances(embedding_scaled, self._embedding_centroids_scaled)
         logits = -distances
         logits = logits - logits.max(axis=1, keepdims=True)
         probabilities = np.exp(logits)
         probabilities = probabilities / probabilities.sum(axis=1, keepdims=True)
-        return pd.Series(probabilities.max(axis=1), index=embeddings.index, name="route_label_confidence")
+        return pd.DataFrame(
+            probabilities,
+            index=embeddings.index,
+            columns=list(range(self.effective_labels)),
+        )
 
     def predict_joint_labels(self, utility: pd.DataFrame, embeddings: pd.DataFrame) -> pd.Series:
         if self._utility_centroids_scaled is None or self._embedding_centroids_scaled is None:

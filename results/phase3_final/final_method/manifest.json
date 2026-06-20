@@ -1,0 +1,21 @@
+{
+  "compact_state_method": "gb_depth2_thr0.9844_state_k8",
+  "current_best_method": "et_flip_leaf4_thr0.8502_capNone",
+  "inputs": {
+    "broad100_current_best_action_mix": "results/controlled/broad100_current_best_method_package/table_broad100_current_best_action_mix.csv",
+    "broad100_current_best_choices": "results/controlled/broad100_current_best_method_package/table_broad100_current_best_query_choices.csv",
+    "broad100_current_best_eval": "results/controlled/broad100_current_best_method_package/table_broad100_current_best_main_eval.csv",
+    "broad100_learned_verifiability_assignments": "results/controlled/broad100_learned_verifiability_probe_state/table_learned_verifiability_assignments.csv",
+    "broad100_mpnet_embedding_cache": "results/controlled/broad100_embedding_self_action_gate_mpnet/embedding_cache",
+    "broad100_outputs": "results/controlled/broad100_vllm_self_consistency_probe/model_outputs_with_self_consistency.parquet",
+    "broad100_probe_features": "results/controlled/broad100_probe_state_routecode/table_probe_state_features.csv",
+    "broad100_self_consistency_probe": "results/controlled/broad100_vllm_self_consistency_probe/table_vllm_self_consistency_probe.csv",
+    "external_readiness": "results/llmrouterbench_broad20/table_external_command_readiness.csv",
+    "final_claims": "results/controlled/phase3_final_claim_package/table_phase3_final_claims.csv",
+    "learned_verifiability_code_cards": "results/controlled/broad100_learned_verifiability_probe_state/table_learned_verifiability_code_cards.csv"
+  },
+  "lambda_cost": 0.35,
+  "method_name": "ProbeCode-StateCal",
+  "n_current_eval_rows": 9,
+  "n_state_card_rows": 8
+}

@@ -1,0 +1,22 @@
+run:
+  name: phase2_exact_manifest_probe_qwen3_4b_transformers
+  output_dir: results/phase2/exact_manifest_probes_qwen3_4b_transformers
+
+phase2_exact_manifest_probe:
+  backend: transformers
+  dry_run: false
+  model_ids:
+    - Qwen3-4B-transformers-local
+  model_id_or_path: /home/liush/.cache/huggingface/hub/models--Qwen--Qwen3-4B/snapshots/1cfa9a7208912126459214e8b04321603b3df60c
+  model_revision: Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c
+  local_files_only: true
+  trust_remote_code: true
+  torch_dtype: auto
+  device_map: auto
+  task_manifest_path: results/phase2/local_exact_task_manifest.csv
+  max_queries: 118
+  generation_params:
+    temperature: 0.0
+    max_tokens: 48
+    chat_template_kwargs:
+      enable_thinking: false

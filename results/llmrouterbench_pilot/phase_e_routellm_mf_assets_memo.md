@@ -6,7 +6,7 @@ Artifact directory: `results/llmrouterbench_pilot/routellm_mf_assets`.
 
 Binary pair: strong/model_a `Qwen3-8B`, weak/model_b `Qwen2.5-Coder-7B-Instruct`.
 
-These assets are ready for the local LLMRouterBench RouteLLM MF trainer: they include `idx`, score/cost fields, `prompt_embeddings.npy`, and a local CPU training config.
+These assets are ready for the local LLMRouterBench RouteLLM MF trainer: they include `idx`, score/cost fields, `prompt_embeddings.npy`, and a local CPU training config. They also include a cache-backed upstream RouteLLM MF evaluation config that can evaluate `mf_model.pt` without embedding API calls.
 
 This is not a trained RouteLLM MF result. The next step is to run the local MF trainer and evaluate the checkpoint on the RouteCode test split.
 
@@ -18,6 +18,8 @@ This is not a trained RouteLLM MF result. The next step is to run the local MF t
 - `official_routellm_result`: `False`
 - Pair present in official `MODEL_IDS`: `True`
 - Local training config: `results/llmrouterbench_pilot/routellm_mf_assets/mf_train_config.local.json`
+- Local eval config: `results/llmrouterbench_pilot/routellm_mf_assets/mf_eval_config.local.json`
+- Local eval embedding cache: `results/llmrouterbench_pilot/routellm_mf_assets/embedding_cache.jsonl`
 
 ## Asset Summary
 
@@ -30,5 +32,6 @@ This is not a trained RouteLLM MF result. The next step is to run the local MF t
 ## Remaining External-Baseline Gap
 
 - Run the LLMRouterBench RouteLLM MF trainer on `mf_train_config.local.json`.
-- Evaluate the resulting checkpoint on `pairwise_test.json` and convert selections back to RouteCode utility metrics.
+- Run the cache-backed upstream RouteLLM MF evaluator on `mf_eval_config.local.json` and `pairwise_test.json`.
+- Convert selections back to RouteCode utility metrics separately; the upstream eval output is accuracy/cost readiness evidence.
 - Keep BERT, GraphRouter, and Avengers/Avengers-Pro as separate adapter tasks.

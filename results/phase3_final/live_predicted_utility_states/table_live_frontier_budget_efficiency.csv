@@ -1,0 +1,4 @@
+competitor,active_budget,active_mean_utility,competitor_match_budget,competitor_best_tested_budget,competitor_utility_at_best_tested_budget,matched_active_utility,eval_reduction_lower_bound
+uniform,40,0.5627321460337803,80.0,320,0.5627321460337803,True,2.0
+random,40,0.5627321460337803,320.0,320,0.5627321460337803,True,8.0
+direct,40,0.5627321460337803,,320,0.5614777139126353,False,8.0

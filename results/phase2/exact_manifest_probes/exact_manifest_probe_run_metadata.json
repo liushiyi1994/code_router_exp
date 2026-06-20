@@ -1,0 +1,17 @@
+{
+  "config_path": "configs/phase2_exact_manifest_probe_dryrun.yaml",
+  "created_at": "2026-06-17T03:04:20.329843+00:00",
+  "dry_run": true,
+  "error_rows": 0,
+  "feature_rows": 118,
+  "generation_params": {
+    "max_tokens": 64,
+    "temperature": 0.0
+  },
+  "model_ids": [
+    "dry_probe"
+  ],
+  "model_revision": "dry-run",
+  "task_count": 118,
+  "task_manifest_path": "results/phase2/local_exact_task_manifest.csv"
+}

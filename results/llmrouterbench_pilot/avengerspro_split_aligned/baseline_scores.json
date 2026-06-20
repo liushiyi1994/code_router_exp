@@ -1,11 +1,11 @@
 {
-  "Qwen3-8B": {
-    "aime": 71.43,
-    "gpqa": 54.05,
-    "humaneval": 62.96,
-    "math500": 94.23,
+  "DeepSeek-R1-Distill-Qwen-7B": {
+    "aime": 35.71,
+    "gpqa": 45.95,
+    "humaneval": 51.85,
+    "math500": 85.58,
     "mbpp": 50.79,
-    "mmlupro": 70.05
+    "mmlupro": 43.96
   },
   "Intern-S1-mini": {
     "aime": 85.71,
@@ -14,6 +14,14 @@
     "math500": 92.31,
     "mbpp": 37.7,
     "mmlupro": 59.9
+  },
+  "Llama-3.1-8B-Instruct": {
+    "aime": 0.0,
+    "gpqa": 24.32,
+    "humaneval": 59.26,
+    "math500": 41.35,
+    "mbpp": 60.21,
+    "mmlupro": 53.14
   },
   "MiniCPM4.1-8B": {
     "aime": 42.86,
@@ -31,20 +39,12 @@
     "mbpp": 74.87,
     "mmlupro": 50.72
   },
-  "Llama-3.1-8B-Instruct": {
-    "aime": 0.0,
-    "gpqa": 24.32,
-    "humaneval": 59.26,
-    "math500": 41.35,
-    "mbpp": 60.21,
-    "mmlupro": 53.14
-  },
-  "DeepSeek-R1-Distill-Qwen-7B": {
-    "aime": 35.71,
-    "gpqa": 45.95,
-    "humaneval": 51.85,
-    "math500": 85.58,
+  "Qwen3-8B": {
+    "aime": 71.43,
+    "gpqa": 54.05,
+    "humaneval": 62.96,
+    "math500": 94.23,
     "mbpp": 50.79,
-    "mmlupro": 43.96
+    "mmlupro": 70.05
   }
 }

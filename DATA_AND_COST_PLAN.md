@@ -124,6 +124,16 @@ This validates the practical new-model integration claim.
 
 Avoid full API matrices unless absolutely necessary.
 
+Provider scope for this later phase:
+
+```text
+OpenAI GPT-family models
+Anthropic Claude-family models
+Google Gemini-family models
+```
+
+These are closed-source provider models and must be treated as explicit-budget experiments, not default runs. Do not assume chat subscription access covers batch API experiments. Before reporting any provider-cost result, refresh the pricing snapshot from provider documentation, record the checked date and source URLs, and save input/output token counts for every call.
+
 ---
 
 ## 3. How much training data is needed?
@@ -203,6 +213,21 @@ Expected cost depends on provider. Formula:
 cost = calls * (input_tokens * input_price_per_token + output_tokens * output_price_per_token)
 ```
 
+Provider-aware runs must report at least:
+
+```text
+provider
+model_id and version/date
+input tokens
+output tokens
+request count
+quality/correctness
+latency
+prompt/evaluation cost
+local probe latency/GPU proxy cost
+total cost-adjusted utility
+```
+
 Examples per new model:
 
 | K | r | calls |
@@ -215,6 +240,38 @@ Examples per new model:
 | 64 | 16 | 1024 |
 
 Do not use API until benchmark results support the project.
+
+Closed-source models are important for the final applied model-pool story because practical routers often choose among local/open models and frontier provider models. They should appear in the model-pool and cost plan even when the current pilot uses only synthetic, benchmark, or local vLLM data.
+
+Provider families to keep in scope:
+
+| Provider | Model family scope | Current status |
+|---|---|---|
+| OpenAI | GPT-family models | Future explicit-budget calibration/evaluation only |
+| Anthropic | Claude-family models | Future explicit-budget calibration/evaluation only |
+| Google | Gemini-family models | Future explicit-budget calibration/evaluation only |
+
+Provider-aware RouteCode runs must treat cost as part of the routing objective, not as an afterthought. Log these fields per call or per cached outcome:
+
+```text
+provider
+model_id
+model_version_or_snapshot_date
+pricing_checked_date
+pricing_source_url
+input_tokens
+output_tokens
+cached_input_tokens if applicable
+request_count
+latency_seconds
+target_model_cost
+probe_model_cost
+local_gpu_latency_or_cost_proxy if applicable
+quality_or_correctness
+cost_adjusted_utility
+```
+
+Do not hard-code GPT/Claude/Gemini prices into method claims. Provider pricing changes, so any provider-cost table must be generated from a run-specific pricing snapshot with source URLs and checked dates.
 
 ---
 
@@ -249,4 +306,3 @@ label -> model
 When a new model arrives, reuse `query -> label` and evaluate the new model only on examples from each label.
 
 This is the practical core claim.
-

@@ -1,0 +1,130 @@
+run:
+  name: llmrouterbench_32model
+  output_dir: results/llmrouterbench_32model
+  random_seed: 7
+
+data:
+  source: llmrouterbench
+  results_dir: data/raw/external/LLMRouterBench/results/bench
+  cache_path: data/processed/llmrouterbench_32model/outcomes.csv
+  source_splits: null
+  datasets:
+    - aime
+    - gpqa
+    - livecodebench
+    - livemathbench
+    - mmlupro
+  domain_map:
+    aime: math
+    gpqa: science
+    livecodebench: code
+    livemathbench: math
+    mmlupro: broad_knowledge
+  task_taxonomy_map:
+    aime:
+      task_family: mathematical_reasoning
+      task_subtype: competition_math
+    gpqa:
+      task_family: scientific_reasoning
+      task_subtype: graduate_science_qa
+    livecodebench:
+      task_family: code_generation
+      task_subtype: live_code_generation
+    livemathbench:
+      task_family: mathematical_reasoning
+      task_subtype: live_math_problem_solving
+    mmlupro:
+      task_family: broad_knowledge
+      task_subtype: multi_domain_exam
+  models:
+    - DeepHermes-3-Llama-3-8B-Preview
+    - DeepSeek-R1-0528-Qwen3-8B
+    - DeepSeek-R1-Distill-Qwen-7B
+    - Fin-R1
+    - GLM-Z1-9B-0414
+    - Intern-S1-mini
+    - Llama-3.1-8B-Instruct
+    - Llama-3.1-8B-UltraMedical
+    - Llama-3.1-Nemotron-Nano-8B-v1
+    - MiMo-7B-RL-0530
+    - MiniCPM4.1-8B
+    - NVIDIA-Nemotron-Nano-9B-v2
+    - OpenThinker3-7B
+    - Qwen2.5-Coder-7B-Instruct
+    - Qwen3-8B
+    - cogito-v1-preview-llama-8B
+    - gemma-2-9b-it
+    - glm-4-9b-chat
+    - granite-3.3-8b-instruct
+    - internlm3-8b-instruct
+    - claude-sonnet-4
+    - deepseek-r1-0528
+    - deepseek-v3-0324
+    - gemini-2.5-flash
+    - gemini-2.5-pro
+    - glm-4.6
+    - gpt-5
+    - intern-s1
+    - kimi-k2-0905
+    - qwen3-235b-a22b-2507
+    - qwen3-235b-a22b-thinking-2507
+    - gpt-5-chat
+  drop_incomplete_queries: true
+  hashing_features: 256
+
+utility:
+  lambda_cost: 0.0
+
+split:
+  train_frac: 0.60
+  val_frac: 0.20
+  test_frac: 0.20
+
+routers:
+  embedding_clusters: 16
+  knn_k: 15
+
+routecode:
+  k_values: [1, 2, 4, 8, 16, 32, 64, 128]
+  selected_k_for_cards: 16
+  max_iter: 25
+
+predictability_constrained:
+  k: 16
+  selected_alpha: 1.0
+  beta: 0.0
+  max_iter: 25
+  refinement_iter: 10
+
+split_sensitivity:
+  max_group_scenarios: 1
+  cluster_count: 4
+  cluster_holdout_count: 1
+  max_model_pool_scenarios: 2
+  classifier_max_iter: 100
+  k_values: [1, 16, 128]
+  rate_classifier_max_iter: 50
+  rate_codebook_max_iter: 5
+  rate_codebook_n_init: 1
+  checkpoint_partial: true
+  resume_partial: true
+
+model_pool_scale:
+  sizes: [2, 4, 8, 16, 32]
+  k: 16
+  d2_alpha: 1.0
+  d2_beta: 0.0
+
+model_pool_transfer:
+  source_size: 16
+  target_size: 16
+  k: 16
+  d2_alpha: 1.0
+  d2_beta: 0.0
+  direct_router_methods: [logistic, svm, knn]
+  direct_router_max_iter: 500
+  direct_router_knn_k: 15
+
+bootstrap:
+  n_bootstrap: 100
+  ci: 0.95

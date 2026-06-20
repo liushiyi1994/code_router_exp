@@ -77,12 +77,30 @@ routers:
   embedding_clusters: 16
   knn_k: 15
 
+routecode:
+  k_values: [1, 2, 4, 8, 16, 32, 64, 128]
+  selected_k_for_cards: 16
+  max_iter: 25
+
 predictability_constrained:
   k: 16
   selected_alpha: 3.0
   beta: 0.0
   max_iter: 25
   refinement_iter: 10
+
+split_sensitivity:
+  max_group_scenarios: 1
+  cluster_count: 4
+  cluster_holdout_count: 1
+  max_model_pool_scenarios: 2
+  classifier_max_iter: 100
+  k_values: [1, 16, 128]
+  rate_classifier_max_iter: 50
+  rate_codebook_max_iter: 5
+  rate_codebook_n_init: 1
+  checkpoint_partial: true
+  resume_partial: true
 
 model_pool_scale:
   sizes: [2, 4, 8, 12, 16, 20]

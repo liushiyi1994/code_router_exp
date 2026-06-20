@@ -1,0 +1,20 @@
+{
+  "command": "python experiments/51_true_model_generation_matrix.py --config configs/phase2_local_exact_manifest_dryrun.yaml",
+  "config_path": "configs/phase2_local_exact_manifest_dryrun.yaml",
+  "dry_run": true,
+  "error_count": 0,
+  "generation_params": {
+    "max_tokens": 128,
+    "temperature": 0.0
+  },
+  "git_commit": "3c727f64a8954ccc913f527c9ca26d4c6901affd",
+  "model_ids": [
+    "dry_run_model"
+  ],
+  "model_revision": "dry-run",
+  "outcomes_sha256": "e631c148dee844c3c0c54ec2ab30066140f6f4d2f6ee0aa248d4bc00e4947a3b",
+  "output_dir": "results/phase2/local_exact_manifest_dryrun",
+  "row_count": 118,
+  "task_count": 118,
+  "task_manifest_path": "results/phase2/local_exact_task_manifest.csv"
+}

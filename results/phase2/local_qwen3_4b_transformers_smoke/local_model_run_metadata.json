@@ -1,0 +1,24 @@
+{
+  "backend": "transformers",
+  "command": "python experiments/51_true_model_generation_matrix.py --config configs/phase2_local_qwen3_4b_transformers_smoke.yaml",
+  "config_path": "configs/phase2_local_qwen3_4b_transformers_smoke.yaml",
+  "dry_run": false,
+  "error_count": 0,
+  "generation_params": {
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "max_tokens": 128,
+    "temperature": 0.0
+  },
+  "git_commit": "3c727f64a8954ccc913f527c9ca26d4c6901affd",
+  "model_ids": [
+    "Qwen3-4B-transformers-local"
+  ],
+  "model_revision": "Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c",
+  "outcomes_sha256": "b6b46f90e3bf840f88ee11d02960c0dafe066bf176559a31772a142c759b2ab8",
+  "output_dir": "results/phase2/local_qwen3_4b_transformers_smoke",
+  "row_count": 4,
+  "task_count": 4,
+  "task_manifest_path": ""
+}

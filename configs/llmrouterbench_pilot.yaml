@@ -103,6 +103,11 @@ ablation:
   d2_beta: 0.0
   beta_values: [0.0, 0.1, 1.0, 3.0]
   max_iter: 25
+  classifier_max_iter: 1000
+  logistic_solver: lbfgs
+  svm_backend: linear_svc
+  classifier_tol: 0.0001
+  kmeans_n_init: 10
 
 bootstrap:
   n_bootstrap: 300
@@ -138,16 +143,115 @@ sensitivity:
       models: [MiniCPM4.1-8B, Intern-S1-mini]
   bootstrap_counts: [50, 100, 300]
 
+cost_quality:
+  lambda_values: [0.0, 0.05, 0.1, 0.2]
+  quality_target_fractions: [0.8, 0.9, 0.95, 0.99]
+  cost_budget_fractions: [0.25, 0.5, 0.75, 1.0]
+
+provider_pricing:
+  lambda_values: [0.0, 0.05, 0.1, 0.2]
+  quality_target_fractions: [0.8, 0.9, 0.95]
+  cost_budget_fractions: [0.25, 0.5, 0.75, 1.0]
+  schedules:
+    - name: openrouter_verified_subset_2026_06_15
+      provider: OpenRouter
+      source_checked_date: "2026-06-15"
+      unmapped_policy: drop
+      prices_per_million_tokens:
+        Qwen3-8B:
+          provider_model_id: qwen/qwen3-8b
+          input: 0.05
+          output: 0.40
+          source_url: https://openrouter.ai/qwen/qwen3-8b
+        Llama-3.1-8B-Instruct:
+          provider_model_id: meta-llama/llama-3.1-8b-instruct
+          input: 0.02
+          output: 0.03
+          source_url: https://openrouter.ai/meta-llama/llama-3.1-8b-instruct/pricing
+    - name: mixed_public_provider_subset_2026_06_15
+      provider: Mixed public provider snapshot
+      source_checked_date: "2026-06-15"
+      unmapped_policy: drop
+      prices_per_million_tokens:
+        Qwen3-8B:
+          provider: OpenRouter
+          provider_model_id: qwen/qwen3-8b
+          input: 0.05
+          output: 0.40
+          source_url: https://openrouter.ai/qwen/qwen3-8b
+        Llama-3.1-8B-Instruct:
+          provider: OpenRouter
+          provider_model_id: meta-llama/llama-3.1-8b-instruct
+          input: 0.02
+          output: 0.03
+          source_url: https://openrouter.ai/meta-llama/llama-3.1-8b-instruct/pricing
+        DeepSeek-R1-Distill-Qwen-7B:
+          provider: Alibaba Qwen
+          provider_model_id: deepseek-r1-distill-qwen-7b
+          input: 0.072
+          output: 0.144
+          source_url: https://cloudprice.net/models/deepseek-r1-distill-qwen-7b
+        Qwen2.5-Coder-7B-Instruct:
+          provider: Alibaba Qwen
+          provider_model_id: qwen2.5-coder-7b-instruct
+          input: 0.144
+          output: 0.287
+          source_url: https://www.alibabacloud.com/help/en/model-studio/models
+      unmapped_price_notes:
+        Intern-S1-mini:
+          provider: Hugging Face / self-host
+          provider_model_id: internlm/Intern-S1-mini
+          source_url: https://huggingface.co/internlm/Intern-S1-mini
+          coverage_note: exact_model_card_no_provider_token_price
+        MiniCPM4.1-8B:
+          provider: ModelScope / self-host
+          provider_model_id: OpenBMB/MiniCPM4.1-8B
+          source_url: https://modelscope.cn/models/OpenBMB/MiniCPM4.1-8B
+          coverage_note: exact_model_card_no_provider_token_price
+
+stronger_direct_router_probe:
+  k: 16
+  alpha: 3.0
+  beta: 0.0
+  max_holdout_models: 2
+  r_values: [8, 64]
+  direct_router_methods: [logistic, svm, knn, mlp, gradient_boosting]
+  direct_router_max_iter: 200
+  direct_router_knn_k: 15
+
 external_baselines:
   mf_rank: 4
   mf_alpha: 1.0
   strong_model: Qwen3-8B
   weak_model: Qwen2.5-Coder-7B-Instruct
   thresholds: [0.25, 0.5, 0.75]
+  embedllm_knn_neighbors: [3, 15, 131]
+  embedllm_knn_embedding_backend: sentence_transformers
+  embedllm_knn_sentence_transformer: all-mpnet-base-v2
+  embedllm_knn_local_files_only: true
+  embedllm_knn_batch_size: 32
+  frugalgpt_epochs: 1
+  frugalgpt_max_steps: null
+  frugalgpt_max_length: 128
+  frugalgpt_batch_size: 16
+  frugalgpt_eval_batch_size: 64
+  frugalgpt_prob_thresholds: [0.5]
+  frugalgpt_reuse_saved_scorers: false
 
 transformer_backbones:
   cache_dir: ~/.cache/huggingface/hub
   requested_model_ids:
+    - sentence-transformers/all-MiniLM-L6-v2
+    - BAAI/bge-small-en-v1.5
+    - intfloat/e5-small-v2
     - answerdotai/ModernBERT-base
     - microsoft/deberta-v3-base
   max_runnable_gb: 2.0
+
+transformer_embedding_router:
+  direct_router_methods: [logistic, svm, knn]
+  max_iter: 200
+  knn_k: 15
+  batch_size: 16
+  max_length: 256
+  device: auto

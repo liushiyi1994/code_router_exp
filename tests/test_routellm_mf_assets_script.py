@@ -67,6 +67,9 @@ def test_mf_assets_script_writes_official_trainer_inputs_table_memo_and_readme(t
     embeddings_path = assets_dir / "prompt_embeddings.npy"
     prompt_index_path = assets_dir / "prompt_index.json"
     train_config_path = assets_dir / "mf_train_config.local.json"
+    eval_config_path = assets_dir / "mf_eval_config.local.json"
+    embedding_config_path = assets_dir / "embedding_config.local.yaml"
+    embedding_cache_path = assets_dir / "embedding_cache.jsonl"
     metadata_path = assets_dir / "metadata.json"
     table_path = out_dir / "table_routellm_mf_assets.csv"
     memo_path = out_dir / "phase_e_routellm_mf_assets_memo.md"
@@ -76,6 +79,9 @@ def test_mf_assets_script_writes_official_trainer_inputs_table_memo_and_readme(t
         embeddings_path,
         prompt_index_path,
         train_config_path,
+        eval_config_path,
+        embedding_config_path,
+        embedding_cache_path,
         metadata_path,
         table_path,
         memo_path,
@@ -86,7 +92,9 @@ def test_mf_assets_script_writes_official_trainer_inputs_table_memo_and_readme(t
     test_records = json.loads(test_path.read_text(encoding="utf-8"))
     prompt_index = json.loads(prompt_index_path.read_text(encoding="utf-8"))
     train_config = json.loads(train_config_path.read_text(encoding="utf-8"))
+    eval_config = json.loads(eval_config_path.read_text(encoding="utf-8"))
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    first_cache_row = json.loads(embedding_cache_path.read_text(encoding="utf-8").splitlines()[0])
     embeddings = np.load(embeddings_path)
     assert train_records
     assert test_records
@@ -102,8 +110,15 @@ def test_mf_assets_script_writes_official_trainer_inputs_table_memo_and_readme(t
     assert train_config["num_epochs"] == 3
     assert train_config["batch_size"] == 4
     assert train_config["device"] == "cpu"
+    assert eval_config["mf"]["checkpoint_path"].endswith("mf_model.pt")
+    assert eval_config["mf"]["embedding_config_path"].endswith("embedding_config.local.yaml")
+    assert eval_config["mf"]["hidden_size"] == embeddings.shape[1]
+    assert first_cache_row["prompt"]
+    assert first_cache_row["embedding"]
     assert metadata["official_trainer_compatible"] is True
     assert metadata["official_routellm_result"] is False
+    assert metadata["eval_config_path"].endswith("mf_eval_config.local.json")
+    assert metadata["embedding_cache_path"].endswith("embedding_cache.jsonl")
 
     table = pd.read_csv(table_path)
     assert set(table["split"]) == {"train", "test", "overall"}
@@ -114,5 +129,7 @@ def test_mf_assets_script_writes_official_trainer_inputs_table_memo_and_readme(t
     readme = (out_dir / "README.md").read_text(encoding="utf-8")
     assert "## RouteLLM MF Trainer Assets" in readme
     assert "not a trained RouteLLM MF result" in readme
+    assert "mf_eval_config.local.json" in readme
     memo = memo_path.read_text(encoding="utf-8")
     assert "ready for the local LLMRouterBench RouteLLM MF trainer" in memo
+    assert "cache-backed upstream RouteLLM MF evaluation" in memo

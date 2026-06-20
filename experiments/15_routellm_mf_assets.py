@@ -62,12 +62,28 @@ def run(config_path: str) -> None:
     prompt_index_path = assets_dir / "prompt_index.json"
     embeddings_path = assets_dir / "prompt_embeddings.npy"
     train_config_path = assets_dir / "mf_train_config.local.json"
+    eval_config_path = assets_dir / "mf_eval_config.local.json"
+    embedding_config_path = assets_dir / "embedding_config.local.yaml"
+    embedding_cache_path = assets_dir / "embedding_cache.jsonl"
     metadata_path = assets_dir / "metadata.json"
 
     _write_json(train_path, assets.train_records)
     _write_json(test_path, assets.test_records)
     _write_json(prompt_index_path, assets.prompt_index)
     np.save(embeddings_path, assets.prompt_embeddings)
+    _write_jsonl(embedding_cache_path, _embedding_cache_rows(assets))
+    embedding_config_path.write_text(
+        "\n".join(
+            [
+                "embedding_model:",
+                "  api_model_name: routecode-cache",
+                "  name: routecode-cache",
+                f"embedding_cache_path: {embedding_cache_path.resolve()}",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
 
     official_model_ids = _load_official_model_ids()
     pair_in_official_ids = pair.strong_model in official_model_ids and pair.weak_model in official_model_ids
@@ -79,6 +95,12 @@ def run(config_path: str) -> None:
         embedding_dim=int(assets.prompt_embeddings.shape[1]),
     )
     _write_json(train_config_path, trainer_config)
+    eval_config = _eval_config(
+        checkpoint_path=assets_dir / "mf_model.pt",
+        embedding_config_path=embedding_config_path,
+        embedding_dim=int(assets.prompt_embeddings.shape[1]),
+    )
+    _write_json(eval_config_path, eval_config)
 
     metadata = _metadata(
         config_path=config_path,
@@ -87,6 +109,8 @@ def run(config_path: str) -> None:
         assets=assets,
         pair_in_official_ids=pair_in_official_ids,
         train_config_path=train_config_path,
+        eval_config_path=eval_config_path,
+        embedding_cache_path=embedding_cache_path,
         official_model_ids_source=OFFICIAL_MODEL_FILE,
     )
     _write_json(metadata_path, metadata)
@@ -125,6 +149,36 @@ def _trainer_config(
     }
 
 
+def _eval_config(*, checkpoint_path: Path, embedding_config_path: Path, embedding_dim: int) -> dict[str, Any]:
+    return {
+        "mf": {
+            "checkpoint_path": str(checkpoint_path),
+            "hidden_size": int(embedding_dim),
+            "num_models": 33,
+            "text_dim": int(embedding_dim),
+            "num_classes": 1,
+            "use_proj": True,
+            "embedding_config_path": str(embedding_config_path),
+        }
+    }
+
+
+def _embedding_cache_rows(assets) -> list[dict[str, Any]]:
+    rows_by_prompt: dict[str, dict[str, Any]] = {}
+    for record in assets.train_records + assets.test_records:
+        prompt = str(record["prompt"])
+        if prompt in rows_by_prompt:
+            continue
+        query_id = str(record["query_id"])
+        idx = int(assets.prompt_index[query_id])
+        rows_by_prompt[prompt] = {
+            "query_id": query_id,
+            "prompt": prompt,
+            "embedding": assets.prompt_embeddings[idx].astype(float).tolist(),
+        }
+    return list(rows_by_prompt.values())
+
+
 def _metadata(
     *,
     config_path: str,
@@ -133,6 +187,8 @@ def _metadata(
     assets,
     pair_in_official_ids: bool,
     train_config_path: Path,
+    eval_config_path: Path,
+    embedding_cache_path: Path,
     official_model_ids_source: Path,
 ) -> dict[str, Any]:
     train_ids = {row["query_id"] for row in assets.train_records}
@@ -166,9 +222,12 @@ def _metadata(
         "pair_in_official_model_ids": pair_in_official_ids,
         "official_model_ids_source": str(official_model_ids_source),
         "train_config_path": str(train_config_path),
+        "eval_config_path": str(eval_config_path),
+        "embedding_cache_path": str(embedding_cache_path),
         "compatibility_note": (
-            "Assets are ready for the local LLMRouterBench RouteLLM MF trainer. "
-            "This script does not train or evaluate an official RouteLLM MF model."
+            "Assets are ready for the local LLMRouterBench RouteLLM MF trainer and "
+            "cache-backed upstream RouteLLM MF evaluation. This script does not train "
+            "or evaluate an official RouteLLM MF model."
         ),
     }
 
@@ -254,12 +313,13 @@ def append_readme(out_dir: Path, config_path: str, assets_dir: Path, table: pd.D
         f"- `{ASSET_DIRNAME}/prompt_embeddings.npy`: RouteCode deterministic query embeddings aligned to `idx`.",
         f"- `{ASSET_DIRNAME}/prompt_index.json`: query-id to MF prompt-index mapping.",
         f"- `{ASSET_DIRNAME}/mf_train_config.local.json`: local CPU config for the LLMRouterBench RouteLLM MF trainer.",
+        f"- `{ASSET_DIRNAME}/mf_eval_config.local.json`, `{ASSET_DIRNAME}/embedding_config.local.yaml`, and `{ASSET_DIRNAME}/embedding_cache.jsonl`: no-API config/cache for bounded upstream RouteLLM MF evaluation.",
         "- `table_routellm_mf_assets.csv`: asset compatibility and winner-distribution summary.",
         "- `phase_e_routellm_mf_assets_memo.md`: Phase E memo explaining the remaining train/eval step.",
         "",
         f"Artifact directory: `{assets_dir}`.",
         "",
-        "These files are trainer inputs, not a trained RouteLLM MF result.",
+        "These files are trainer/eval inputs, not a trained RouteLLM MF result.",
         "",
         _markdown_table(table),
         "",
@@ -283,7 +343,7 @@ def write_memo(
         "",
         f"Binary pair: strong/model_a `{metadata['strong_model']}`, weak/model_b `{metadata['weak_model']}`.",
         "",
-        "These assets are ready for the local LLMRouterBench RouteLLM MF trainer: they include `idx`, score/cost fields, `prompt_embeddings.npy`, and a local CPU training config.",
+        "These assets are ready for the local LLMRouterBench RouteLLM MF trainer: they include `idx`, score/cost fields, `prompt_embeddings.npy`, and a local CPU training config. They also include a cache-backed upstream RouteLLM MF evaluation config that can evaluate `mf_model.pt` without embedding API calls.",
         "",
         "This is not a trained RouteLLM MF result. The next step is to run the local MF trainer and evaluate the checkpoint on the RouteCode test split.",
         "",
@@ -295,6 +355,8 @@ def write_memo(
         f"- `official_routellm_result`: `{metadata['official_routellm_result']}`",
         f"- Pair present in official `MODEL_IDS`: `{metadata['pair_in_official_model_ids']}`",
         f"- Local training config: `{metadata['train_config_path']}`",
+        f"- Local eval config: `{metadata['eval_config_path']}`",
+        f"- Local eval embedding cache: `{metadata['embedding_cache_path']}`",
         "",
         "## Asset Summary",
         "",
@@ -303,7 +365,8 @@ def write_memo(
         "## Remaining External-Baseline Gap",
         "",
         "- Run the LLMRouterBench RouteLLM MF trainer on `mf_train_config.local.json`.",
-        "- Evaluate the resulting checkpoint on `pairwise_test.json` and convert selections back to RouteCode utility metrics.",
+        "- Run the cache-backed upstream RouteLLM MF evaluator on `mf_eval_config.local.json` and `pairwise_test.json`.",
+        "- Convert selections back to RouteCode utility metrics separately; the upstream eval output is accuracy/cost readiness evidence.",
         "- Keep BERT, GraphRouter, and Avengers/Avengers-Pro as separate adapter tasks.",
         "",
     ]
@@ -312,6 +375,12 @@ def write_memo(
 
 def _write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+    with path.open("w", encoding="utf-8") as handle:
+        for row in rows:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
 def _markdown_table(frame: pd.DataFrame) -> str:

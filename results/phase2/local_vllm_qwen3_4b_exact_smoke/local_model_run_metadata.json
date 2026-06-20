@@ -1,0 +1,21 @@
+{
+  "backend": "openai",
+  "command": "python experiments/51_true_model_generation_matrix.py --config configs/phase2_local_vllm_qwen3_4b_exact_smoke.yaml",
+  "config_path": "configs/phase2_local_vllm_qwen3_4b_exact_smoke.yaml",
+  "dry_run": false,
+  "error_count": 0,
+  "generation_params": {
+    "max_tokens": 256,
+    "temperature": 0.0
+  },
+  "git_commit": "3c727f64a8954ccc913f527c9ca26d4c6901affd",
+  "model_ids": [
+    "/home/liush/.cache/huggingface/hub/models--Qwen--Qwen3-4B/snapshots/1cfa9a7208912126459214e8b04321603b3df60c"
+  ],
+  "model_revision": "Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c via vLLM",
+  "outcomes_sha256": "792a4f0795c5d826b0e448da6231c872d93b20a68ca36cc1b17d4a959511e7e2",
+  "output_dir": "results/phase2/local_vllm_qwen3_4b_exact_smoke",
+  "row_count": 20,
+  "task_count": 20,
+  "task_manifest_path": "results/phase2/all200_exact_task_manifest/local_exact_task_manifest.csv"
+}
