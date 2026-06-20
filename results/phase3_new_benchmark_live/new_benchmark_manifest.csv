@@ -1,0 +1,100 @@
+query_id,query_text,dataset,domain,source_split,routecode_split,task_type,gold_answer,choices_json,metadata_json,max_output_tokens
+simpleqa_verified:4227,"How much (in USD) was Frida's self-portrait with loose hair sold for in an auction by Christie's, New York, in May of 1991?",simpleqa_verified,art,eval,new_benchmark,short_answer,1.65 million USD,[],"{""answer_type"": ""Number"", ""hf_dataset"": ""google/simpleqa-verified"", ""multi_step"": false, ""requires_reasoning"": false, ""topic"": ""Art""}",64
+simpleqa_verified:4041,"During whose papacy did Gian Lorenzo Bernini create the ""Ecstasy of Saint Teresa""?",simpleqa_verified,art,eval,new_benchmark,short_answer,Innocent X,[],"{""answer_type"": ""Person"", ""hf_dataset"": ""google/simpleqa-verified"", ""multi_step"": false, ""requires_reasoning"": false, ""topic"": ""Art""}",64
+simpleqa_verified:3682,What was the name of the venue where the 1992 Scandinavian Masters golf tournament happened?,simpleqa_verified,sports,eval,new_benchmark,short_answer,Barsebäck Golf & Country Club,[],"{""answer_type"": ""Place"", ""hf_dataset"": ""google/simpleqa-verified"", ""multi_step"": false, ""requires_reasoning"": false, ""topic"": ""Sports""}",64
+simpleqa_verified:3959,What is the boiling point of the element cerium in Fahrenheit?,simpleqa_verified,science_and_technology,eval,new_benchmark,short_answer,6229 °F,[],"{""answer_type"": ""Number"", ""hf_dataset"": ""google/simpleqa-verified"", ""multi_step"": false, ""requires_reasoning"": true, ""topic"": ""Science and technology""}",64
+simpleqa_verified:547,What was the title of chemist Mary Letitia Caldwell's Ph.D. thesis?,simpleqa_verified,science_and_technology,eval,new_benchmark,short_answer,An experimental study of certain basic amino acids,[],"{""answer_type"": ""Other"", ""hf_dataset"": ""google/simpleqa-verified"", ""multi_step"": false, ""requires_reasoning"": false, ""topic"": ""Science and technology""}",64
+livebench_math:a3042049ff38a26d648871118b2e6411e0df7fd80e18ae27a6488453702e7f70,"Anders went to a store to buy a coffee maker. Coffee makers were on sale, with prices reduced by $20\%$on every coffee maker. Anders also knew that he had to pay a $7.5\%$ sales tax on the discounted price. He had $43$ dollars. What is the original (before discount) price of the most expensive coffee maker he could afford to buy? $\textbf{(A) }48\qquad\textbf{(B) }47\qquad\textbf{(C) }49\qquad\textbf{(D) }46\qquad\textbf{(E) }50$ If you cannot determine the correct multiple-choice answer, take your best guess. Once you have your answer, please duplicate that letter five times in a single string. For example, if the answer is F, then write FFFFF.",livebench_math,math,test,new_benchmark,exact_ordered,E,[],"{""category"": ""math"", ""hf_dataset"": ""livebench/math"", ""livebench_release_date"": ""2024-08-31 00:00:00"", ""subtask"": ""updated_amc_12b_2023"", ""task"": ""math_comp""}",96
+livebench_math:544ed42d0f9c313161f8c7c4c034f59fd94f55865d24d06666487568cd645dec,"Compute the geometric mean of ${-729, 343, -2}$. Please put your final answer in a $\\boxed{}$.",livebench_math,math,test,new_benchmark,exact_ordered,63 \sqrt[3]{2},[],"{""category"": ""math"", ""hf_dataset"": ""livebench/math"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""subtask"": ""amps_hard_geometric_mean"", ""task"": ""AMPS_Hard""}",96
+livebench_math:01540b9b0b068942c8adeec17f825f0a9a3b9f52a1f61704bfebbb4c406064a7,"In Bethany's class of 30 students, twice as many people played basketball as played football. Twice as many played football as played neither. Which of the following options could have been the number of people who played both? $\textbf{(A) }19\qquad\textbf{(B) }14\qquad\textbf{(C) }9\qquad\textbf{(D) }5\qquad\textbf{(E) }0$ If you cannot determine the correct multiple-choice answer, take your best guess. Once you have your answer, please duplicate that letter five times in a single string. For example, if the answer is F, then write FFFFF.",livebench_math,math,test,new_benchmark,exact_ordered,D,[],"{""category"": ""math"", ""hf_dataset"": ""livebench/math"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""subtask"": ""smc"", ""task"": ""math_comp""}",96
+livebench_math:f4942a722c5d82b6a6c0cf8122d600af4c88105f3f7416e48c2c99ebdeecaed5,"The greatest power of 7 which is a factor of $50!$ is $7^k$. ($n! = 1\times 2\times 3\times 4\times \dots \times (n-1) \times n$). What is $k$? $\textbf{(A) }4\qquad\textbf{(B) }5\qquad\textbf{(C) }6\qquad\textbf{(D) }7\qquad\textbf{(E) }8$ If you cannot determine the correct multiple-choice answer, take your best guess. Once you have your answer, please duplicate that letter five times in a single string. For example, if the answer is F, then write FFFFF.",livebench_math,math,test,new_benchmark,exact_ordered,E,[],"{""category"": ""math"", ""hf_dataset"": ""livebench/math"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""subtask"": ""smc"", ""task"": ""math_comp""}",96
+livebench_math:cebece7f5ebd4d85c947382382416dc710ded67276de6f96ab9b4d5d242c9dc4,"Find the greatest common divisor of $\{6175, 5187, -7163\}$. Please put your final answer in a $\\boxed{}$.",livebench_math,math,test,new_benchmark,exact_ordered,247,[],"{""category"": ""math"", ""hf_dataset"": ""livebench/math"", ""livebench_release_date"": ""2024-08-31 00:00:00"", ""subtask"": ""amps_hard_gcd"", ""task"": ""AMPS_Hard""}",96
+livebench_reasoning:2bedd0fab658e0cd36dab3201be4488e3e0cc35b2a8481636fdf1880ef738aa1,"In this question, assume each person either always tells the truth or always lies. The person at the school tells the truth. Maya is at the city hall. The person at the beach says the person at the barbershop tells the truth. Jake is at the bookstore. Hiroshi is at the skate park. The person at the city hall says the person at the amusement park lies. Soren is at the farm. The person at the cafe says the person at the skate park tells the truth. Tala is at the barbershop. Ayaan is at the aquarium. The person at the museum tells the truth. The person at the bowling alley says the person at the aquarium tells the truth. The person at the planetarium says the person at the train station tells the truth. The person at the skate park says the person at the art gallery lies. The person at the vineyard tells the truth. Liam is at the ice skating rink. The person at the airport tells the truth. The person at the barbershop says the person at the skate park tells the truth. Priya is at the train station. Isabella is at the amusement park. The person at the aquarium says the person at the museum tells the truth. Luna is at the museum. Charlie is at the vineyard. Ethan is at the airport. The person at the ice skating rink says the person at the aquarium tells the truth. The person at the amusement park says the person at the planetarium lies. The person at the barbershop says the person at the bookstore lies. Mateo is at the cafe. Nia is at the restaurant. Kehinde is at the art gallery. The person at the train station says the person at the barbershop tells the truth. Jaxon is at the planetarium. The person at the farm says the person at the art gallery tells the truth. The person at the art gallery says the person at the bowling alley lies. Grace is at the beach. Quan is at the school. Zara is at the bowling alley. The person at the restaurant tells the truth. Does the person at the amusement park tell the truth? Does the person at the planetarium tell the truth? Does the person at the train station tell the truth? Think step by step, and then put your answer in **bold** as a list of three words, yes or no (for example, **yes, no, yes**). If you don't know, guess.",livebench_reasoning,reasoning,test,new_benchmark,exact_ordered,"no, yes, yes",[],"{""category"": ""reasoning"", ""hf_dataset"": ""livebench/reasoning"", ""level"": ""nan"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""task"": ""web_of_lies_v2""}",96
+livebench_reasoning:35482db2d155259fc3f2b717a130b8bd37b397c940256c778643a920f5b5b97c,"There are 3 people standing in a line numbered 1 through 3 in a left to right order.
+Each person has a set of attributes: Movie-Genre, Music-Genre, Transport, Pet.
+The attributes have the following possible values:
+- Movie-Genre: western movies, horror movies, romance movies
+- Music-Genre: trance, blues, r&b
+- Transport: van, jet-ski, trike
+- Pet: rabbit, rat, goldfish
+and exactly one person in the line has a given value for an attribute.
+
+Given the following premises about the line of people:
+- the person who listens to trance is on the immediate right of the person who listens to r&b
+- the person that watches romance movies is not anywhere to the left of the person that travels by trike
+- the person who listens to blues watches western movies
+- the person that has a rat is somewhere between the person that has a goldfish and the person that watches romance movies
+- the person that travels by jet-ski is on the immediate right of the person that watches romance movies
+
+Answer the following question:
+What kind of music does the person that has a rat enjoy? Return your answer as a single word, in the following format: ***X***, where X is the answer.",livebench_reasoning,reasoning,test,new_benchmark,exact_ordered,trance,[],"{""category"": ""reasoning"", ""hf_dataset"": ""livebench/reasoning"", ""level"": ""nan"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""task"": ""zebra_puzzle""}",96
+livebench_reasoning:b7b7e331df4614775210ef5e524ed7f20c5fec6655fb0dd179c94e4d71170862,"There are 3 people standing in a line. From left to right, they are numbered 1 to 3.
+Each person has a set of attributes: Beverage, Food, Movie-Genre, Nationality.
+The attributes have the following possible values:
+Beverage: mirinda, cola, water
+Food: cauliflower, radish, zucchini
+Movie-Genre: family, spy, crime
+Nationality: brazilian, german, canadian
+Each person has a unique value for each attribute.
+You know the following about the people:
+The person who is brazilian is somewhere between the person who is german and the person who drinks cola
+The person who eats cauliflower is not anywhere to the right of the person who drinks cola
+The person who drinks mirinda is somewhere between the person who drinks cola and the person who is german
+The person who watches family and the person who eats radish have the same parity positions
+The person who watches spy is not anywhere to the right of the person who watches family
+Either the person who is canadian is the same as the person who watches spy or the person who eats cauliflower is the same as the person who is canadian, but not both
+The person who eats cauliflower is not anywhere to the right of the person who eats radish
+In the above, 'parity position' means the evenness or oddness of the person's position in the line.
+Given this information, answer the following questions:
+What movie genre does the person in position 1 watch?
+At what position is the person who watches crime?
+At what position is the person who eats zucchini?
+What movie genre does the person in position 3 watch?
+Think step by step and explain your reasoning, then output your answers in order in the format:
+<solution>answer1, answer2, answer3, ...</solution>
+For instance, if there were 3 questions and the answers were A, B, and C, the output would be:
+<solution>A, B, C</solution>
+If the answer to a question is a number, be sure to put it in numerical form (e.g. '3' instead of 'three').
+",livebench_reasoning,reasoning,test,new_benchmark,exact_ordered,"crime, 1, 2, family",[],"{""category"": ""reasoning"", ""hf_dataset"": ""livebench/reasoning"", ""level"": ""20.0"", ""livebench_release_date"": ""2024-11-25 00:00:00"", ""task"": ""zebra_puzzle""}",96
+livebench_reasoning:56ed8e93650c2c7c59bfd95969168893491079e920e2c14977845b1dcb3e3e31,"There are 3 people standing in a line numbered 1 through 3 in a left to right order.
+Each person has a set of attributes: Movie-Genre, Sport, Pet, Job.
+The attributes have the following possible values:
+- Movie-Genre: scientific movies, musical movies, romance movies
+- Sport: badminton, biathlon, baseball
+- Pet: horse, snake, lizard
+- Job: architect, chef, scientist
+and exactly one person in the line has a given value for an attribute.
+
+Given the following premises about the line of people:
+- the person who is a chef and the person that plays biathlon have the same parity positions
+- the person that plays badminton does not own a lizard
+- the person who is a scientist and the person that plays badminton have the same parity positions
+- the person that has a horse and the person that watches romance movies have the same parity positions
+- the person that has a snake is a chef or the person that has a snake watches scientific movies or both
+- the person that plays biathlon is not anywhere to the left of the person that watches musical movies
+- the person that has a lizard is somewhere between the person that has a snake and the person that plays biathlon
+- the person that plays baseball and the person that watches scientific movies have different parity positions
+- the person that watches musical movies is not anywhere to the left of the person who is a scientist
+
+Answer the following question:
+What movie genre does the third person prefer? Return your answer as a single word, in the following format: ***X***, where X is the answer.",livebench_reasoning,reasoning,test,new_benchmark,exact_ordered,romance movies,[],"{""category"": ""reasoning"", ""hf_dataset"": ""livebench/reasoning"", ""level"": ""nan"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""task"": ""zebra_puzzle""}",96
+livebench_reasoning:cd74e97e41744cf35229fced8d476c647b7fe8c5ff62d97d457b3ef296ca9a08,"There are 4 people standing in a line numbered 1 through 4 in a left to right order.
+Each person has a set of attributes: Music-Genre, Job, Sport.
+The attributes have the following possible values:
+- Music-Genre: soul, trance, blues, country
+- Job: journalist, freelancer, mechanic, architect
+- Sport: tennis, biathlon, swimming, soccer
+and exactly one person in the line has a given value for an attribute.
+
+Given the following premises about the line of people:
+- the person who is a freelancer is somewhere to the left of the person that plays swimming
+- the person who listens to blues is not anywhere to the left of the person that plays soccer
+- the person who is a journalist is somewhere between the person who listens to blues and the person who is a mechanic
+- the person who is a journalist is not anywhere to the left of the person that plays swimming
+- the person that plays tennis and the person who is a mechanic have different parity positions
+- the person that plays biathlon is somewhere between the person who listens to country and the person that plays swimming
+- the person that plays biathlon and the person who listens to trance have different parity positions
+- the person who is a journalist is somewhere to the left of the person that plays biathlon
+
+Answer the following question:
+At what position is the person that plays tennis? Return a single digit number, in the following format: ***N***, where N is the position.",livebench_reasoning,reasoning,test,new_benchmark,exact_ordered,4,[],"{""category"": ""reasoning"", ""hf_dataset"": ""livebench/reasoning"", ""level"": ""nan"", ""livebench_release_date"": ""2024-06-24 00:00:00"", ""task"": ""zebra_puzzle""}",96

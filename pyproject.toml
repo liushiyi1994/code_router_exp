@@ -18,6 +18,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+benchmarks = ["datasets", "pyarrow"]
 transformer = ["torch", "transformers", "sentencepiece", "sentence-transformers"]
 graphrouter = ["torch", "torch-geometric", "wandb", "bert-score", "litellm"]
 

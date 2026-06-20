@@ -1,0 +1,2 @@
+model_id,provider,status,n_calls,mean_quality,total_cost_usd,mean_latency_s,p95_latency_s,mean_model_load_time_s,mean_warmup_time_s,cache_hits
+gpt-5.5,openai,success,15,0.7333333333333333,0.1336,6.1778842608133955,11.06407835483551,0.0,0.0,15

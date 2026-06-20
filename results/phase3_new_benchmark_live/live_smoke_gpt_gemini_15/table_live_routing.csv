@@ -1,0 +1,5 @@
+method,n_queries,mean_quality,mean_utility,quality_oracle_mean_quality,cost_oracle_mean_utility,quality_gap_to_oracle,utility_gap_to_oracle,oracle_utility_ratio,remote_cost_total_usd,frontier_call_rate,probe_call_rate,mean_latency_s,p95_latency_s
+all_gpt-5.5,14,0.0,-0.35,0.0,-0.35,0.0,0.0,1.0,0.050915,1.0,0.0,2.6584859916142056,3.3835533976554872
+best_frontier,14,0.0,-0.35,0.0,-0.35,0.0,0.0,1.0,0.050915,1.0,0.0,2.6584859916142056,3.3835533976554872
+quality_oracle,14,0.0,-0.35,0.0,-0.35,0.0,0.0,1.0,0.050915,1.0,0.0,2.6584859916142056,3.3835533976554872
+cost_aware_oracle,14,0.0,-0.35,0.0,-0.35,0.0,0.0,1.0,0.050915,1.0,0.0,2.6584859916142056,3.3835533976554872

@@ -1,0 +1,3 @@
+model_id,provider,status,error_type,n
+gemini-3.5-flash,google,error,HTTPError,15
+gpt-5.5,openai,error,HTTPError,1

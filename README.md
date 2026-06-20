@@ -64,6 +64,15 @@ oracle-level target on held-out queries from 9 benchmark families. The state is
 learned from train/validation data from those same families, so new-benchmark
 generalization is not yet proven and should be a next evaluation.
 
+First new-benchmark smoke:
+
+- `results/phase3_new_benchmark_live/README.md`
+- Benchmarks: `google/simpleqa-verified`, `livebench/math`, and
+  `livebench/reasoning`.
+- Result: a local-vs-GPT cost-aware oracle opportunity exists on a tiny
+  15-query slice, but the learned state policy has not yet been frozen and
+  evaluated on these new benchmark families.
+
 ## Reference note
 
 `REFERENCES.md` and `PAPERS_AND_BASELINES.md` are first-class files. The agent must use them before making novelty claims or choosing baselines. If a link is stale, the agent should update it rather than silently proceeding.

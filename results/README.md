@@ -26,6 +26,32 @@ Benchmark scope:
 - final eval is on held-out test queries from the same benchmark families;
 - new-benchmark-family generalization remains a required next experiment.
 
+## Phase 3 New-Benchmark Live Smoke
+
+The first out-of-benchmark-family live smoke lives in
+`phase3_new_benchmark_live/`.
+
+Read:
+
+1. `phase3_new_benchmark_live/README.md`
+2. `phase3_new_benchmark_live/NEW_BENCHMARK_MANIFEST_MEMO.md`
+3. `phase3_new_benchmark_live/table_new_benchmark_routing_summary.csv`
+4. `phase3_new_benchmark_live/table_new_benchmark_by_dataset_model.csv`
+
+Scope and result:
+
+- benchmarks: `simpleqa_verified`, `livebench_math`, `livebench_reasoning`;
+- models: `qwen3-0.6b-probe` through vLLM and cached `gpt-5.5`; Gemini was
+  attempted but returned HTTP 429 for all 15 rows;
+- all GPT quality `0.7333`, utility `0.3833`, remote cost `$0.1336`;
+- cost-aware local/GPT oracle quality `0.7333`, utility `0.5803`, frontier
+  rate `0.6667`, remote cost `$0.0584`.
+
+Interpretation: this shows a live routing opportunity on new benchmark
+families, not a deployed state-generalization proof. The next test must freeze
+the Broad100-trained state predictor and action table and evaluate it on a
+larger new-benchmark slice.
+
 ## Global Claim Audit
 
 Command:

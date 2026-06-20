@@ -1,0 +1,7 @@
+benchmark,model_id,status,n,mean_quality,total_cost_usd,mean_latency_s,p95_latency_s,cache_hits
+livebench_math,gpt-5.5,success,5,1.0,0.01994,3.3365740299224855,5.384176158905029,5
+livebench_math,qwen3-0.6b-probe,success,5,0.0,0.0,1.508702039718628,1.6014349460601807,0
+livebench_reasoning,gpt-5.5,success,5,0.4,0.07988499999999998,9.665135717391967,11.14853401184082,5
+livebench_reasoning,qwen3-0.6b-probe,success,5,0.2,0.0,0.4020978927612305,1.2117049217224118,0
+simpleqa_verified,gpt-5.5,success,5,0.8,0.033775,5.531942987442017,8.700191974639893,5
+simpleqa_verified,qwen3-0.6b-probe,success,5,0.0,0.0,0.6280971527099609,1.4197913646697997,0

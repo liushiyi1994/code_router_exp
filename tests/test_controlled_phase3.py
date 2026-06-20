@@ -251,6 +251,13 @@ def test_live_stage0_response_text_extractors_and_scoring() -> None:
     assert extract_gemini_text(gemini_payload).strip() == "B"
     assert score_output("Answer: 7.", "7", "exact_final_answer") == ("7", 1.0)
     assert score_output("B. because", "B", "multiple_choice") == ("B", 1.0)
+    assert score_output("1, 2, 3", "1,2,3", "exact_ordered") == ("1,2,3", 1.0)
+    assert score_output("3, 2, 1", "1,2,3", "exact_ordered") == ("3,2,1", 0.0)
+    assert score_output("Pope Innocent X", "Innocent X", "short_answer") == ("popeinnocentx", 1.0)
+    assert score_output("US$1.65 million", "1.65 million USD", "short_answer")[1] == 1.0
+    assert score_output("6,229 °F", "6229 °F", "short_answer")[1] == 1.0
+    assert score_output("***trance***", "trance", "exact_ordered")[1] == 1.0
+    assert score_output("Reasoning. **no, yes, yes**", "no, yes, yes", "exact_ordered")[1] == 1.0
 
 
 def test_live_stage0_pass_at_1_scoring_runs_embedded_asserts() -> None:

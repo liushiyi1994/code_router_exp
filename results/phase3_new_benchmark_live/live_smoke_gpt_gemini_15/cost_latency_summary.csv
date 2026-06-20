@@ -1,0 +1,4 @@
+model_id,provider,status,n_calls,mean_quality,total_cost_usd,mean_latency_s,p95_latency_s,mean_model_load_time_s,mean_warmup_time_s,cache_hits
+gemini-3.5-flash,google,error,15,,0.017691,0.25439165433247884,0.28048646450042725,0.0,0.0,0
+gpt-5.5,openai,error,1,,0.003325,2.778996706008911,2.778996706008911,0.0,0.0,0
+gpt-5.5,openai,success,14,0.0,0.050915,2.6584859916142056,3.3835533976554872,0.0,0.0,0

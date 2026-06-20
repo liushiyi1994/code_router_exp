@@ -283,3 +283,38 @@ Until one of these is done, use this wording:
 The current states generalize to held-out queries within the Broad100 benchmark
 families. Cross-benchmark-family generalization remains a required next test.
 ```
+
+## First New-Benchmark Smoke
+
+Artifact:
+
+- `../phase3_new_benchmark_live/README.md`
+
+Benchmarks:
+
+- `google/simpleqa-verified`
+- `livebench/math`
+- `livebench/reasoning`
+
+Models:
+
+- `qwen3-0.6b-probe` served with vLLM;
+- cached `gpt-5.5` through OpenAI;
+- `gemini-3.5-flash` was attempted, but all 15 rows returned HTTP 429.
+
+Result on the 15-query smoke:
+
+| Method | Quality | Utility | Frontier Rate | Remote Cost |
+| --- | ---: | ---: | ---: | ---: |
+| Cost-aware local/GPT oracle | 0.7333 | 0.5803 | 0.6667 | $0.0584 |
+| All GPT | 0.7333 | 0.3833 | 1.0000 | $0.1336 |
+| All Qwen3-0.6B | 0.0667 | 0.0667 | 0.0000 | $0.0000 |
+
+Interpretation:
+
+- this is a live new-benchmark harness and oracle-opportunity smoke;
+- it does not prove learned state generalization because the Broad100-trained
+  state predictor and action table were not frozen and evaluated on these rows;
+- it should be followed by a 50-100 row per benchmark held-out protocol with
+  local/probe feature collection and no threshold selection on the new
+  benchmarks.

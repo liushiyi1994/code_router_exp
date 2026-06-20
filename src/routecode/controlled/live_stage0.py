@@ -85,6 +85,10 @@ def generate_stage0_tasks_from_manifest(
         task_type = str(row["task_type"])
         if task_type == "multiple_choice":
             metric = "multiple_choice"
+        elif task_type in {"exact_ordered", "ordered_exact_answer"}:
+            metric = "exact_ordered"
+        elif task_type in {"short_answer", "factoid_short_answer"}:
+            metric = "short_answer"
         elif task_type == "pass_at_1":
             metric = "pass_at_1"
         else:
@@ -154,6 +158,7 @@ def normalize_answer(text: str) -> str:
     cleaned = cleaned.replace("\\(", "").replace("\\)", "")
     cleaned = cleaned.replace("\\[", "").replace("\\]", "")
     cleaned = cleaned.replace("$", "")
+    cleaned = cleaned.replace("*", "")
     cleaned = cleaned.replace("\\left", "").replace("\\right", "")
     cleaned = cleaned.replace("\\,", "").replace("\\!", "").replace("\\;", "")
     cleaned = cleaned.replace("π", "pi").replace("\\pi", "pi")
@@ -263,6 +268,10 @@ def score_output(text: str, gold: str, metric: str) -> tuple[str, float]:
         return scored.parsed_answer, scored.quality
     parsed = normalize_answer(text)
     expected = normalize_answer(gold)
+    if metric in {"exact_ordered", "ordered_exact_answer"}:
+        return parsed, 1.0 if _ordered_answer_match(parsed, expected) else 0.0
+    if metric in {"short_answer", "factoid_short_answer"}:
+        return parsed, 1.0 if _short_answer_match(parsed, expected) else 0.0
     if metric in {"multiple_choice", "exact_or_multiple_choice"} or expected[:1].upper() in {"A", "B", "C", "D"}:
         option_match = re.search(r"\b([abcd])\b", parsed)
         parsed_option = option_match.group(1).upper() if option_match else parsed[:1].upper()
@@ -281,6 +290,45 @@ def score_output(text: str, gold: str, metric: str) -> tuple[str, float]:
     if parsed_set is not None or expected_set is not None:
         return parsed, 1.0 if parsed_set == expected_set else 0.0
     return parsed, 1.0 if parsed == expected else 0.0
+
+
+def _short_answer_match(parsed: str, expected: str) -> bool:
+    if not parsed or not expected:
+        return False
+    if parsed == expected:
+        return True
+    parsed_numeric = _numeric_value(parsed)
+    expected_numeric = _numeric_value(expected)
+    if parsed_numeric is not None and expected_numeric is not None:
+        return parsed_numeric == expected_numeric
+    parsed_numbers = _numeric_candidates(parsed)
+    expected_numbers = _numeric_candidates(expected)
+    if parsed_numbers and expected_numbers and any(number in parsed_numbers for number in expected_numbers):
+        return True
+    if len(parsed) >= 4 and len(expected) >= 4:
+        return parsed in expected or expected in parsed
+    return False
+
+
+def _ordered_answer_match(parsed: str, expected: str) -> bool:
+    if not parsed or not expected:
+        return False
+    if parsed == expected:
+        return True
+    if len(expected) == 1 and set(parsed) == {expected}:
+        return True
+    if len(expected) >= 2 and parsed.endswith(expected):
+        return True
+    return False
+
+
+def _numeric_candidates(value: str) -> set[Fraction | Decimal]:
+    candidates: set[Fraction | Decimal] = set()
+    for match in re.findall(r"[-+]?\d+(?:,\d{3})*(?:\.\d+)?(?:/\d+)?", value):
+        numeric = _numeric_value(match)
+        if numeric is not None:
+            candidates.add(numeric)
+    return candidates
 
 
 def extract_openai_text(payload: dict[str, Any]) -> str:
@@ -356,6 +404,7 @@ def call_openai(model_id: str, prompt: str, api_key: str, max_output_tokens: int
         "model": model_id,
         "input": prompt,
         "max_output_tokens": int(max_output_tokens),
+        "reasoning": {"effort": "low"},
         "text": {"verbosity": "low"},
     }
     headers = {
@@ -367,7 +416,13 @@ def call_openai(model_id: str, prompt: str, api_key: str, max_output_tokens: int
     except urllib.error.HTTPError as exc:
         if exc.code == 400:
             payload.pop("text", None)
-            return post_json("https://api.openai.com/v1/responses", payload, headers, timeout_s)
+            try:
+                return post_json("https://api.openai.com/v1/responses", payload, headers, timeout_s)
+            except urllib.error.HTTPError as second_exc:
+                if second_exc.code == 400:
+                    payload.pop("reasoning", None)
+                    return post_json("https://api.openai.com/v1/responses", payload, headers, timeout_s)
+                raise
         raise
 
 

@@ -119,6 +119,10 @@ Weak or scoped:
 - All-model average active acquisition is only weakly supported.
 - The current result is not a clean no-tool routing result.
 - The current final test is not a new-benchmark-family test.
+- `results/phase3_new_benchmark_live/` now contains a first 15-query
+  new-benchmark live smoke on SimpleQA Verified and LiveBench. It shows a
+  local-vs-GPT oracle opportunity, but it is not enough to claim state
+  generalization.
 
 Not supported:
 
