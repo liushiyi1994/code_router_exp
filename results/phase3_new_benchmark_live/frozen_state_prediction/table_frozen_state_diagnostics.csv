@@ -1,0 +1,5 @@
+method,k,feature_view,train_queries,feature_count,new_queries,new_group_count,train_group_count,fallback_model_id
+frozen_state_rf_probe_only_k16,16,probe_only,492,84,15,1,16,qwen3-4b-local
+frozen_state_rf_probe_plus_benchmark_k16,16,probe_plus_benchmark,492,99,15,1,16,qwen3-4b-local
+frozen_state_rf_probe_only_k24,24,probe_only,492,84,15,1,24,qwen3-4b-local
+frozen_state_rf_probe_plus_benchmark_k24,24,probe_plus_benchmark,492,99,15,1,24,qwen3-4b-local

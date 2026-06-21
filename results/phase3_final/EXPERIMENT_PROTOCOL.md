@@ -313,8 +313,12 @@ Result on the 15-query smoke:
 Interpretation:
 
 - this is a live new-benchmark harness and oracle-opportunity smoke;
-- it does not prove learned state generalization because the Broad100-trained
-  state predictor and action table were not frozen and evaluated on these rows;
+- the frozen-state follow-up in `../phase3_new_benchmark_live/frozen_state_prediction/`
+  does freeze the Broad100-trained state predictor and state-to-action table;
+- all frozen-state variants routed all 15 rows to `qwen3-4b-local`, giving
+  quality `0.0000` and utility `0.0000`;
+- therefore the current frozen state policy does not generalize on this tiny
+  out-of-benchmark-family transfer check;
 - it should be followed by a 50-100 row per benchmark held-out protocol with
-  local/probe feature collection and no threshold selection on the new
-  benchmarks.
+  out-of-domain detection, local/probe feature collection, and no threshold
+  selection on the new benchmarks.

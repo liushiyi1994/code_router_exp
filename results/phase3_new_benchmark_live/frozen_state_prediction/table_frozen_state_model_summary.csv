@@ -1,0 +1,7 @@
+benchmark,model_id,provider,n_queries,mean_quality,mean_utility,total_cost_usd,mean_latency_s
+livebench_math,gpt-5.5,openai,5,1.0,0.8432859281437125,0.01994,3.336574172973633
+livebench_math,qwen3-4b-local,local,5,0.0,0.0,0.0,1.749277448654175
+livebench_reasoning,gpt-5.5,openai,5,0.4,-0.22783869760479028,0.07988499999999998,9.665135765075684
+livebench_reasoning,qwen3-4b-local,local,5,0.0,0.0,0.0,1.7542654037475587
+simpleqa_verified,gpt-5.5,openai,5,0.8,0.5345527694610779,0.033775,5.5319429397583
+simpleqa_verified,qwen3-4b-local,local,5,0.0,0.0,0.0,1.4897425651550293

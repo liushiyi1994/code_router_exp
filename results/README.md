@@ -47,10 +47,18 @@ Scope and result:
 - cost-aware local/GPT oracle quality `0.7333`, utility `0.5803`, frontier
   rate `0.6667`, remote cost `$0.0584`.
 
+Frozen-state follow-up:
+
+- `phase3_new_benchmark_live/frozen_state_prediction/README.md`
+- comparable action pool: `qwen3-4b-local`, `gpt-5.5`;
+- common-model oracle quality `0.7333`, utility `0.5494`;
+- all GPT quality `0.7333`, utility `0.3833`;
+- all frozen-state variants routed all rows to Qwen3-4B and scored quality
+  `0.0000`, utility `0.0000`.
+
 Interpretation: this shows a live routing opportunity on new benchmark
-families, not a deployed state-generalization proof. The next test must freeze
-the Broad100-trained state predictor and action table and evaluate it on a
-larger new-benchmark slice.
+families, but the current frozen Broad100 state predictor/action table fails
+this tiny out-of-benchmark transfer check.
 
 ## Global Claim Audit
 

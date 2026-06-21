@@ -70,8 +70,8 @@ First new-benchmark smoke:
 - Benchmarks: `google/simpleqa-verified`, `livebench/math`, and
   `livebench/reasoning`.
 - Result: a local-vs-GPT cost-aware oracle opportunity exists on a tiny
-  15-query slice, but the learned state policy has not yet been frozen and
-  evaluated on these new benchmark families.
+  15-query slice. The frozen Broad100 state policy was then applied and failed
+  this first transfer check by routing every row to local Qwen3-4B.
 
 ## Reference note
 

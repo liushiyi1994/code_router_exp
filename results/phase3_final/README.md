@@ -121,8 +121,8 @@ Weak or scoped:
 - The current final test is not a new-benchmark-family test.
 - `results/phase3_new_benchmark_live/` now contains a first 15-query
   new-benchmark live smoke on SimpleQA Verified and LiveBench. It shows a
-  local-vs-GPT oracle opportunity, but it is not enough to claim state
-  generalization.
+  local-vs-GPT oracle opportunity, and the frozen Broad100 state policy fails
+  this tiny transfer check by routing all rows to local Qwen3-4B.
 
 Not supported:
 
