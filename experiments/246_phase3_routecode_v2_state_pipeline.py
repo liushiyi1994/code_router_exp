@@ -11,6 +11,9 @@ import pandas as pd
 from routecode.eval.predictor_diagnostics import expected_calibration_error
 from routecode.states.utility_states_v2 import (
     EmbeddingStatePredictor,
+    FrozenTransformerStatePredictor,
+    TextCNNStatePredictor,
+    TorchEmbeddingStatePredictor,
     confidence_trigger_mask,
     fit_utility_state_model,
     select_confidence_threshold,
@@ -39,7 +42,12 @@ def parse_args() -> argparse.Namespace:
         nargs="*",
         default=["raw_kmeans", "relative_kmeans", "two_stage_relative_kmeans", "calibration_refined"],
     )
-    parser.add_argument("--predictors", nargs="*", default=["knn", "mlp"])
+    parser.add_argument("--predictors", nargs="*", default=["knn", "mlp", "torch_mlp", "text_cnn"])
+    parser.add_argument("--torch-epochs", type=int, default=160)
+    parser.add_argument("--text-cnn-epochs", type=int, default=140)
+    parser.add_argument("--transformer-epochs", type=int, default=80)
+    parser.add_argument("--transformer-model", default="answerdotai/ModernBERT-base")
+    parser.add_argument("--allow-transformer-download", action="store_true")
     parser.add_argument("--active-label-budgets", type=int, nargs="*", default=[64, 128, 256, 492])
     parser.add_argument("--lambda-cost", type=float, default=0.35)
     parser.add_argument("--max-active-rate", type=float, default=0.30)
@@ -112,14 +120,27 @@ def main() -> None:
                 )
 
             for predictor_kind in args.predictors:
-                predictor = EmbeddingStatePredictor(
-                    kind=predictor_kind,
-                    n_neighbors=15,
-                    hidden_layer_sizes=(128, 64),
-                    max_iter=300,
-                    random_state=int(args.seed),
-                ).fit(embeddings.reindex(model.labels.index), model.labels)
-                pred = predictor.predict(embeddings)
+                predictor = fit_query_state_predictor(
+                    args,
+                    predictor_kind,
+                    embeddings=embeddings,
+                    query_table=query_table,
+                    labels=model.labels,
+                    utility=utility,
+                    label_to_model=label_to_model,
+                )
+                if predictor is None:
+                    diagnostics.append(
+                        skipped_predictor_row(
+                            state_method=state_method,
+                            predictor=predictor_kind,
+                            split="test",
+                            k=int(k),
+                            reason="predictor_unavailable",
+                        )
+                    )
+                    continue
+                pred = predict_query_state(predictor, predictor_kind, embeddings, query_table)
                 val_ids = query_ids_for_split(query_table, "val")
                 threshold = select_confidence_threshold(
                     pred.confidence.reindex(val_ids),
@@ -213,7 +234,11 @@ def main() -> None:
                     new_rows.extend(new_eval)
                     new_assignments.append(new_assign)
 
-                if state_method == "relative_kmeans" and int(k) == min(args.k_values):
+                if (
+                    state_method == "relative_kmeans"
+                    and int(k) == min(args.k_values)
+                    and predictor_kind in {"knn", "mlp", "torch_mlp"}
+                ):
                     active_learning_rows.extend(
                         run_active_query_state_learning(
                             args,
@@ -353,6 +378,123 @@ def load_or_encode_embeddings(query_table: pd.DataFrame, output_dir: Path, model
     np.save(cache_path, arr)
     query_table[["query_id"]].to_csv(ids_path, index=False)
     return pd.DataFrame(arr, index=query_table["query_id"].astype(str).tolist())
+
+
+def fit_query_state_predictor(
+    args: argparse.Namespace,
+    predictor_kind: str,
+    *,
+    embeddings: pd.DataFrame,
+    query_table: pd.DataFrame,
+    labels: pd.Series,
+    utility: pd.DataFrame,
+    label_to_model: dict[str, str],
+):
+    predictor_kind = str(predictor_kind)
+    route_reward = build_route_reward_table(utility, label_to_model, labels.astype(str).unique())
+    if predictor_kind == "knn":
+        return EmbeddingStatePredictor(
+            kind="knn",
+            n_neighbors=15,
+            hidden_layer_sizes=(128, 64),
+            max_iter=300,
+            random_state=int(args.seed),
+        ).fit(embeddings.reindex(labels.index), labels)
+    if predictor_kind == "mlp":
+        return EmbeddingStatePredictor(
+            kind="mlp",
+            n_neighbors=15,
+            hidden_layer_sizes=(256, 128, 64),
+            max_iter=1200,
+            random_state=int(args.seed),
+        ).fit(embeddings.reindex(labels.index), labels)
+    if predictor_kind == "torch_mlp":
+        return TorchEmbeddingStatePredictor(
+            hidden_layer_sizes=(768, 384, 192),
+            dropout=0.15,
+            epochs=int(args.torch_epochs),
+            batch_size=64,
+            learning_rate=1e-3,
+            random_state=int(args.seed),
+            routing_loss_weight=0.05,
+        ).fit(embeddings.reindex(labels.index), labels, route_reward=route_reward)
+    if predictor_kind == "text_cnn":
+        train_texts = text_series(query_table).reindex(labels.index)
+        return TextCNNStatePredictor(
+            max_vocab=12000,
+            max_length=256,
+            embedding_dim=192,
+            channels=160,
+            kernel_sizes=(2, 3, 4, 5, 7),
+            dropout=0.25,
+            epochs=int(args.text_cnn_epochs),
+            batch_size=64,
+            learning_rate=1e-3,
+            random_state=int(args.seed),
+            routing_loss_weight=0.05,
+        ).fit(train_texts, labels, route_reward=route_reward)
+    if predictor_kind == "transformer":
+        try:
+            return FrozenTransformerStatePredictor(
+                model_name_or_path=str(args.transformer_model),
+                local_files_only=not bool(args.allow_transformer_download),
+                max_length=512,
+                batch_size=16,
+                head_hidden_layer_sizes=(512, 256),
+                epochs=int(args.transformer_epochs),
+                learning_rate=1e-3,
+                random_state=int(args.seed),
+                routing_loss_weight=0.05,
+            ).fit(text_series(query_table).reindex(labels.index), labels, route_reward=route_reward)
+        except Exception as exc:
+            print(f"Skipping transformer predictor ({type(exc).__name__}: {exc})")
+            return None
+    raise ValueError(f"Unknown predictor kind: {predictor_kind}")
+
+
+def predict_query_state(predictor, predictor_kind: str, embeddings: pd.DataFrame, query_table: pd.DataFrame):
+    if str(predictor_kind) in {"knn", "mlp", "torch_mlp"}:
+        return predictor.predict(embeddings)
+    return predictor.predict(text_series(query_table))
+
+
+def text_series(query_table: pd.DataFrame) -> pd.Series:
+    return query_table.set_index("query_id")["query_text"].fillna("").astype(str)
+
+
+def build_route_reward_table(
+    utility: pd.DataFrame,
+    label_to_model: dict[str, str],
+    state_labels: list[str] | np.ndarray,
+) -> pd.DataFrame:
+    rewards: dict[str, pd.Series] = {}
+    fallback = str(utility.mean(axis=0).sort_values(ascending=False).index[0])
+    for state in sorted({str(label) for label in state_labels}):
+        model_id = str(label_to_model.get(state, fallback))
+        if model_id in utility.columns:
+            rewards[state] = utility[model_id].astype(float)
+        else:
+            rewards[state] = utility[fallback].astype(float)
+    return pd.DataFrame(rewards, index=utility.index)
+
+
+def skipped_predictor_row(*, state_method: str, predictor: str, split: str, k: int, reason: str) -> dict[str, Any]:
+    return {
+        "state_method": state_method,
+        "predictor": predictor,
+        "split": split,
+        "k": int(k),
+        "n_queries": 0,
+        "state_accuracy": np.nan,
+        "mean_confidence": np.nan,
+        "ece": np.nan,
+        "confidence_threshold": np.nan,
+        "active_probe_rate": np.nan,
+        "covered_state_accuracy": np.nan,
+        "covered_queries": 0,
+        "status": "skipped",
+        "reason": reason,
+    }
 
 
 def safe_name(value: str) -> str:
@@ -498,13 +640,12 @@ def run_active_query_state_learning(
                 rng=rng,
                 seed=int(args.seed),
             )
-            predictor = EmbeddingStatePredictor(
-                kind=predictor_kind,
-                n_neighbors=15,
-                hidden_layer_sizes=(128, 64),
-                max_iter=300,
-                random_state=int(args.seed),
-            ).fit(embeddings.reindex(labeled_ids), train_labels.reindex(labeled_ids))
+            predictor = fit_embedding_active_predictor(
+                predictor_kind,
+                embeddings.reindex(labeled_ids),
+                train_labels.reindex(labeled_ids),
+                seed=int(args.seed),
+            )
             pred = predictor.predict(embeddings.reindex(test_labels.index))
             selected = state_policy(pred.labels, label_to_model, fallback_model)
             eval_row = evaluate_selection(
@@ -562,13 +703,12 @@ def active_label_ids(
         if strategy == "random" or len(set(labels.reindex(labeled))) < 2:
             chosen = rng.choice(unlabeled.to_numpy(dtype=object), size=take, replace=False).astype(str).tolist()
         elif strategy == "active_low_confidence":
-            predictor = EmbeddingStatePredictor(
-                kind=predictor_kind,
-                n_neighbors=15,
-                hidden_layer_sizes=(128, 64),
-                max_iter=200,
-                random_state=int(seed),
-            ).fit(embeddings.reindex(labeled), labels.reindex(labeled))
+            predictor = fit_embedding_active_predictor(
+                predictor_kind,
+                embeddings.reindex(labeled),
+                labels.reindex(labeled),
+                seed=int(seed),
+            )
             pred = predictor.predict(embeddings.reindex(unlabeled))
             chosen = pred.confidence.sort_values(ascending=True).head(take).index.astype(str).tolist()
         else:
@@ -577,10 +717,37 @@ def active_label_ids(
     return pd.Index(labeled[:budget], name=labels.index.name)
 
 
+def fit_embedding_active_predictor(
+    predictor_kind: str,
+    embeddings: pd.DataFrame,
+    labels: pd.Series,
+    *,
+    seed: int,
+):
+    if predictor_kind == "torch_mlp":
+        return TorchEmbeddingStatePredictor(
+            hidden_layer_sizes=(384, 192),
+            dropout=0.15,
+            epochs=80,
+            batch_size=64,
+            learning_rate=1e-3,
+            random_state=int(seed),
+        ).fit(embeddings, labels)
+    if predictor_kind in {"knn", "mlp"}:
+        return EmbeddingStatePredictor(
+            kind=predictor_kind,
+            n_neighbors=15,
+            hidden_layer_sizes=(256, 128),
+            max_iter=700,
+            random_state=int(seed),
+        ).fit(embeddings, labels)
+    raise ValueError(f"Active label simulation requires an embedding predictor, got: {predictor_kind}")
+
+
 def evaluate_new_benchmark(
     args: argparse.Namespace,
     model,
-    predictor: EmbeddingStatePredictor,
+    predictor,
     broad_query_table: pd.DataFrame,
     broad_embeddings: pd.DataFrame,
     broad_outputs: pd.DataFrame,
@@ -593,7 +760,7 @@ def evaluate_new_benchmark(
     new_outputs = load_new_outputs(args.new_outputs, lambda_cost=float(args.lambda_cost))
     new_query_table = query_metadata(new_outputs)
     new_embeddings = load_or_encode_embeddings(new_query_table, args.output_dir, args.embedding_model, prefix="new")
-    pred = predictor.predict(new_embeddings)
+    pred = predict_query_state(predictor, predictor_kind, new_embeddings, new_query_table)
     common_models = sorted(set(new_outputs["model_id"].astype(str)).intersection(set(broad_outputs["model_id"].astype(str))))
     train_ids = pd.Index(model.labels.index.astype(str))
     train_common = (
@@ -717,6 +884,7 @@ def write_readme(
     new_policy: pd.DataFrame,
     active_learning: pd.DataFrame,
 ) -> None:
+    predictor_lines = "\n".join(f"- `{predictor}`" for predictor in args.predictors)
     test_top = policy[policy["split"].eq("test")].sort_values("mean_utility", ascending=False).head(12)
     test_lines = "\n".join(
         f"| {row.method} | {row.mean_quality:.4f} | {row.mean_utility:.4f} | {row.oracle_utility_ratio:.4f} | "
@@ -764,8 +932,15 @@ State learner variants:
 
 Query-to-state predictors:
 
-- KNN over local query embeddings
-- MLP over local query embeddings
+{predictor_lines}
+
+Available predictor names:
+
+- `knn`: distance-weighted KNN over query embeddings
+- `mlp`: sklearn MLP over query embeddings
+- `torch_mlp`: deeper PyTorch MLP over query embeddings with optional routing-aware loss
+- `text_cnn`: trainable token CNN over query text with optional routing-aware loss
+- `transformer`: frozen local Hugging Face encoder plus MLP head; uses `--transformer-model` and defaults to local files only
 
 Low-confidence predictions trigger either:
 

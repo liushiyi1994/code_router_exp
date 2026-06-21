@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import re
+from collections import Counter
 from dataclasses import dataclass
-from typing import Literal
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -106,6 +108,8 @@ class EmbeddingStatePredictor:
             neighbors = min(max(1, self.n_neighbors), len(aligned_embeddings))
             self.model = KNeighborsClassifier(n_neighbors=neighbors, weights="distance")
         elif self.kind == "mlp":
+            class_counts = aligned_labels.value_counts()
+            use_early_stopping = len(aligned_labels) >= 20 and int(class_counts.min()) >= 3
             self.model = MLPClassifier(
                 hidden_layer_sizes=self.hidden_layer_sizes,
                 activation="relu",
@@ -113,7 +117,7 @@ class EmbeddingStatePredictor:
                 alpha=1e-4,
                 learning_rate_init=0.002,
                 max_iter=self.max_iter,
-                early_stopping=True,
+                early_stopping=use_early_stopping,
                 n_iter_no_change=20,
                 random_state=self.random_state,
             )
@@ -139,6 +143,340 @@ class EmbeddingStatePredictor:
         labels = prob_df.idxmax(axis=1).rename("predicted_state")
         confidence = prob_df.max(axis=1).rename("state_confidence")
         return StatePredictionResult(labels=labels, confidence=confidence, probabilities=prob_df)
+
+
+class TorchEmbeddingStatePredictor:
+    """PyTorch MLP query-to-state predictor over fixed query embeddings."""
+
+    def __init__(
+        self,
+        *,
+        hidden_layer_sizes: tuple[int, ...] = (512, 256),
+        dropout: float = 0.10,
+        learning_rate: float = 2e-3,
+        weight_decay: float = 1e-4,
+        epochs: int = 40,
+        batch_size: int = 64,
+        random_state: int = 17,
+        device: str = "auto",
+        routing_loss_weight: float = 0.0,
+    ) -> None:
+        self.hidden_layer_sizes = tuple(int(v) for v in hidden_layer_sizes)
+        self.dropout = float(dropout)
+        self.learning_rate = float(learning_rate)
+        self.weight_decay = float(weight_decay)
+        self.epochs = int(epochs)
+        self.batch_size = int(batch_size)
+        self.random_state = int(random_state)
+        self.device = device
+        self.routing_loss_weight = float(routing_loss_weight)
+        self.scaler = StandardScaler()
+        self.label_encoder: LabelEncoder | None = None
+        self.classes_: np.ndarray | None = None
+        self.model: Any | None = None
+        self._torch_device: str | None = None
+
+    def fit(
+        self,
+        embeddings: pd.DataFrame,
+        labels: pd.Series,
+        *,
+        route_reward: pd.DataFrame | None = None,
+    ) -> "TorchEmbeddingStatePredictor":
+        torch = _require_torch()
+        _seed_torch(torch, self.random_state)
+        aligned_labels = labels.reindex(embeddings.index).dropna().astype(str)
+        aligned_embeddings = embeddings.reindex(aligned_labels.index).astype(float)
+        if aligned_embeddings.empty:
+            raise ValueError("Cannot fit TorchEmbeddingStatePredictor on empty embeddings.")
+        self.label_encoder = LabelEncoder().fit(aligned_labels.to_numpy(dtype=str))
+        self.classes_ = self.label_encoder.classes_.astype(str)
+        if aligned_labels.nunique() == 1:
+            self.model = None
+            return self
+
+        x_np = self.scaler.fit_transform(aligned_embeddings.to_numpy(dtype=np.float32)).astype(np.float32)
+        y_np = self.label_encoder.transform(aligned_labels.to_numpy(dtype=str)).astype(np.int64)
+        reward_np = _aligned_route_reward(route_reward, aligned_embeddings.index, self.classes_) if route_reward is not None else None
+        self._torch_device = _select_torch_device(self.device, torch)
+        self.model = _TorchMLPHead(x_np.shape[1], self.hidden_layer_sizes, len(self.classes_), self.dropout).to(self._torch_device)
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay)
+        loss_fn = torch.nn.CrossEntropyLoss()
+        x = torch.tensor(x_np, dtype=torch.float32, device=self._torch_device)
+        y = torch.tensor(y_np, dtype=torch.long, device=self._torch_device)
+        reward = (
+            torch.tensor(reward_np, dtype=torch.float32, device=self._torch_device)
+            if reward_np is not None and self.routing_loss_weight > 0
+            else None
+        )
+        n = len(x_np)
+        batch = max(1, min(self.batch_size, n))
+        generator = torch.Generator(device="cpu").manual_seed(self.random_state)
+        self.model.train()
+        for _ in range(max(1, self.epochs)):
+            order = torch.randperm(n, generator=generator, device="cpu").to(self._torch_device)
+            for start in range(0, n, batch):
+                idx = order[start : start + batch]
+                logits = self.model(x[idx])
+                loss = loss_fn(logits, y[idx])
+                if reward is not None:
+                    expected_reward = (torch.softmax(logits, dim=1) * reward[idx]).sum(dim=1).mean()
+                    loss = loss - self.routing_loss_weight * expected_reward
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+        self.model.eval()
+        return self
+
+    def predict(self, embeddings: pd.DataFrame) -> StatePredictionResult:
+        if self.classes_ is None:
+            raise RuntimeError("TorchEmbeddingStatePredictor must be fit before predict")
+        if self.model is None:
+            probabilities = np.ones((len(embeddings), 1), dtype=float)
+            columns = self.classes_.astype(str).tolist()
+        else:
+            torch = _require_torch()
+            device = self._torch_device or _select_torch_device(self.device, torch)
+            x_np = self.scaler.transform(embeddings.astype(float).to_numpy(dtype=np.float32)).astype(np.float32)
+            with torch.no_grad():
+                logits = self.model(torch.tensor(x_np, dtype=torch.float32, device=device))
+                probabilities = torch.softmax(logits, dim=1).detach().cpu().numpy()
+            columns = self.classes_.astype(str).tolist()
+        prob_df = pd.DataFrame(probabilities, index=embeddings.index, columns=columns)
+        labels = prob_df.idxmax(axis=1).rename("predicted_state")
+        confidence = prob_df.max(axis=1).rename("state_confidence")
+        return StatePredictionResult(labels=labels, confidence=confidence, probabilities=prob_df)
+
+
+class TextCNNStatePredictor:
+    """Token CNN query-to-state predictor using a small trainable vocabulary."""
+
+    def __init__(
+        self,
+        *,
+        max_vocab: int = 8192,
+        min_freq: int = 1,
+        max_length: int = 192,
+        embedding_dim: int = 128,
+        channels: int = 128,
+        kernel_sizes: tuple[int, ...] = (2, 3, 5, 7),
+        dropout: float = 0.20,
+        learning_rate: float = 2e-3,
+        weight_decay: float = 1e-4,
+        epochs: int = 30,
+        batch_size: int = 64,
+        random_state: int = 17,
+        device: str = "auto",
+        routing_loss_weight: float = 0.0,
+    ) -> None:
+        self.max_vocab = int(max_vocab)
+        self.min_freq = int(min_freq)
+        self.max_length = int(max_length)
+        self.embedding_dim = int(embedding_dim)
+        self.channels = int(channels)
+        self.kernel_sizes = tuple(int(v) for v in kernel_sizes)
+        self.dropout = float(dropout)
+        self.learning_rate = float(learning_rate)
+        self.weight_decay = float(weight_decay)
+        self.epochs = int(epochs)
+        self.batch_size = int(batch_size)
+        self.random_state = int(random_state)
+        self.device = device
+        self.routing_loss_weight = float(routing_loss_weight)
+        self.vocab_: dict[str, int] = {}
+        self.label_encoder: LabelEncoder | None = None
+        self.classes_: np.ndarray | None = None
+        self.model: Any | None = None
+        self._torch_device: str | None = None
+
+    def fit(
+        self,
+        texts: pd.Series,
+        labels: pd.Series,
+        *,
+        route_reward: pd.DataFrame | None = None,
+    ) -> "TextCNNStatePredictor":
+        torch = _require_torch()
+        _seed_torch(torch, self.random_state)
+        aligned_labels = labels.reindex(texts.index).dropna().astype(str)
+        aligned_texts = texts.reindex(aligned_labels.index).fillna("").astype(str)
+        if aligned_texts.empty:
+            raise ValueError("Cannot fit TextCNNStatePredictor on empty texts.")
+        self.vocab_ = _build_token_vocab(aligned_texts, max_vocab=self.max_vocab, min_freq=self.min_freq)
+        self.label_encoder = LabelEncoder().fit(aligned_labels.to_numpy(dtype=str))
+        self.classes_ = self.label_encoder.classes_.astype(str)
+        if aligned_labels.nunique() == 1:
+            self.model = None
+            return self
+        x_np = _texts_to_token_ids(aligned_texts, self.vocab_, max_length=self.max_length)
+        y_np = self.label_encoder.transform(aligned_labels.to_numpy(dtype=str)).astype(np.int64)
+        reward_np = _aligned_route_reward(route_reward, aligned_texts.index, self.classes_) if route_reward is not None else None
+        self._torch_device = _select_torch_device(self.device, torch)
+        self.model = _TextCNNHead(
+            vocab_size=max(self.vocab_.values(), default=1) + 1,
+            embedding_dim=self.embedding_dim,
+            channels=self.channels,
+            kernel_sizes=self.kernel_sizes,
+            n_classes=len(self.classes_),
+            dropout=self.dropout,
+        ).to(self._torch_device)
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay)
+        loss_fn = torch.nn.CrossEntropyLoss()
+        x = torch.tensor(x_np, dtype=torch.long, device=self._torch_device)
+        y = torch.tensor(y_np, dtype=torch.long, device=self._torch_device)
+        reward = (
+            torch.tensor(reward_np, dtype=torch.float32, device=self._torch_device)
+            if reward_np is not None and self.routing_loss_weight > 0
+            else None
+        )
+        n = len(x_np)
+        batch = max(1, min(self.batch_size, n))
+        generator = torch.Generator(device="cpu").manual_seed(self.random_state)
+        self.model.train()
+        for _ in range(max(1, self.epochs)):
+            order = torch.randperm(n, generator=generator, device="cpu").to(self._torch_device)
+            for start in range(0, n, batch):
+                idx = order[start : start + batch]
+                logits = self.model(x[idx])
+                loss = loss_fn(logits, y[idx])
+                if reward is not None:
+                    expected_reward = (torch.softmax(logits, dim=1) * reward[idx]).sum(dim=1).mean()
+                    loss = loss - self.routing_loss_weight * expected_reward
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+        self.model.eval()
+        return self
+
+    def predict(self, texts: pd.Series) -> StatePredictionResult:
+        if self.classes_ is None:
+            raise RuntimeError("TextCNNStatePredictor must be fit before predict")
+        if self.model is None:
+            probabilities = np.ones((len(texts), 1), dtype=float)
+            columns = self.classes_.astype(str).tolist()
+        else:
+            torch = _require_torch()
+            device = self._torch_device or _select_torch_device(self.device, torch)
+            x_np = _texts_to_token_ids(texts.fillna("").astype(str), self.vocab_, max_length=self.max_length)
+            with torch.no_grad():
+                logits = self.model(torch.tensor(x_np, dtype=torch.long, device=device))
+                probabilities = torch.softmax(logits, dim=1).detach().cpu().numpy()
+            columns = self.classes_.astype(str).tolist()
+        prob_df = pd.DataFrame(probabilities, index=texts.index, columns=columns)
+        labels = prob_df.idxmax(axis=1).rename("predicted_state")
+        confidence = prob_df.max(axis=1).rename("state_confidence")
+        return StatePredictionResult(labels=labels, confidence=confidence, probabilities=prob_df)
+
+
+class FrozenTransformerStatePredictor:
+    """Frozen encoder plus MLP state classifier for cached ModernBERT/DeBERTa-style models."""
+
+    def __init__(
+        self,
+        model_name_or_path: str | None = None,
+        *,
+        tokenizer: Any | None = None,
+        encoder: Any | None = None,
+        local_files_only: bool = True,
+        trust_remote_code: bool = False,
+        max_length: int = 256,
+        batch_size: int = 16,
+        head_hidden_layer_sizes: tuple[int, ...] = (256, 128),
+        epochs: int = 20,
+        learning_rate: float = 2e-3,
+        random_state: int = 17,
+        device: str = "auto",
+        routing_loss_weight: float = 0.0,
+    ) -> None:
+        self.model_name_or_path = model_name_or_path
+        self.tokenizer = tokenizer
+        self.encoder = encoder
+        self.local_files_only = bool(local_files_only)
+        self.trust_remote_code = bool(trust_remote_code)
+        self.max_length = int(max_length)
+        self.batch_size = int(batch_size)
+        self.head_hidden_layer_sizes = tuple(int(v) for v in head_hidden_layer_sizes)
+        self.epochs = int(epochs)
+        self.learning_rate = float(learning_rate)
+        self.random_state = int(random_state)
+        self.device = device
+        self.routing_loss_weight = float(routing_loss_weight)
+        self.head: TorchEmbeddingStatePredictor | None = None
+        self._torch_device: str | None = None
+
+    def fit(
+        self,
+        texts: pd.Series,
+        labels: pd.Series,
+        *,
+        route_reward: pd.DataFrame | None = None,
+    ) -> "FrozenTransformerStatePredictor":
+        embeddings = self._encode(texts)
+        self.head = TorchEmbeddingStatePredictor(
+            hidden_layer_sizes=self.head_hidden_layer_sizes,
+            learning_rate=self.learning_rate,
+            epochs=self.epochs,
+            batch_size=self.batch_size,
+            random_state=self.random_state,
+            device=self.device,
+            routing_loss_weight=self.routing_loss_weight,
+        ).fit(embeddings, labels, route_reward=route_reward)
+        return self
+
+    def predict(self, texts: pd.Series) -> StatePredictionResult:
+        if self.head is None:
+            raise RuntimeError("FrozenTransformerStatePredictor must be fit before predict")
+        return self.head.predict(self._encode(texts))
+
+    def _encode(self, texts: pd.Series) -> pd.DataFrame:
+        torch = _require_torch()
+        tokenizer, encoder = self._load_transformer()
+        self._torch_device = _select_torch_device(self.device, torch)
+        if hasattr(encoder, "to"):
+            encoder.to(self._torch_device)
+        if hasattr(encoder, "eval"):
+            encoder.eval()
+        values: list[np.ndarray] = []
+        text_values = texts.fillna("").astype(str).tolist()
+        with torch.no_grad():
+            for start in range(0, len(text_values), max(1, self.batch_size)):
+                batch_texts = text_values[start : start + self.batch_size]
+                encoded = tokenizer(
+                    batch_texts,
+                    padding=True,
+                    truncation=True,
+                    max_length=self.max_length,
+                    return_tensors="pt",
+                )
+                encoded = {key: value.to(self._torch_device) for key, value in encoded.items()}
+                output = encoder(**encoded)
+                hidden = output.last_hidden_state.to(self._torch_device)
+                mask = encoded["attention_mask"].unsqueeze(-1).to(hidden.dtype)
+                pooled = (hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1e-9)
+                values.append(pooled.detach().cpu().numpy())
+        matrix = np.vstack(values).astype(np.float32) if values else np.empty((0, 0), dtype=np.float32)
+        return pd.DataFrame(matrix, index=texts.index)
+
+    def _load_transformer(self) -> tuple[Any, Any]:
+        if self.tokenizer is not None and self.encoder is not None:
+            return self.tokenizer, self.encoder
+        if not self.model_name_or_path:
+            raise ValueError("model_name_or_path is required unless tokenizer and encoder are injected.")
+        try:
+            from transformers import AutoModel, AutoTokenizer
+        except ImportError as exc:  # pragma: no cover - environment dependent.
+            raise ImportError("FrozenTransformerStatePredictor requires transformers.") from exc
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            self.model_name_or_path,
+            local_files_only=self.local_files_only,
+            trust_remote_code=self.trust_remote_code,
+        )
+        self.encoder = AutoModel.from_pretrained(
+            self.model_name_or_path,
+            local_files_only=self.local_files_only,
+            trust_remote_code=self.trust_remote_code,
+        )
+        return self.tokenizer, self.encoder
 
 
 def build_relative_utility_features(
@@ -341,6 +679,116 @@ def softmax_frame(utility: pd.DataFrame, *, tau: float) -> pd.DataFrame:
     exp_values = np.exp(values)
     probs = exp_values / np.maximum(exp_values.sum(axis=1, keepdims=True), 1e-12)
     return pd.DataFrame(probs, index=utility.index, columns=utility.columns)
+
+
+def _require_torch():
+    try:
+        import torch
+    except ImportError as exc:  # pragma: no cover - environment dependent.
+        raise ImportError("This predictor requires the optional `torch` dependency.") from exc
+    return torch
+
+
+def _select_torch_device(device: str, torch_module) -> str:
+    requested = str(device).lower()
+    if requested == "auto":
+        return "cuda" if torch_module.cuda.is_available() else "cpu"
+    return requested
+
+
+def _seed_torch(torch_module, seed: int) -> None:
+    torch_module.manual_seed(int(seed))
+    if torch_module.cuda.is_available():  # pragma: no cover - hardware dependent.
+        torch_module.cuda.manual_seed_all(int(seed))
+
+
+def _TorchMLPHead(input_dim: int, hidden_layer_sizes: tuple[int, ...], n_classes: int, dropout: float):
+    torch = _require_torch()
+    layers: list[Any] = []
+    previous = int(input_dim)
+    for hidden in hidden_layer_sizes:
+        layers.append(torch.nn.Linear(previous, int(hidden)))
+        layers.append(torch.nn.GELU())
+        if dropout > 0:
+            layers.append(torch.nn.Dropout(float(dropout)))
+        previous = int(hidden)
+    layers.append(torch.nn.Linear(previous, int(n_classes)))
+    return torch.nn.Sequential(*layers)
+
+
+def _TextCNNHead(
+    *,
+    vocab_size: int,
+    embedding_dim: int,
+    channels: int,
+    kernel_sizes: tuple[int, ...],
+    n_classes: int,
+    dropout: float,
+):
+    torch = _require_torch()
+
+    class _Module(torch.nn.Module):
+        def __init__(self) -> None:
+            super().__init__()
+            self.embedding = torch.nn.Embedding(int(vocab_size), int(embedding_dim), padding_idx=0)
+            self.convs = torch.nn.ModuleList(
+                [
+                    torch.nn.Conv1d(
+                        in_channels=int(embedding_dim),
+                        out_channels=int(channels),
+                        kernel_size=int(kernel),
+                        padding=int(kernel) // 2,
+                    )
+                    for kernel in kernel_sizes
+                ]
+            )
+            self.dropout = torch.nn.Dropout(float(dropout))
+            self.output = torch.nn.Linear(int(channels) * len(kernel_sizes), int(n_classes))
+
+        def forward(self, input_ids):
+            embedded = self.embedding(input_ids).transpose(1, 2)
+            pooled = []
+            for conv in self.convs:
+                activated = torch.nn.functional.gelu(conv(embedded))
+                pooled.append(torch.nn.functional.adaptive_max_pool1d(activated, 1).squeeze(-1))
+            features = self.dropout(torch.cat(pooled, dim=1))
+            return self.output(features)
+
+    return _Module()
+
+
+def _tokenize_text(text: str) -> list[str]:
+    return re.findall(r"[a-zA-Z_][a-zA-Z_0-9]*|\d+(?:\.\d+)?|[^\s]", str(text).lower())
+
+
+def _build_token_vocab(texts: pd.Series, *, max_vocab: int, min_freq: int) -> dict[str, int]:
+    counts: Counter[str] = Counter()
+    for text in texts.fillna("").astype(str):
+        counts.update(_tokenize_text(text))
+    vocab = {"<pad>": 0, "<unk>": 1}
+    for token, count in counts.most_common(max(0, int(max_vocab) - 2)):
+        if int(count) < int(min_freq):
+            continue
+        vocab[token] = len(vocab)
+    return vocab
+
+
+def _texts_to_token_ids(texts: pd.Series, vocab: dict[str, int], *, max_length: int) -> np.ndarray:
+    length = max(1, int(max_length))
+    unk = int(vocab.get("<unk>", 1))
+    rows = np.zeros((len(texts), length), dtype=np.int64)
+    for row_idx, text in enumerate(texts.fillna("").astype(str)):
+        token_ids = [int(vocab.get(token, unk)) for token in _tokenize_text(text)[:length]]
+        if token_ids:
+            rows[row_idx, : len(token_ids)] = np.asarray(token_ids, dtype=np.int64)
+    return rows
+
+
+def _aligned_route_reward(route_reward: pd.DataFrame | None, index: pd.Index, classes: np.ndarray) -> np.ndarray | None:
+    if route_reward is None:
+        return None
+    aligned = route_reward.reindex(index).reindex(columns=classes.astype(str), fill_value=0.0).fillna(0.0)
+    return aligned.to_numpy(dtype=np.float32)
 
 
 def _two_stage_labels(

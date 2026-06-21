@@ -3,6 +3,9 @@ import pytest
 
 from routecode.states.utility_states_v2 import (
     EmbeddingStatePredictor,
+    FrozenTransformerStatePredictor,
+    TextCNNStatePredictor,
+    TorchEmbeddingStatePredictor,
     build_relative_utility_features,
     confidence_trigger_mask,
     fit_utility_state_model,
@@ -114,3 +117,94 @@ def test_embedding_state_predictor_returns_confidence_and_probe_mask():
     assert result.confidence.between(0.0, 1.0).all()
     assert probe.index.equals(labels.index)
     assert threshold >= 0.0
+
+
+def test_embedding_state_predictor_mlp_handles_tiny_class_counts():
+    labels = pd.Series(["z0", "z1"], index=["q0", "q1"])
+    embeddings = pd.DataFrame([[0.0, 0.0], [1.0, 1.0]], index=labels.index)
+
+    predictor = EmbeddingStatePredictor(kind="mlp", max_iter=20, random_state=11).fit(embeddings, labels)
+    result = predictor.predict(embeddings)
+
+    assert set(result.probabilities.columns) == {"z0", "z1"}
+    assert result.confidence.between(0.0, 1.0).all()
+
+
+def test_torch_embedding_state_predictor_learns_separable_states():
+    labels = pd.Series(["z0", "z0", "z1", "z1"], index=["a", "b", "c", "d"])
+    embeddings = pd.DataFrame(
+        [[0.0, 0.0], [0.1, 0.0], [4.0, 4.0], [4.1, 4.0]],
+        index=labels.index,
+    )
+
+    predictor = TorchEmbeddingStatePredictor(epochs=80, batch_size=4, random_state=3).fit(embeddings, labels)
+    result = predictor.predict(embeddings)
+
+    assert result.labels.astype(str).eq(labels.astype(str)).all()
+    assert set(result.probabilities.columns) == {"z0", "z1"}
+    assert result.confidence.min() > 0.50
+
+
+def test_text_cnn_state_predictor_uses_query_tokens():
+    texts = pd.Series(
+        [
+            "write python function binary search",
+            "debug python list index error",
+            "prove algebra theorem with equation",
+            "solve integral symbolic expression",
+        ],
+        index=["code1", "code2", "math1", "math2"],
+    )
+    labels = pd.Series(["code", "code", "math", "math"], index=texts.index)
+
+    predictor = TextCNNStatePredictor(
+        epochs=100,
+        batch_size=4,
+        max_length=8,
+        embedding_dim=16,
+        channels=8,
+        random_state=5,
+    ).fit(texts, labels)
+    result = predictor.predict(texts)
+
+    assert result.labels.astype(str).eq(labels.astype(str)).all()
+    assert result.confidence.between(0.0, 1.0).all()
+
+
+def test_frozen_transformer_state_predictor_can_use_injected_encoder():
+    torch = pytest.importorskip("torch")
+
+    class FakeTokenizer:
+        def __call__(self, texts, *, padding, truncation, max_length, return_tensors):
+            rows = []
+            for text in texts:
+                token = 1 if "code" in text else 2
+                rows.append([token, 0, 0])
+            return {
+                "input_ids": torch.tensor(rows, dtype=torch.long),
+                "attention_mask": torch.tensor([[1, 0, 0] for _ in rows], dtype=torch.long),
+            }
+
+    class FakeEncoder(torch.nn.Module):
+        config = type("Config", (), {"hidden_size": 2})()
+
+        def forward(self, input_ids, attention_mask):
+            hidden = torch.zeros((input_ids.shape[0], input_ids.shape[1], 2), dtype=torch.float32)
+            hidden[:, 0, 0] = (input_ids[:, 0] == 1).float()
+            hidden[:, 0, 1] = (input_ids[:, 0] == 2).float()
+            return type("Output", (), {"last_hidden_state": hidden})()
+
+    texts = pd.Series(["code task", "more code", "math task", "more math"], index=["c1", "c2", "m1", "m2"])
+    labels = pd.Series(["code", "code", "math", "math"], index=texts.index)
+
+    predictor = FrozenTransformerStatePredictor(
+        tokenizer=FakeTokenizer(),
+        encoder=FakeEncoder(),
+        epochs=80,
+        batch_size=4,
+        random_state=7,
+    ).fit(texts, labels)
+    result = predictor.predict(texts)
+
+    assert result.labels.astype(str).eq(labels.astype(str)).all()
+    assert set(result.probabilities.columns) == {"code", "math"}
