@@ -15,7 +15,13 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 
 
-StateMethod = Literal["raw_kmeans", "relative_kmeans", "two_stage_relative_kmeans", "calibration_refined"]
+StateMethod = Literal[
+    "raw_kmeans",
+    "relative_kmeans",
+    "two_stage_relative_kmeans",
+    "calibration_refined",
+    "model_holdout_repaired",
+]
 
 
 @dataclass(frozen=True)
@@ -36,12 +42,20 @@ class UtilityStateModel:
     tau: float
     coarse_models: dict[str, KMeans] | None = None
     coarse_allocations: dict[str, int] | None = None
+    repair_summary: dict[str, float | int | str] | None = None
 
     def transform_utility(self, utility: pd.DataFrame) -> pd.DataFrame:
         aligned = utility.loc[:, self.model_ids].astype(float)
         if self.method == "raw_kmeans":
             features = aligned.copy()
             features.columns = [f"raw::{col}" for col in aligned.columns]
+        elif self.method == "model_holdout_repaired":
+            features = build_model_holdout_repair_features(
+                aligned,
+                local_models=self.local_models,
+                frontier_models=self.frontier_models,
+                tau=self.tau,
+            )
         else:
             features = build_relative_utility_features(
                 aligned,
@@ -543,6 +557,34 @@ def build_relative_utility_features(
     return pd.concat([centered, regret, ranks, soft, scalars], axis=1)
 
 
+def build_model_holdout_repair_features(
+    utility: pd.DataFrame,
+    *,
+    local_models: tuple[str, ...] | list[str] = (),
+    frontier_models: tuple[str, ...] | list[str] = (),
+    tau: float = 0.15,
+) -> pd.DataFrame:
+    """Build features for calibration-aware model-holdout state repair.
+
+    Relative routing features keep states aligned with model-selection behavior.
+    Raw and centered utility columns give the repair step direct evidence about
+    within-state calibration variance for every model dimension.
+    """
+
+    u = utility.astype(float).copy()
+    relative = build_relative_utility_features(
+        u,
+        local_models=local_models,
+        frontier_models=frontier_models,
+        tau=float(tau),
+    )
+    raw = u.copy()
+    raw.columns = [f"holdout_raw::{col}" for col in raw.columns]
+    centered = u.sub(u.mean(axis=1), axis=0)
+    centered.columns = [f"holdout_centered::{col}" for col in centered.columns]
+    return pd.concat([relative, raw, centered], axis=1)
+
+
 def fit_utility_state_model(
     utility: pd.DataFrame,
     *,
@@ -555,6 +597,11 @@ def fit_utility_state_model(
     calibration_eta: float = 0.25,
     regret_gamma: float = 0.25,
     refine_steps: int = 8,
+    model_holdout_variance_threshold: float | None = None,
+    model_holdout_error_threshold: float | None = None,
+    model_holdout_min_state_size: int = 6,
+    model_holdout_max_split_fraction: float = 0.50,
+    model_holdout_preserve_state_budget: bool = True,
 ) -> UtilityStateModel:
     matrix = utility.dropna(axis=0, how="any").astype(float).copy()
     if matrix.empty:
@@ -564,6 +611,13 @@ def fit_utility_state_model(
     if method == "raw_kmeans":
         features = matrix.copy()
         features.columns = [f"raw::{col}" for col in matrix.columns]
+    elif method == "model_holdout_repaired":
+        features = build_model_holdout_repair_features(
+            matrix,
+            local_models=tuple(local_models),
+            frontier_models=tuple(frontier_models),
+            tau=float(tau),
+        )
     else:
         features = build_relative_utility_features(
             matrix,
@@ -573,6 +627,8 @@ def fit_utility_state_model(
         )
     scaler = StandardScaler()
     x = scaler.fit_transform(features.to_numpy(dtype=float))
+
+    repair_summary: dict[str, float | int | str] | None = None
 
     if method == "two_stage_relative_kmeans":
         labels, coarse_models, coarse_allocations = _two_stage_labels(
@@ -587,7 +643,7 @@ def fit_utility_state_model(
         labels = KMeans(n_clusters=k, random_state=int(random_state), n_init=30).fit_predict(x)
         coarse_models = None
         coarse_allocations = None
-        if method == "calibration_refined":
+        if method in {"calibration_refined", "model_holdout_repaired"}:
             labels = _calibration_refine_labels(
                 x,
                 matrix.to_numpy(dtype=float),
@@ -596,6 +652,18 @@ def fit_utility_state_model(
                 gamma=float(regret_gamma),
                 steps=int(refine_steps),
                 random_state=int(random_state),
+            )
+        if method == "model_holdout_repaired":
+            labels, repair_summary = _model_holdout_repair_labels(
+                x=x,
+                utility=matrix,
+                labels=labels,
+                target_states=k if bool(model_holdout_preserve_state_budget) else len(matrix),
+                random_state=int(random_state),
+                variance_threshold=model_holdout_variance_threshold,
+                error_threshold=model_holdout_error_threshold,
+                min_state_size=int(model_holdout_min_state_size),
+                max_split_fraction=float(model_holdout_max_split_fraction),
             )
 
     state_labels = pd.Series([f"z{int(label):02d}" for label in labels], index=matrix.index, name="state_label")
@@ -620,6 +688,7 @@ def fit_utility_state_model(
         tau=float(tau),
         coarse_models=coarse_models,
         coarse_allocations=coarse_allocations,
+        repair_summary=repair_summary,
     )
 
 
@@ -904,6 +973,162 @@ def _calibration_refine_labels(
             break
         current = new.astype(int)
     return current
+
+
+def _model_holdout_repair_labels(
+    *,
+    x: np.ndarray,
+    utility: pd.DataFrame,
+    labels: np.ndarray,
+    target_states: int,
+    random_state: int,
+    variance_threshold: float | None,
+    error_threshold: float | None,
+    min_state_size: int,
+    max_split_fraction: float,
+) -> tuple[np.ndarray, dict[str, float | int | str]]:
+    current = _densify_labels(labels)
+    target = max(1, int(target_states))
+    diagnostics = _state_holdout_diagnostics(utility, current)
+    if diagnostics.empty:
+        return current, {
+            "initial_states": int(len(np.unique(current))),
+            "final_states": int(len(np.unique(current))),
+            "states_split": 0,
+            "states_merged": 0,
+            "mean_holdout_variance_before": 0.0,
+            "mean_holdout_variance_after": 0.0,
+            "max_holdout_variance_before": 0.0,
+            "max_holdout_variance_after": 0.0,
+        }
+
+    variance_cutoff = (
+        float(variance_threshold)
+        if variance_threshold is not None
+        else max(float(diagnostics["holdout_variance"].median()), 1e-12)
+    )
+    error_cutoff = (
+        float(error_threshold)
+        if error_threshold is not None
+        else max(float(diagnostics["holdout_abs_error"].median()), 1e-12)
+    )
+    min_size = max(2, int(min_state_size))
+    max_splits = max(1, int(np.ceil(len(np.unique(current)) * max(0.0, float(max_split_fraction)))))
+    risky = diagnostics[
+        (diagnostics["state_size"] >= min_size)
+        & (
+            diagnostics["holdout_variance"].gt(variance_cutoff)
+            | diagnostics["holdout_abs_error"].gt(error_cutoff)
+        )
+    ].sort_values(["holdout_variance", "holdout_abs_error"], ascending=False)
+
+    split_count = 0
+    next_label = int(current.max()) + 1 if len(current) else 0
+    utility_values = utility.to_numpy(dtype=float)
+    for row in risky.head(max_splits).itertuples(index=False):
+        state = int(row.state)
+        positions = np.flatnonzero(current == state)
+        if len(positions) < min_size:
+            continue
+        split_features = _holdout_split_features(x, utility_values, positions)
+        if split_features.shape[0] < 2:
+            continue
+        local_labels = KMeans(n_clusters=2, random_state=random_state + split_count + state, n_init=20).fit_predict(split_features)
+        if len(np.unique(local_labels)) < 2:
+            continue
+        current[positions[local_labels == 1]] = next_label
+        next_label += 1
+        split_count += 1
+
+    current, merge_count = _merge_repaired_states_to_budget(utility_values, current, target_states=target)
+    current = _densify_labels(current)
+    after = _state_holdout_diagnostics(utility, current)
+    return current, {
+        "initial_states": int(len(np.unique(labels))),
+        "final_states": int(len(np.unique(current))),
+        "states_split": int(split_count),
+        "states_merged": int(merge_count),
+        "mean_holdout_variance_before": float(diagnostics["holdout_variance"].mean()),
+        "mean_holdout_variance_after": float(after["holdout_variance"].mean()) if not after.empty else 0.0,
+        "max_holdout_variance_before": float(diagnostics["holdout_variance"].max()),
+        "max_holdout_variance_after": float(after["holdout_variance"].max()) if not after.empty else 0.0,
+        "variance_threshold": float(variance_cutoff),
+        "error_threshold": float(error_cutoff),
+    }
+
+
+def _state_holdout_diagnostics(utility: pd.DataFrame, labels: np.ndarray) -> pd.DataFrame:
+    values = utility.to_numpy(dtype=float)
+    rows: list[dict[str, float | int]] = []
+    for state in sorted(np.unique(labels)):
+        positions = np.flatnonzero(labels == state)
+        if len(positions) == 0:
+            continue
+        sub = values[positions]
+        state_means = sub.mean(axis=0)
+        state_vars = sub.var(axis=0, ddof=1) if len(positions) > 1 else np.zeros(sub.shape[1], dtype=float)
+        abs_errors = np.abs(sub - state_means.reshape(1, -1)).mean(axis=0)
+        best_model = int(state_means.argmax())
+        rows.append(
+            {
+                "state": int(state),
+                "state_size": int(len(positions)),
+                "holdout_variance": float(np.mean(state_vars)),
+                "holdout_abs_error": float(np.mean(abs_errors)),
+                "selected_model_variance": float(state_vars[best_model]),
+                "selected_model_abs_error": float(abs_errors[best_model]),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _holdout_split_features(x: np.ndarray, utility_values: np.ndarray, positions: np.ndarray) -> np.ndarray:
+    sub = utility_values[positions]
+    centered = sub - sub.mean(axis=1, keepdims=True)
+    state_mean = sub.mean(axis=0, keepdims=True)
+    abs_dev = np.abs(sub - state_mean)
+    return np.hstack([x[positions], centered, abs_dev])
+
+
+def _merge_repaired_states_to_budget(
+    utility_values: np.ndarray,
+    labels: np.ndarray,
+    *,
+    target_states: int,
+) -> tuple[np.ndarray, int]:
+    current = labels.copy()
+    merges = 0
+    while len(np.unique(current)) > int(target_states):
+        states = sorted(np.unique(current))
+        means = {state: utility_values[current == state].mean(axis=0) for state in states}
+        sizes = {state: int(np.sum(current == state)) for state in states}
+        best_pair: tuple[int, int] | None = None
+        best_score = float("inf")
+        for i, left in enumerate(states):
+            for right in states[i + 1 :]:
+                merged_positions = (current == left) | (current == right)
+                merged = utility_values[merged_positions]
+                merged_var = float(np.mean(merged.var(axis=0, ddof=1))) if len(merged) > 1 else 0.0
+                distance = float(np.linalg.norm(means[left] - means[right]))
+                same_best = int(means[left].argmax()) == int(means[right].argmax())
+                small_group_bonus = 1.0 / max(1, min(sizes[left], sizes[right]))
+                score = merged_var + 0.25 * distance - (0.05 if same_best else 0.0) - 0.01 * small_group_bonus
+                if score < best_score:
+                    best_score = score
+                    best_pair = (int(left), int(right))
+        if best_pair is None:
+            break
+        keep, remove = best_pair
+        current[current == remove] = keep
+        current = _densify_labels(current)
+        merges += 1
+    return current, merges
+
+
+def _densify_labels(labels: np.ndarray) -> np.ndarray:
+    unique = sorted(np.unique(labels.astype(int)))
+    mapping = {old: new for new, old in enumerate(unique)}
+    return np.asarray([mapping[int(label)] for label in labels], dtype=int)
 
 
 def _feature_centroids(x: np.ndarray, labels: pd.Series) -> pd.DataFrame:

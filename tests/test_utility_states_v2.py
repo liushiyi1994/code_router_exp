@@ -86,6 +86,118 @@ def test_two_stage_state_model_keeps_frontier_and_local_regimes_separate():
     assert {"local_enough", "frontier_needed"}.issubset(set(model.coarse_allocations))
 
 
+def test_model_holdout_repair_splits_state_with_hidden_model_conflict():
+    utility = pd.DataFrame(
+        {
+            "local": [0.90, 0.88, 0.86, 0.84, 0.25, 0.23],
+            "frontier": [0.30, 0.28, 0.26, 0.24, 0.95, 0.93],
+            "new_model": [0.95, 0.93, 0.10, 0.08, 0.20, 0.18],
+        },
+        index=["easy_a", "easy_b", "easy_c", "easy_d", "hard_a", "hard_b"],
+    )
+
+    base = fit_utility_state_model(
+        utility,
+        method="relative_kmeans",
+        n_states=2,
+        random_state=13,
+        local_models=("local",),
+        frontier_models=("frontier", "new_model"),
+    )
+    repaired = fit_utility_state_model(
+        utility,
+        method="model_holdout_repaired",
+        n_states=3,
+        random_state=13,
+        local_models=("local",),
+        frontier_models=("frontier", "new_model"),
+        model_holdout_variance_threshold=0.05,
+        model_holdout_min_state_size=2,
+    )
+
+    assert base.labels.loc["easy_a"] == base.labels.loc["easy_c"]
+    assert repaired.labels.loc["easy_a"] != repaired.labels.loc["easy_c"]
+    assert repaired.n_states <= 3
+
+
+def test_model_holdout_repair_keeps_requested_state_budget_after_splits():
+    utility = pd.DataFrame(
+        {
+            "m0": [0.90, 0.89, 0.88, 0.87, 0.20, 0.21, 0.22, 0.23],
+            "m1": [0.20, 0.21, 0.22, 0.23, 0.90, 0.89, 0.88, 0.87],
+            "heldout": [0.95, 0.94, 0.10, 0.09, 0.92, 0.91, 0.12, 0.11],
+        },
+        index=[f"q{i}" for i in range(8)],
+    )
+
+    model = fit_utility_state_model(
+        utility,
+        method="model_holdout_repaired",
+        n_states=4,
+        random_state=19,
+        local_models=("m0", "m1"),
+        frontier_models=("heldout",),
+        model_holdout_variance_threshold=0.02,
+        model_holdout_min_state_size=2,
+    )
+
+    assert model.n_states <= 4
+    assert model.n_states >= 2
+    assert model.labels.index.equals(utility.index)
+
+
+def test_model_holdout_repair_uses_calibration_aware_features():
+    utility = pd.DataFrame(
+        {
+            "m0": [0.90, 0.89, 0.20, 0.21],
+            "m1": [0.20, 0.21, 0.90, 0.89],
+            "heldout": [0.95, 0.10, 0.92, 0.11],
+        },
+        index=[f"q{i}" for i in range(4)],
+    )
+
+    model = fit_utility_state_model(
+        utility,
+        method="model_holdout_repaired",
+        n_states=2,
+        random_state=23,
+        local_models=("m0", "m1"),
+        frontier_models=("heldout",),
+        model_holdout_variance_threshold=0.02,
+        model_holdout_min_state_size=2,
+    )
+
+    assert any(column.startswith("holdout_raw::") for column in model.feature_columns)
+    assert any(column.startswith("holdout_centered::") for column in model.feature_columns)
+
+
+def test_model_holdout_repair_can_keep_extra_split_states_for_calibration():
+    utility = pd.DataFrame(
+        {
+            "m0": [0.90, 0.89, 0.88, 0.87, 0.20, 0.21, 0.22, 0.23],
+            "m1": [0.20, 0.21, 0.22, 0.23, 0.90, 0.89, 0.88, 0.87],
+            "heldout": [0.95, 0.94, 0.10, 0.09, 0.92, 0.91, 0.12, 0.11],
+        },
+        index=[f"q{i}" for i in range(8)],
+    )
+
+    model = fit_utility_state_model(
+        utility,
+        method="model_holdout_repaired",
+        n_states=2,
+        random_state=29,
+        local_models=("m0", "m1"),
+        frontier_models=("heldout",),
+        model_holdout_variance_threshold=0.02,
+        model_holdout_min_state_size=2,
+        model_holdout_preserve_state_budget=False,
+    )
+
+    assert model.n_states > 2
+    assert model.repair_summary is not None
+    assert model.repair_summary["states_merged"] == 0
+
+
 def test_embedding_state_predictor_returns_confidence_and_probe_mask():
     labels = pd.Series(
         ["z0", "z0", "z0", "z1", "z1", "z1"],

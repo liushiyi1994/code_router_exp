@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -40,7 +41,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--state-methods",
         nargs="*",
-        default=["raw_kmeans", "relative_kmeans", "two_stage_relative_kmeans", "calibration_refined"],
+        default=[
+            "raw_kmeans",
+            "relative_kmeans",
+            "two_stage_relative_kmeans",
+            "calibration_refined",
+            "model_holdout_repaired",
+        ],
     )
     parser.add_argument("--predictors", nargs="*", default=["knn", "mlp", "torch_mlp", "text_cnn"])
     parser.add_argument("--torch-epochs", type=int, default=160)
@@ -52,6 +59,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lambda-cost", type=float, default=0.35)
     parser.add_argument("--max-active-rate", type=float, default=0.30)
     parser.add_argument("--ood-percentile", type=float, default=0.10)
+    parser.add_argument("--model-holdout-variance-threshold", type=float, default=0.035)
+    parser.add_argument("--model-holdout-error-threshold", type=float, default=0.12)
+    parser.add_argument("--model-holdout-min-state-size", type=int, default=12)
+    parser.add_argument("--model-holdout-max-split-fraction", type=float, default=0.50)
+    parser.add_argument("--allow-extra-repair-states", action="store_true")
     parser.add_argument("--seed", type=int, default=17)
     return parser.parse_args()
 
@@ -88,6 +100,11 @@ def main() -> None:
                 frontier_models=tuple(frontier_models),
                 calibration_eta=0.35,
                 regret_gamma=0.35,
+                model_holdout_variance_threshold=float(args.model_holdout_variance_threshold),
+                model_holdout_error_threshold=float(args.model_holdout_error_threshold),
+                model_holdout_min_state_size=int(args.model_holdout_min_state_size),
+                model_holdout_max_split_fraction=float(args.model_holdout_max_split_fraction),
+                model_holdout_preserve_state_budget=not bool(args.allow_extra_repair_states),
             )
             true_labels = assign_all_splits(model, utility, query_table)
             state_utility, state_variance = state_tables(utility.reindex(model.labels.index), model.labels)
@@ -605,6 +622,10 @@ def build_state_cards(model, labels: pd.Series, query_table: pd.DataFrame, state
                 "top_benchmark_frac": float(bench.iloc[0] / len(ids)) if not bench.empty else np.nan,
                 "top_domain": str(domain.index[0]) if not domain.empty else "",
                 "top_domain_frac": float(domain.iloc[0] / len(ids)) if not domain.empty else np.nan,
+                "repair_states_split": int(model.repair_summary.get("states_split", 0)) if model.repair_summary else 0,
+                "repair_states_merged": int(model.repair_summary.get("states_merged", 0)) if model.repair_summary else 0,
+                "repair_mean_holdout_variance_before": float(model.repair_summary.get("mean_holdout_variance_before", np.nan)) if model.repair_summary else np.nan,
+                "repair_mean_holdout_variance_after": float(model.repair_summary.get("mean_holdout_variance_after", np.nan)) if model.repair_summary else np.nan,
             }
         )
     return pd.DataFrame(rows)
@@ -885,6 +906,13 @@ def write_readme(
     active_learning: pd.DataFrame,
 ) -> None:
     predictor_lines = "\n".join(f"- `{predictor}`" for predictor in args.predictors)
+    state_method_lines = "\n".join(f"- `{method}`" for method in args.state_methods)
+    repair_mode = (
+        "Model-holdout repair was allowed to keep extra split states."
+        if bool(args.allow_extra_repair_states)
+        else "Model-holdout repair was merged back to the requested K budget."
+    )
+    command = " ".join(["PYTHONPATH=src", "python", *sys.argv])
     test_top = policy[policy["split"].eq("test")].sort_values("mean_utility", ascending=False).head(12)
     test_lines = "\n".join(
         f"| {row.method} | {row.mean_quality:.4f} | {row.mean_utility:.4f} | {row.oracle_utility_ratio:.4f} | "
@@ -925,10 +953,11 @@ Model 2: query text embedding -> p(state | query)
 
 State learner variants:
 
-- `raw_kmeans`
-- `relative_kmeans`
-- `two_stage_relative_kmeans`
-- `calibration_refined`
+{state_method_lines}
+
+`model_holdout_repaired` uses relative routing features plus raw and centered
+utility columns, then splits states with high model-holdout variance/error.
+{repair_mode}
 
 Query-to-state predictors:
 
@@ -989,7 +1018,7 @@ Broad100 test queries.
 Command:
 
 ```bash
-PYTHONPATH=src python experiments/246_phase3_routecode_v2_state_pipeline.py
+{command}
 ```
 """
     (args.output_dir / "README.md").write_text(body, encoding="utf-8")
